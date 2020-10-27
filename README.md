@@ -1,4 +1,4 @@
-# :floppy_disk: <app_name>
+# :floppy_disk: mixshare
 
 ## :pencil: Overview
 
@@ -13,11 +13,11 @@ To be updated.
 #### :warning: You must have `git`, `mongo`, and `node` installed.
 1. Clone this repository.
 ```
-$ git clone https://github.com/pchan37/cse416-template
+$ git clone https://github.com/pchan37/mixshare
 ```
-2. Go into the `cse416-template` directory.
+2. Go into the `mixshare` directory.
 ```
-$ cd cse416-template
+$ cd mixshare
 ```
 3. Install client dependencies.
 ```
