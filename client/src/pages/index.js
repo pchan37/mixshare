@@ -1,4 +1,5 @@
+import AccountSettings from './AccountSettings';
 import Homepage from './Homepage';
 import NotFound from './NotFound';
 
-export { Homepage, NotFound };
+export { AccountSettings, Homepage, NotFound };
