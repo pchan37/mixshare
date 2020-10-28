@@ -13,7 +13,7 @@ const ProfileClickPopup = (
           <Nav.Link href="#">Profile</Nav.Link>
         </Nav.Item>
         <Nav.Item className="border-bottom">
-          <Nav.Link href="#">Manage Account</Nav.Link>
+          <Nav.Link href="/account">Manage Account</Nav.Link>
         </Nav.Item>
         <Nav.Item>
           <Nav.Link href="#">Logout</Nav.Link>

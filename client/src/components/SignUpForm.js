@@ -19,7 +19,7 @@ const SignUpForm = () => {
       </Form.Group>
       <Row>
         <Col style={{ textAlign: 'center' }}>
-          <Button variant="primary" type="submit">
+          <Button href="/discover" variant="primary" type="submit">
             Sign Up
           </Button>
         </Col>
