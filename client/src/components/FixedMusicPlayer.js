@@ -15,20 +15,26 @@ import {
 
 const fixedMusicPlayerStyles = {
   width: '85vw',
-  height: '15vh'
+  height: '15vh',
 };
 
 const verticalAndHorizontalAlignStyles = {
   display: 'flex',
   justifyContent: 'space-around',
-  alignItems: 'center'
-}
+  alignItems: 'center',
+};
 
 const FixedMusicPlayer = () => {
   return (
     <div style={fixedMusicPlayerStyles}>
-      <Row style={{ height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-        <Col xs="2" style={{ backgroundColor: ''}}></Col>
+      <Row
+        style={{
+          height: '100%',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}>
+        <Col xs="2" style={{ backgroundColor: '' }}></Col>
         <Col xs="4" style={verticalAndHorizontalAlignStyles}>
           <SkipPrevious style={{ color: '#979696', fontSize: 60 }} />
           <PlayCircleOutlineOutlined
@@ -44,8 +50,8 @@ const FixedMusicPlayer = () => {
         <Col style={verticalAndHorizontalAlignStyles}>
           <VolumeUp style={{ color: '#979696', fontSize: 40 }} />
           <Menu style={{ color: '#979696', fontSize: 40 }} />
-          <Fullscreen style={{ color: '#979696', fontSize: 40}} />
-        </Col> 
+          <Fullscreen style={{ color: '#979696', fontSize: 40 }} />
+        </Col>
       </Row>
     </div>
   );
