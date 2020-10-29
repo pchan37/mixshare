@@ -3,7 +3,6 @@ import MainPageLayout from './MainPageLayout';
 
 import Account from './Account';
 import AccountDetails from './AccountDetails';
-import AvatarNameSmall from './AvatarNameSmall';
 import ChangePasswordPopup from './ChangePasswordPopup';
 import ChangeProfilePicPopup from './ChangeProfilePicPopup';
 import ChangeUsernamePopup from './ChangeUsernamePopup';
@@ -21,13 +20,13 @@ import SideMenu from './SideMenu';
 import SignUpForm from './SignUpForm';
 import SignUpLogin from './SignUpLogin';
 import Thumbnail from './Thumbnail';
+import User from './User';
 
 export {
   Layout,
   MainPageLayout,
   Account,
   AccountDetails,
-  AvatarNameSmall,
   ChangePasswordPopup,
   ChangeProfilePicPopup,
   ChangeUsernamePopup,
@@ -45,4 +44,5 @@ export {
   SignUpForm,
   SignUpLogin,
   Thumbnail,
+  User,
 };
