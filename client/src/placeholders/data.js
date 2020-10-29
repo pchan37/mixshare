@@ -99,8 +99,8 @@ const data = {
   playlistRecommendations: [
     {
       id: 1,
-      name: 'Fearless',
-      artist: 'Taylor Swift',
+      name: 'Conquering the World',
+      artist: 'Jasmine',
       gifter: 'Jo',
     },
     {
@@ -112,8 +112,8 @@ const data = {
     },
     {
       id: 3,
-      name: 'Lover',
-      artist: 'Taylor Swift',
+      name: 'Birthday Playlist',
+      artist: 'Clifford',
       gifter: 'Jo',
       message: 'I really like this one!',
     },
