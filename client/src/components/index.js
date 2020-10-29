@@ -9,9 +9,12 @@ import HorizontalThumbnail from './HorizontalThumbnail';
 import Layout from './Layout';
 import LoginForm from './LoginForm';
 import MainPageLayout from './MainPageLayout';
+import PlaylistEditorBody from './PlaylistEditorBody';
+import PlaylistEditItem from './PlaylistEditItem';
 import PlaylistResult from './PlaylistResult';
 import PlaylistSearchBody from './PlaylistSearchBody';
 import ProfileClickPopup from './ProfileClickPopup';
+import QuickSearchPopup from './QuickSearchPopup';
 import SideMenu from './SideMenu';
 import SignUpForm from './SignUpForm';
 import SignUpLogin from './SignUpLogin';
@@ -28,9 +31,12 @@ export {
   HorizontalThumbnail,
   Layout,
   MainPageLayout,
+  PlaylistEditItem,
+  PlaylistEditorBody,
   PlaylistResult,
   PlaylistSearchBody,
   ProfileClickPopup,
+  QuickSearchPopup,
   SideMenu,
   SignUpForm,
   LoginForm,

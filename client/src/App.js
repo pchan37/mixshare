@@ -13,6 +13,7 @@ import {
   Homepage,
   NotFound,
   PlaylistSearch,
+  PlaylistEditor,
 } from './pages';
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
         <Route exact path="/account" component={AccountSettings} />
         <Route exact path="/discover" component={Discover} />
         <Route exact path="/search" component={PlaylistSearch} />
+        <Route exact path="/edit" component={PlaylistEditor} />
         <Route path="/404" component={NotFound} />
         <Redirect to="/404" />
       </Switch>
