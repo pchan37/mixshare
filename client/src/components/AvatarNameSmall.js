@@ -2,6 +2,8 @@ import React from 'react';
 
 import { Image } from 'react-bootstrap';
 
+import { AccountCircle } from '@material-ui/icons';
+
 const AvatarNameSmall = () => {
   return (
     <div className="d-flex flex-row p-1">
@@ -12,6 +14,10 @@ const AvatarNameSmall = () => {
       />
       <div className="align-self-center m-3">
         <a href="#">Username</a>
+    
+      <AccountCircle fluid style={{ fontSize: 60 }} />
+      <div className="align-self-center m-3 pl-2">
+        <label>Some User</label>
       </div>
     </div>
   );

@@ -5,7 +5,11 @@ import { SignUpForm, LoginForm } from './';
 
 const SignUpLogin = () => {
   return (
-    <Tabs defaultActiveKey="signup" id="signuptab">
+    <Tabs
+      defaultActiveKey="signup"
+      transition={false}
+      id="signuptab"
+      className="w-75">
       <Tab eventKey="signup" title="SignUp">
         <SignUpForm />
       </Tab>

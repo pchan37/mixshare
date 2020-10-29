@@ -1,13 +1,13 @@
 import React from 'react';
 
-import { MainPageLayout } from '../components';
+import { MainPageLayout, Account } from '../components';
 
-const Homepage = () => {
+const AccountSettings = () => {
   return (
     <MainPageLayout>
-      <h1>Body here</h1>
+      <Account />
     </MainPageLayout>
   );
 };
 
-export default Homepage;
+export default AccountSettings;
