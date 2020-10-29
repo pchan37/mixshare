@@ -4,21 +4,18 @@ import { Form, Button, Row, Col } from 'react-bootstrap';
 
 const SignUpForm = () => {
   return (
-    <Form>
-      <Form.Group controlId="username" className="pt-3">
-        <Form.Label>Username</Form.Label>
+    <Form class="w-75 px-5">
+      <Form.Group controlId="username" className="pt-4">
         <Form.Control type="username" placeholder="Username" />
       </Form.Group>
-      <Form.Group controlId="password">
-        <Form.Label>Password</Form.Label>
+      <Form.Group controlId="password" className="pt-2">
         <Form.Control type="password" placeholder="Password" />
       </Form.Group>
-      <Form.Group>
-        <Form.Label>Confirm Password</Form.Label>
+      <Form.Group className="pt-2">
         <Form.Control type="password" placeholder="Confirm Password" />
       </Form.Group>
       <Row>
-        <Col style={{ textAlign: 'center' }}>
+        <Col style={{ textAlign: 'center' }} className="pt-2">
           <Button href="/discover" variant="primary" type="submit">
             Sign Up
           </Button>

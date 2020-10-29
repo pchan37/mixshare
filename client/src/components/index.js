@@ -1,15 +1,19 @@
-import AvatarNameMenu from './AvatarNameMenu';
-import AvatarNameSmall from './AvatarNameSmall';
+import Layout from './Layout';
+import MainPageLayout from './MainPageLayout';
+
+import Account from './Account';
+import AccountDetails from './AccountDetails';
+import ChangePasswordPopup from './ChangePasswordPopup';
+import ChangeProfilePicPopup from './ChangeProfilePicPopup';
 import ChangeUsernamePopup from './ChangeUsernamePopup';
+import DeleteAccountPopup from './DeleteAccountPopup';
 import DiscoverBody from './DiscoverBody';
 import DiscoverHeader from './DiscoverHeader';
 import DisplayThumbnails from './DisplayThumbnails';
+import FixedMusicPlayer from './FixedMusicPlayer';
 import FriendItem from './FriendItem';
 import HorizontalThumbnail from './HorizontalThumbnail';
-import Layout from './Layout';
 import LoginForm from './LoginForm';
-import MainPageLayout from './MainPageLayout';
-import PlaylistEditorBody from './PlaylistEditorBody';
 import PlaylistEditItem from './PlaylistEditItem';
 import PlaylistResult from './PlaylistResult';
 import PlaylistSearchBody from './PlaylistSearchBody';
@@ -19,27 +23,32 @@ import SideMenu from './SideMenu';
 import SignUpForm from './SignUpForm';
 import SignUpLogin from './SignUpLogin';
 import Thumbnail from './Thumbnail';
+import User from './User';
 
 export {
-  AvatarNameMenu,
-  AvatarNameSmall,
+  Layout,
+  MainPageLayout,
+  Account,
+  AccountDetails,
+  ChangePasswordPopup,
+  ChangeProfilePicPopup,
   ChangeUsernamePopup,
+  DeleteAccountPopup,
   DiscoverBody,
   DiscoverHeader,
   DisplayThumbnails,
+  FixedMusicPlayer,
   FriendItem,
   HorizontalThumbnail,
-  Layout,
-  MainPageLayout,
+  LoginForm,
   PlaylistEditItem,
-  PlaylistEditorBody,
   PlaylistResult,
   PlaylistSearchBody,
   ProfileClickPopup,
   QuickSearchPopup,
   SideMenu,
   SignUpForm,
-  LoginForm,
   SignUpLogin,
   Thumbnail,
+  User,
 };
