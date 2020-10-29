@@ -2,7 +2,7 @@ import React from 'react';
 
 import { MainPageLayout, GiftBody } from '../components';
 
-const AccountSettings = () => {
+const Gifts = () => {
   return (
     <MainPageLayout>
       <GiftBody />
@@ -10,4 +10,4 @@ const AccountSettings = () => {
   );
 };
 
-export default AccountSettings;
+export default Gifts;
