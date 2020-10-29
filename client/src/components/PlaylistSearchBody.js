@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Container, Nav, Row, Tabs, Tab } from 'react-bootstrap';
+import { Tabs, Tab } from 'react-bootstrap';
 
 import { DiscoverHeader, PlaylistResult } from './';
 

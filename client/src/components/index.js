@@ -13,6 +13,8 @@ import DiscoverHeader from './DiscoverHeader';
 import DisplayThumbnails from './DisplayThumbnails';
 import FixedMusicPlayer from './FixedMusicPlayer';
 import FriendItem from './FriendItem';
+import GiftBody from './GiftBody';
+import GiftItem from './GiftItem';
 import HorizontalThumbnail from './HorizontalThumbnail';
 import LoginForm from './LoginForm';
 import PlaylistResult from './PlaylistResult';
@@ -37,6 +39,8 @@ export {
   DisplayThumbnails,
   FixedMusicPlayer,
   FriendItem,
+  GiftBody,
+  GiftItem,
   HorizontalThumbnail,
   LoginForm,
   PlaylistResult,
