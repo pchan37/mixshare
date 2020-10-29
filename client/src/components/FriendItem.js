@@ -1,29 +1,21 @@
 import React from 'react';
 
-import { Container, Row, Button, Col } from 'react-bootstrap';
+import PropTypes from 'prop-types';
+
 import { CardGiftcard, DeleteOutline } from '@material-ui/icons';
+import { User } from './';
 
-import { AvatarNameSmall } from './';
-
-const FriendItem = () => {
+const FriendItem = (props) => {
   return (
-    <Container>
-      <Row>
-        <Col>
-          <AvatarNameSmall />
-        </Col>
-        <Col class="my-auto">
-          <Button style={{ height: '40px' }}>View Profile</Button>
-          <Button>
-            <CardGiftcard />
-          </Button>
-          <Button>
-            <DeleteOutline />
-          </Button>
-        </Col>
-      </Row>
-    </Container>
+    <User username={props.username}>
+      <CardGiftcard style={{ color: '#979696', fontSize: 40 }} />
+      <DeleteOutline style={{ color: '#979696', fontSize: 40 }} />
+    </User>
   );
+};
+
+FriendItem.propTypes = {
+  username: PropTypes.string.isRequired,
 };
 
 export default FriendItem;

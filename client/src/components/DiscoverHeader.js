@@ -2,8 +2,6 @@ import React from 'react';
 
 import { Button, Container, Form } from 'react-bootstrap';
 
-import { DisplayThumbnails } from './';
-
 const DiscoverHeader = () => {
   return (
     <div className="d-flex flex-row mb-2">
