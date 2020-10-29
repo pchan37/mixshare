@@ -7,7 +7,7 @@ const ProfileDetails = () => {
   return (
     <Container>
       <div className="d-flex flex-row" style={{ alignItems: 'center' }}>
-        <AccountCircle style={{ fontSize: 200 }} />
+        <AccountCircle style={{ color: '#979696', fontSize: 200 }} />
         <h2>Username's Profile</h2>
       </div>
     </Container>
