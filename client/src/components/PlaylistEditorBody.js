@@ -40,6 +40,7 @@ const SearchPopup = (
       {data.songs.map((s) => {
         return (
           <div
+            key={s.id}
             className="d-flex flex-row"
             style={{ justifyContent: 'space-between' }}>
             <div className="d-flex flex-row" style={{ alignItems: 'center' }}>
