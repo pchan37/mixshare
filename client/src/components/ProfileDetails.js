@@ -1,19 +1,15 @@
 import React from 'react';
 
-import { Container, Row, Col, Button } from 'react-bootstrap';
+import { Container } from 'react-bootstrap';
 import { AccountCircle } from '@material-ui/icons';
 
 const ProfileDetails = () => {
   return (
     <Container>
-      <Row>
-        <Col xs={3}>
-          <AccountCircle style={{ fontSize: '200' }} />
-        </Col>
-        <Col class="my-auto">
-          <h2>Username's Profile</h2>
-        </Col>
-      </Row>
+      <div className="d-flex flex-row" style={{ alignItems: 'center' }}>
+        <AccountCircle style={{ fontSize: 200 }} />
+        <h2>Username's Profile</h2>
+      </div>
     </Container>
   );
 };
