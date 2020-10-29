@@ -2,16 +2,12 @@ import React from 'react';
 
 import { Button, Image, OverlayTrigger } from 'react-bootstrap';
 import { ProfileClickPopup } from './';
+import { AccountCircle } from '@material-ui/icons';
 
 const AvatarNameSmall = () => {
   return (
     <div className="d-flex flex-row p-1">
-      <Image
-        roundedCircle
-        fluid
-        src="https://fomantic-ui.com/images/wireframe/square-image.png"
-      />
-
+      <AccountCircle fluid style={{ fontSize: 50 }} />
       <div className="align-self-center m-2">
         <OverlayTrigger
           placement="top"
