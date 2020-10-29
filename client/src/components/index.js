@@ -21,11 +21,14 @@ import PlaylistEditItem from './PlaylistEditItem';
 import PlaylistEditorBody from './PlaylistEditorBody';
 import PlaylistResult from './PlaylistResult';
 import PlaylistSearchBody from './PlaylistSearchBody';
-import ProfileClickPopup from './ProfileClickPopup';
+import PlaylistsBody from './PlaylistsBody';
+import PlaylistsSearchBody from './PlaylistSearchBody';
+import ProfileDetails from './ProfileDetails';
 import SideMenu from './SideMenu';
 import SignUpForm from './SignUpForm';
 import SignUpLogin from './SignUpLogin';
 import SimpleUser from './SimpleUser';
+import SongList from './SongList';
 import Thumbnail from './Thumbnail';
 import User from './User';
 import UserProfile from './UserProfile';
@@ -53,11 +56,14 @@ export {
   PlaylistEditorBody,
   PlaylistResult,
   PlaylistSearchBody,
-  ProfileClickPopup,
+  PlaylistsBody,
+  PlaylistsSearchBody,
+  ProfileDetails,
   SideMenu,
   SignUpForm,
   SignUpLogin,
   SimpleUser,
+  SongList,
   Thumbnail,
   User,
   UserProfile,

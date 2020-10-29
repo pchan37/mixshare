@@ -7,7 +7,7 @@ import { Archive, CardGiftcard } from '@material-ui/icons';
 const PlaylistBody = () => {
   return (
     <Container>
-      <Row class="pt-2">
+      <Row class="pt-4">
         <h3>Playlist 1</h3>
       </Row>
       <Row>
@@ -21,15 +21,15 @@ const PlaylistBody = () => {
           <SongList />
         </Col>
         <Col class="my-auto">
-          <Button>
-            <Archive />
+          <Button variant="flat">
+            <Archive style={{ color: '#979696' }} />
           </Button>
-          <Button>
-            <CardGiftcard />
+          <Button variant="flat">
+            <CardGiftcard style={{ color: '#979696' }} />
           </Button>
         </Col>
       </Row>
-      <Row class="pt-2">
+      <Row class="pt-4">
         <h3>Playlist 2</h3>
       </Row>
       <Row>
@@ -43,15 +43,15 @@ const PlaylistBody = () => {
           <SongList />
         </Col>
         <Col class="my-auto">
-          <Button>
-            <Archive />
+          <Button variant="flat">
+            <Archive style={{ color: '#979696' }} />
           </Button>
-          <Button>
-            <CardGiftcard />
+          <Button variant="flat">
+            <CardGiftcard style={{ color: '#979696' }} />
           </Button>
         </Col>
       </Row>
-      <Row class="pt-2">
+      <Row class="pt-4">
         <h3>Playlist 3</h3>
       </Row>
       <Row>
@@ -65,11 +65,11 @@ const PlaylistBody = () => {
           <SongList />
         </Col>
         <Col class="my-auto">
-          <Button>
-            <Archive />
+          <Button variant="flat">
+            <Archive style={{ color: '#979696' }} />
           </Button>
-          <Button>
-            <CardGiftcard />
+          <Button variant="flat">
+            <CardGiftcard style={{ color: '#979696' }} />
           </Button>
         </Col>
       </Row>
