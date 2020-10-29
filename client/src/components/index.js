@@ -28,6 +28,7 @@ import SignUpLogin from './SignUpLogin';
 import SimpleUser from './SimpleUser';
 import Thumbnail from './Thumbnail';
 import User from './User';
+import UserProfile from './UserProfile';
 
 export {
   Layout,
@@ -59,4 +60,5 @@ export {
   SimpleUser,
   Thumbnail,
   User,
+  UserProfile,
 };
