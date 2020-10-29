@@ -7,7 +7,7 @@ const ProfileClickPopup = (
     <Popover.Content>
       <Nav className="flex-column">
         <Nav.Item>
-          <Nav.Link href="#">Profile</Nav.Link>
+          <Nav.Link href="/profile">Profile</Nav.Link>
         </Nav.Item>
         <Nav.Item className="border-bottom">
           <Nav.Link href="/account">Manage Account</Nav.Link>

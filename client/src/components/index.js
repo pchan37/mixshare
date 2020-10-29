@@ -17,6 +17,10 @@ import SignUpLogin from './SignUpLogin';
 import Thumbnail from './Thumbnail';
 import AccountDetails from './AccountDetails';
 import Account from './Account';
+import ProfileDetails from './ProfileDetails';
+import PlaylistsBody from './PlaylistsBody';
+import SongList from './SongList';
+import UserProfile from './UserProfile';
 
 export {
   AvatarNameMenu,
@@ -38,4 +42,8 @@ export {
   Thumbnail,
   AccountDetails,
   Account,
+  ProfileDetails,
+  PlaylistsBody,
+  SongList,
+  UserProfile,
 };
