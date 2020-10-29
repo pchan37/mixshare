@@ -7,14 +7,15 @@ import {
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-import { AccountSettings, Homepage, NotFound } from './pages';
+import { AccountSettings, Discover, Homepage, NotFound } from './pages';
 
 function App() {
   return (
     <Router>
       <Switch>
         <Route exact path="/" component={Homepage} />
-        <Route exact path="/acc" component={AccountSettings} />
+        <Route exact path="/account" component={AccountSettings} />
+        <Route exact path="/discover" component={Discover} />
         <Route path="/404" component={NotFound} />
         <Redirect to="/404" />
       </Switch>
