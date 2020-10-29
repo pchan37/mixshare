@@ -14,6 +14,7 @@ import {
   PlaylistSearch,
   PlaylistEditor,
   Friends,
+  Gifts,
   Homepage,
 } from './pages';
 
@@ -27,6 +28,7 @@ function App() {
         <Route exact path="/search" component={PlaylistSearch} />
         <Route exact path="/edit" component={PlaylistEditor} />
         <Route exact path="/friends" component={Friends} />
+        <Route exact path="/gifts" component={Gifts} />
         <Route path="/404" component={NotFound} />
         <Redirect to="/404" />
       </Switch>
