@@ -4,7 +4,7 @@ import { Form, Button, Row, Col } from 'react-bootstrap';
 
 const LoginForm = () => {
   return (
-    <Form class="w-75 px-5">
+    <Form className="w-75 px-5">
       <Form.Group controlId="username" className="pt-5">
         <Form.Control type="username" placeholder="Username" />
       </Form.Group>
@@ -14,7 +14,7 @@ const LoginForm = () => {
       <div style={{ height: '15px' }}></div>
       <Row>
         <Col style={{ textAlign: 'center' }}>
-          <Button variant="primary" type="submit">
+          <Button variant="outline-primary" type="submit">
             Login
           </Button>
         </Col>
