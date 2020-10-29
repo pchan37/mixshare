@@ -10,7 +10,7 @@ const SideMenu = () => {
       style={{ height: '100vh', width: '15vw' }}
       className="d-flex flex-column border-right justify-content-center">
       <Nav
-        defaultActiveKey="/home"
+        defaultActiveKey="/discover"
         className="flex-column flex-grow-1"
         style={{ width: '15vw' }}>
         <Nav.Link>
@@ -19,7 +19,7 @@ const SideMenu = () => {
           </Figure>
         </Nav.Link>
 
-        <Nav.Link href="/home">Discover</Nav.Link>
+        <Nav.Link href="/discover">Discover</Nav.Link>
         <Nav.Link>Playlists</Nav.Link>
         <Nav.Link>Friends</Nav.Link>
         <Nav.Link>Gifts</Nav.Link>

@@ -7,7 +7,13 @@ import {
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-import { AccountSettings, Discover, Homepage, NotFound } from './pages';
+import {
+  AccountSettings,
+  Discover,
+  Homepage,
+  NotFound,
+  PlaylistSearch,
+} from './pages';
 
 function App() {
   return (
@@ -16,6 +22,7 @@ function App() {
         <Route exact path="/" component={Homepage} />
         <Route exact path="/account" component={AccountSettings} />
         <Route exact path="/discover" component={Discover} />
+        <Route exact path="/search" component={PlaylistSearch} />
         <Route path="/404" component={NotFound} />
         <Redirect to="/404" />
       </Switch>
