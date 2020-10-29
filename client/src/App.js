@@ -14,7 +14,6 @@ import {
   PlaylistSearch,
   Friends,
   Homepage,
-  NotFound,
 } from './pages';
 
 function App() {

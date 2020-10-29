@@ -3,6 +3,8 @@ import React from 'react';
 import { Container, Row, Button, Col } from 'react-bootstrap';
 import { CardGiftcard, DeleteOutline } from '@material-ui/icons';
 
+import { AvatarNameSmall } from './';
+
 const FriendItem = () => {
   return (
     <Container>

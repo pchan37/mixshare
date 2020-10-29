@@ -3,9 +3,7 @@ import React from 'react';
 import { FriendItem } from './';
 
 const FriendList = () => {
-    return (
-
-    );
+  return <></>;
 };
 
 export default FriendList;

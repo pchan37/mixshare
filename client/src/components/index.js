@@ -29,7 +29,6 @@ export {
   ChangeUsernamePopup,
   DiscoverBody,
   DiscoverHeader,
-  FriendItem,
   HorizontalThumbnail,
   PlaylistResult,
   PlaylistSearchBody,

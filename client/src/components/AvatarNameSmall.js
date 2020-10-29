@@ -14,7 +14,7 @@ const AvatarNameSmall = () => {
       />
       <div className="align-self-center m-3">
         <a href="#">Username</a>
-    
+      </div>
       <AccountCircle fluid style={{ fontSize: 60 }} />
       <div className="align-self-center m-3 pl-2">
         <label>Some User</label>
