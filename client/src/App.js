@@ -10,6 +10,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import {
   AccountSettings,
   Discover,
+  NotFound,
+  PlaylistSearch,
   Friends,
   Homepage,
   NotFound,
@@ -22,6 +24,7 @@ function App() {
         <Route exact path="/" component={Homepage} />
         <Route exact path="/account" component={AccountSettings} />
         <Route exact path="/discover" component={Discover} />
+        <Route exact path="/search" component={PlaylistSearch} />
         <Route exact path="/friends" component={Friends} />
         <Route path="/404" component={NotFound} />
         <Redirect to="/404" />

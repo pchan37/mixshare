@@ -2,6 +2,10 @@ import AvatarNameMenu from './AvatarNameMenu';
 import AvatarNameSmall from './AvatarNameSmall';
 import ChangeUsernamePopup from './ChangeUsernamePopup';
 import DiscoverBody from './DiscoverBody';
+import DiscoverHeader from './DiscoverHeader';
+import HorizontalThumbnail from './HorizontalThumbnail';
+import PlaylistResult from './PlaylistResult';
+import PlaylistSearchBody from './PlaylistSearchBody';
 import DisplayThumbnails from './DisplayThumbnails';
 import FriendItem from './FriendItem';
 import ChangePasswordPopup from './ChangePasswordPopup';
@@ -15,6 +19,7 @@ import SideMenu from './SideMenu';
 import SignUpForm from './SignUpForm';
 import SignUpLogin from './SignUpLogin';
 import Thumbnail from './Thumbnail';
+
 import AccountDetails from './AccountDetails';
 import Account from './Account';
 
@@ -23,6 +28,11 @@ export {
   AvatarNameSmall,
   ChangeUsernamePopup,
   DiscoverBody,
+  DiscoverHeader,
+  FriendItem,
+  HorizontalThumbnail,
+  PlaylistResult,
+  PlaylistSearchBody,
   DisplayThumbnails,
   FriendItem,
   ChangePasswordPopup,

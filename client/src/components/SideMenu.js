@@ -10,7 +10,7 @@ const SideMenu = () => {
       style={{ height: '100vh', width: '15vw' }}
       className="d-flex flex-column border-right justify-content-center">
       <Nav
-        defaultActiveKey="/home"
+        defaultActiveKey="/discover"
         className="flex-column flex-grow-1"
         style={{ width: '15vw' }}>
         <Nav.Link>
