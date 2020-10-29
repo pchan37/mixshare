@@ -4,6 +4,9 @@ import ChangeUsernamePopup from './ChangeUsernamePopup';
 import DiscoverBody from './DiscoverBody';
 import DisplayThumbnails from './DisplayThumbnails';
 import FriendItem from './FriendItem';
+import ChangePasswordPopup from './ChangePasswordPopup';
+import ChangeProfilePicPopup from './ChangeProfilePicPopup';
+import DeleteAccountPopup from './DeleteAccountPopup';
 import Layout from './Layout';
 import LoginForm from './LoginForm';
 import MainPageLayout from './MainPageLayout';
@@ -12,6 +15,8 @@ import SideMenu from './SideMenu';
 import SignUpForm from './SignUpForm';
 import SignUpLogin from './SignUpLogin';
 import Thumbnail from './Thumbnail';
+import AccountDetails from './AccountDetails';
+import Account from './Account';
 
 export {
   AvatarNameMenu,
@@ -20,6 +25,9 @@ export {
   DiscoverBody,
   DisplayThumbnails,
   FriendItem,
+  ChangePasswordPopup,
+  ChangeProfilePicPopup,
+  DeleteAccountPopup,
   Layout,
   MainPageLayout,
   ProfileClickPopup,
@@ -28,4 +36,6 @@ export {
   LoginForm,
   SignUpLogin,
   Thumbnail,
+  AccountDetails,
+  Account,
 };
