@@ -1,5 +1,6 @@
 import Layout from './Layout';
 import MainPageLayout from './MainPageLayout';
+import ExpandedPlayerLayout from './ExpandedPlayerLayout';
 
 import Account from './Account';
 import AccountDetails from './AccountDetails';
@@ -25,6 +26,7 @@ import Thumbnail from './Thumbnail';
 export {
   Layout,
   MainPageLayout,
+  ExpandedPlayerLayout,
   Account,
   AccountDetails,
   AvatarNameSmall,

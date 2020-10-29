@@ -4,6 +4,7 @@ import Friends from './Friends';
 import Homepage from './Homepage';
 import NotFound from './NotFound';
 import PlaylistSearch from './PlaylistSearch';
+import ExpandedMusicPlayer from './ExpandedMusicPlayer';
 
 export {
   AccountSettings,
@@ -12,4 +13,5 @@ export {
   Homepage,
   NotFound,
   PlaylistSearch,
+  ExpandedMusicPlayer,
 };
