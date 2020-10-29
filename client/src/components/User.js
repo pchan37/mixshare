@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { Row, Button, Col } from 'react-bootstrap';
-import { AccountCircle, CardGiftcard, DeleteOutline } from '@material-ui/icons';
+import { AccountCircle } from '@material-ui/icons';
 
 const User = (props) => {
   return (
