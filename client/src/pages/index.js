@@ -7,6 +7,7 @@ import Homepage from './Homepage';
 import NotFound from './NotFound';
 import PlaylistEditor from './PlaylistEditor';
 import PlaylistSearch from './PlaylistSearch';
+import ExpandedMusicPlayer from './ExpandedMusicPlayer';
 
 export {
   AccountSettings,
@@ -18,4 +19,5 @@ export {
   NotFound,
   PlaylistEditor,
   PlaylistSearch,
+  ExpandedMusicPlayer,
 };

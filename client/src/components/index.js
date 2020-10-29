@@ -1,5 +1,6 @@
 import Layout from './Layout';
 import MainPageLayout from './MainPageLayout';
+import ExpandedPlayerLayout from './ExpandedPlayerLayout';
 
 import Account from './Account';
 import AccountDetails from './AccountDetails';
@@ -35,6 +36,7 @@ import UserProfile from './UserProfile';
 export {
   Layout,
   MainPageLayout,
+  ExpandedPlayerLayout,
   Account,
   AccountDetails,
   ChangePasswordPopup,
