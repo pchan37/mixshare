@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Button, Container, Form } from 'react-bootstrap';
 
-import { DiscoverHeader, DisplayThumbnails } from './';
+import { DisplayThumbnails } from './';
 
 const DiscoverBody = () => {
   return (
