@@ -74,6 +74,57 @@ const data = {
       artist: 'Asia',
     },
   ],
+  songRecommendations: [
+    {
+      id: 1,
+      name: 'Love Story',
+      artist: 'Taylor Swift',
+      gifter: 'Jo',
+    },
+    {
+      id: 2,
+      name: 'You Belong With Me',
+      artist: 'Taylor Swift',
+      gifter: 'Jo',
+      message: 'Did you see my recommendations?',
+    },
+    {
+      id: 3,
+      name: 'Gorgeous',
+      artist: 'Taylor Swift',
+      gifter: 'Jo',
+      message: 'Wassup!',
+    },
+  ],
+  playlistRecommendations: [
+    {
+      id: 1,
+      name: 'Fearless',
+      artist: 'Taylor Swift',
+      gifter: 'Jo',
+    },
+    {
+      id: 2,
+      name: 'Red',
+      artist: 'Taylor Swift',
+      gifter: 'Jo',
+      message: 'Happy Holidays!',
+    },
+    {
+      id: 3,
+      name: 'Lover',
+      artist: 'Taylor Swift',
+      gifter: 'Jo',
+      message: 'I really like this one!',
+    },
+    {
+      id: 4,
+      name: 'Folklore',
+      artist: 'Taylor Swift',
+      gifter: 'Jo',
+      message: 'Hope you enjoy!',
+    },
+  ],
 };
 
 export default data;
