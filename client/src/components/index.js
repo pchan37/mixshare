@@ -15,13 +15,14 @@ import FriendItem from './FriendItem';
 import HorizontalThumbnail from './HorizontalThumbnail';
 import LoginForm from './LoginForm';
 import PlaylistEditItem from './PlaylistEditItem';
+import PlaylistEditorBody from './PlaylistEditorBody';
 import PlaylistResult from './PlaylistResult';
 import PlaylistSearchBody from './PlaylistSearchBody';
 import ProfileClickPopup from './ProfileClickPopup';
-import QuickSearchPopup from './QuickSearchPopup';
 import SideMenu from './SideMenu';
 import SignUpForm from './SignUpForm';
 import SignUpLogin from './SignUpLogin';
+import SimpleUser from './SimpleUser';
 import Thumbnail from './Thumbnail';
 import User from './User';
 
@@ -42,13 +43,14 @@ export {
   HorizontalThumbnail,
   LoginForm,
   PlaylistEditItem,
+  PlaylistEditorBody,
   PlaylistResult,
   PlaylistSearchBody,
   ProfileClickPopup,
-  QuickSearchPopup,
   SideMenu,
   SignUpForm,
   SignUpLogin,
+  SimpleUser,
   Thumbnail,
   User,
 };
