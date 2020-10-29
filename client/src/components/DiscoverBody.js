@@ -7,8 +7,6 @@ import { DiscoverHeader, DisplayThumbnails } from './';
 const DiscoverBody = () => {
   return (
     <div className="d-flex flex-column">
-      <DiscoverHeader />
-
       <div className="d-flex flex-row mb-2">
         <h2>Discover</h2>
         <Container fluid className="d-flex justify-content-end">
