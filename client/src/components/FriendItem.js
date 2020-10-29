@@ -1,13 +1,27 @@
 import React from 'react';
 
 import { AvatarNameSmall } from './';
+import { Container, Row, Button, Col } from 'react-bootstrap';
+import { CardGiftcard, DeleteOutline } from '@material-ui/icons';
 
 const FriendItem = () => {
   return (
-    <div className="d-flex flex-row">
-      <AvatarNameSmall />
-      <div className="mr-auto">Buttons</div>
-    </div>
+    <Container>
+      <Row>
+        <Col>
+          <AvatarNameSmall />
+        </Col>
+        <Col class="my-auto">
+          <Button style={{ height: '40px' }}>View Profile</Button>
+          <Button>
+            <CardGiftcard />
+          </Button>
+          <Button>
+            <DeleteOutline />
+          </Button>
+        </Col>
+      </Row>
+    </Container>
   );
 };
 

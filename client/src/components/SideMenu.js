@@ -19,9 +19,9 @@ const SideMenu = () => {
           </Figure>
         </Nav.Link>
 
-        <Nav.Link href="/home">Discover</Nav.Link>
+        <Nav.Link href="/discover">Discover</Nav.Link>
         <Nav.Link>Playlists</Nav.Link>
-        <Nav.Link>Friends</Nav.Link>
+        <Nav.Link href="/friends">Friends</Nav.Link>
         <Nav.Link>Gifts</Nav.Link>
       </Nav>
       <div className="mb-3 ml-3">
