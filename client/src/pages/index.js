@@ -3,6 +3,7 @@ import Discover from './Discover';
 import Friends from './Friends';
 import Homepage from './Homepage';
 import NotFound from './NotFound';
+import PlaylistEditor from './PlaylistEditor';
 import PlaylistSearch from './PlaylistSearch';
 
 export {
@@ -11,5 +12,6 @@ export {
   Friends,
   Homepage,
   NotFound,
+  PlaylistEditor,
   PlaylistSearch,
 };
