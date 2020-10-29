@@ -1,7 +1,7 @@
 import React from 'react';
 import { Image } from 'react-bootstrap';
 
-const HorizontalThumbnail = () => {
+const HorizontalThumbnail = (props) => {
   return (
     <div style={{ minWidth: '50vw' }} className="d-flex flex-row">
       <div style={{ maxWidth: '15vw' }}>
@@ -13,8 +13,8 @@ const HorizontalThumbnail = () => {
 
       <div className="ml-3 align-self-top">
         <p>
-          Name of Playlist <br />
-          [Creator]
+          {props.name} <br />
+          by {props.artist}
         </p>
       </div>
     </div>
