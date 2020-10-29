@@ -8,7 +8,9 @@ const Layout = (props) => {
     <div className="d-flex flex-row" style={{ height: '100vh' }}>
       <SideMenu />
       <div className="flex-column flex-grow-1">
-        <div style={{ width: '80vw' }}>{props.children}</div>
+        <div className="p-5" style={{ width: '80vw' }}>
+          {props.children}
+        </div>
         <div className="mt-auto">
           <p>Fixed Music Player</p>
         </div>
