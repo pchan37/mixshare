@@ -1,49 +1,62 @@
-import AvatarNameMenu from './AvatarNameMenu';
-import AvatarNameSmall from './AvatarNameSmall';
-import ChangeUsernamePopup from './ChangeUsernamePopup';
-import DiscoverBody from './DiscoverBody';
-import DisplayThumbnails from './DisplayThumbnails';
-import FriendItem from './FriendItem';
+import Layout from './Layout';
+import MainPageLayout from './MainPageLayout';
+
+import Account from './Account';
+import AccountDetails from './AccountDetails';
 import ChangePasswordPopup from './ChangePasswordPopup';
 import ChangeProfilePicPopup from './ChangeProfilePicPopup';
+import ChangeUsernamePopup from './ChangeUsernamePopup';
 import DeleteAccountPopup from './DeleteAccountPopup';
-import Layout from './Layout';
+import DiscoverBody from './DiscoverBody';
+import DiscoverHeader from './DiscoverHeader';
+import DisplayThumbnails from './DisplayThumbnails';
+import FixedMusicPlayer from './FixedMusicPlayer';
+import FriendItem from './FriendItem';
+import GiftBody from './GiftBody';
+import GiftItem from './GiftItem';
+import HorizontalThumbnail from './HorizontalThumbnail';
 import LoginForm from './LoginForm';
-import MainPageLayout from './MainPageLayout';
+import PlaylistEditItem from './PlaylistEditItem';
+import PlaylistEditorBody from './PlaylistEditorBody';
+import PlaylistResult from './PlaylistResult';
+import PlaylistSearchBody from './PlaylistSearchBody';
 import ProfileClickPopup from './ProfileClickPopup';
 import SideMenu from './SideMenu';
 import SignUpForm from './SignUpForm';
 import SignUpLogin from './SignUpLogin';
+import SimpleUser from './SimpleUser';
 import Thumbnail from './Thumbnail';
-import AccountDetails from './AccountDetails';
-import Account from './Account';
-import ProfileDetails from './ProfileDetails';
-import PlaylistsBody from './PlaylistsBody';
-import SongList from './SongList';
+import User from './User';
 import UserProfile from './UserProfile';
 
 export {
-  AvatarNameMenu,
-  AvatarNameSmall,
-  ChangeUsernamePopup,
-  DiscoverBody,
-  DisplayThumbnails,
-  FriendItem,
-  ChangePasswordPopup,
-  ChangeProfilePicPopup,
-  DeleteAccountPopup,
   Layout,
   MainPageLayout,
+  Account,
+  AccountDetails,
+  ChangePasswordPopup,
+  ChangeProfilePicPopup,
+  ChangeUsernamePopup,
+  DeleteAccountPopup,
+  DiscoverBody,
+  DiscoverHeader,
+  DisplayThumbnails,
+  FixedMusicPlayer,
+  FriendItem,
+  GiftBody,
+  GiftItem,
+  HorizontalThumbnail,
+  LoginForm,
+  PlaylistEditItem,
+  PlaylistEditorBody,
+  PlaylistResult,
+  PlaylistSearchBody,
   ProfileClickPopup,
   SideMenu,
   SignUpForm,
-  LoginForm,
   SignUpLogin,
+  SimpleUser,
   Thumbnail,
-  AccountDetails,
-  Account,
-  ProfileDetails,
-  PlaylistsBody,
-  SongList,
+  User,
   UserProfile,
 };
