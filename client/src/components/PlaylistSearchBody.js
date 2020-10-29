@@ -1,29 +1,24 @@
 import React from 'react';
 
-import { Tabs, Tab } from 'react-bootstrap';
-
-import { DiscoverHeader, PlaylistResult } from './';
+import { Add } from '@material-ui/icons';
+import { PlaylistsBody } from './';
 
 const PlaylistSearchBody = () => {
   return (
-    <div className="d-flex flex-column">
-      <DiscoverHeader />
-
-      <Tabs className="mb-3">
-        <Tab eventKey="playlists" title="Playlists" className="p-2">
-          <PlaylistResult />
-          <PlaylistResult />
-          <PlaylistResult />
-          <PlaylistResult />
-        </Tab>
-        <Tab eventKey="songs" title="Songs" className="p-2">
-          <PlaylistResult />
-          <PlaylistResult />
-          <PlaylistResult />
-          <PlaylistResult />
-        </Tab>
-      </Tabs>
-    </div>
+    <>
+      <div
+        className="d-flex flex-row mb-2"
+        style={{ justifyContent: 'space-between' }}>
+        <h2 className="col-lg-auto" href="/edit">
+          My playlists
+        </h2>
+        <div className="d-flex flex-row" style={{ alignItems: 'center' }}>
+          <Add style={{ color: '#979696', fontSize: 20 }} />
+          new playlist
+        </div>
+      </div>
+      <PlaylistsBody />
+    </>
   );
 };
 
