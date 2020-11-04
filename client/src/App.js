@@ -27,7 +27,7 @@ function App() {
         <Route exact path="/" component={Homepage} />
         <Route exact path="/account" component={AccountSettings} />
         <Route exact path="/discover" component={Discover} />
-        <Route exact path="/myPlaylists" component={MyPlaylists} />
+        <Route exact path="/playlists" component={MyPlaylists} />
         <Route exact path="/profile" component={Profile} />
         <Route exact path="/searchResults" component={SearchResults} />
         <Route exact path="/edit" component={PlaylistEditor} />

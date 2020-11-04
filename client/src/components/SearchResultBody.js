@@ -28,7 +28,7 @@ const SearchResultBody = (props) => {
       <Tabs>
         <Tab eventKey="playlistsSearch" title="Playlists" className="p-3">
           <SearchResultItem>
-            <CallSplitIcon />
+            <CallSplitIcon className="mx-2" />
             <CardGiftcardIcon />
           </SearchResultItem>
         </Tab>
@@ -36,7 +36,7 @@ const SearchResultBody = (props) => {
           {data.songs.map((p) => {
             return (
               <SearchResultItem key={p.id} name={p.name} artist={p.artist}>
-                <AddIcon />
+                <AddIcon className="mx-2" />
                 <CardGiftcardIcon />
               </SearchResultItem>
             );
