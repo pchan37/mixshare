@@ -3,7 +3,7 @@ import React from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import { Thumbnail } from './';
 
-const DisplayThumbnails = (props) => {
+const DisplayThumbnails = () => {
   return (
     <Container fluid>
       <Row md={4} lg={4}>
