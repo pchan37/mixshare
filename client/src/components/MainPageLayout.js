@@ -1,9 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { SideMenu } from './';
+import { FixedMusicPlayer, SideMenu } from './';
 
-const Layout = (props) => {
+const pullDown = {
+  bottom: 0,
+  position: 'fixed',
+};
+
+const MainPageLayout = (props) => {
   return (
     <div className="d-flex flex-row" style={{ maxHeight: '100vh' }}>
       <SideMenu />
@@ -13,16 +18,16 @@ const Layout = (props) => {
           style={{ width: '85vw', maxHeight: '85vh', overflowY: 'scroll' }}>
           {props.children}
         </div>
-        <div className="mt-auto">
-          <p>Fixed Music Player</p>
+        <div className="border-top" style={pullDown}>
+          <FixedMusicPlayer />
         </div>
       </div>
     </div>
   );
 };
 
-Layout.propTypes = {
+MainPageLayout.propTypes = {
   children: PropTypes.node,
 };
 
-export default Layout;
+export default MainPageLayout;
