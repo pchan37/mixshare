@@ -2,11 +2,9 @@ import React from 'react';
 
 import { Button, Container, Form } from 'react-bootstrap';
 
-<<<<<<< HEAD
-import { DiscoverHeader, DisplayThumbnails } from './';
-=======
 import { DisplayThumbnails } from './';
->>>>>>> main
+
+import SearchIcon from '@material-ui/icons/Search';
 
 const DiscoverBody = () => {
   return (
@@ -17,7 +15,7 @@ const DiscoverBody = () => {
           <Form className="d-flex flex-row">
             <Form.Control placeholder="Search" />
             <span>
-              <Button variant="flat">
+              <Button href="/searchResults" variant="flat">
                 <SearchIcon />
               </Button>
             </span>

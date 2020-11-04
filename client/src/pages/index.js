@@ -4,9 +4,10 @@ import Friends from './Friends';
 import Profile from './Profile';
 import Gifts from './Gifts';
 import Homepage from './Homepage';
+import MyPlaylists from './MyPlaylists';
 import NotFound from './NotFound';
 import PlaylistEditor from './PlaylistEditor';
-import PlaylistSearch from './PlaylistSearch';
+import SearchResults from './SearchResults';
 // import ExpandedMusicPlayer from './ExpandedMusicPlayer';s
 
 export {
@@ -16,8 +17,9 @@ export {
   Profile,
   Gifts,
   Homepage,
+  MyPlaylists,
   NotFound,
   PlaylistEditor,
-  PlaylistSearch,
+  SearchResults,
   // ExpandedMusicPlayer,
 };

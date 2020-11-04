@@ -1,9 +1,9 @@
 import React from 'react';
 
 import { Add } from '@material-ui/icons';
-import { PlaylistsBody } from './';
+import { PlaylistsBody } from '.';
 
-const PlaylistSearchBody = () => {
+const MyPlaylistsBody = () => {
   return (
     <>
       <div
@@ -22,4 +22,4 @@ const PlaylistSearchBody = () => {
   );
 };
 
-export default PlaylistSearchBody;
+export default MyPlaylistsBody;
