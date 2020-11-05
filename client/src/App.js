@@ -15,7 +15,7 @@ import {
   PlaylistEditor,
   Profile,
   Friends,
-  ExpandedMusicPlayer,
+  // ExpandedMusicPlayer,
   Gifts,
   Homepage,
 } from './pages';
@@ -31,7 +31,7 @@ function App() {
         <Route exact path="/playlists" component={PlaylistSearch} />
         <Route exact path="/edit" component={PlaylistEditor} />
         <Route exact path="/friends" component={Friends} />
-        <Route exact path="/fullscreen" component={ExpandedMusicPlayer} />
+        {/* <Route exact path="/fullscreen" component={ExpandedMusicPlayer} /> */}
         <Route exact path="/gifts" component={Gifts} />
         <Route path="/404" component={NotFound} />
         <Redirect to="/404" />

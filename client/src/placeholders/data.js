@@ -125,6 +125,36 @@ const data = {
       message: 'Hope you enjoy!',
     },
   ],
+  playlists: [
+    {
+      id: 1,
+      name: 'Hello World',
+      owner: 'Jo',
+      songs: ['Hello by A1', 'Goodbye by A2', 'Blah Blah by A3', 'Bloop by A4'],
+    },
+    {
+      id: 2,
+      name: 'Car Jam',
+      owner: 'Jasmine',
+      songs: [
+        'Happy Birthday by Me',
+        'Let It Go by Elsa',
+        'Blank Space by Taylor Swift',
+        'Idk by A5',
+      ],
+    },
+    {
+      id: 3,
+      name: 'Random Mix',
+      owner: 'Patrick',
+      songs: [
+        'Sleep? Haha by Patrick',
+        'What is this by Jasmine',
+        'I Want to Ded by Jo',
+        'Save Us by MixShare',
+      ],
+    },
+  ],
 };
 
 export default data;
