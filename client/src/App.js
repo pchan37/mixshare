@@ -10,10 +10,11 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import {
   AccountSettings,
   Discover,
+  MyPlaylists,
   NotFound,
-  PlaylistSearch,
   PlaylistEditor,
   Profile,
+  SearchResults,
   Friends,
   Gifts,
   Homepage,
@@ -26,8 +27,9 @@ function App() {
         <Route exact path="/" component={Homepage} />
         <Route exact path="/account" component={AccountSettings} />
         <Route exact path="/discover" component={Discover} />
+        <Route exact path="/playlists" component={MyPlaylists} />
         <Route exact path="/profile" component={Profile} />
-        <Route exact path="/playlists" component={PlaylistSearch} />
+        <Route exact path="/searchResults" component={SearchResults} />
         <Route exact path="/edit" component={PlaylistEditor} />
         <Route exact path="/friends" component={Friends} />
         <Route exact path="/gifts" component={Gifts} />

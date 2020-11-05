@@ -5,6 +5,8 @@ import { Button, Container, Form } from 'react-bootstrap';
 import { Thumbnail } from './';
 import data from '../placeholders/data';
 
+import SearchIcon from '@material-ui/icons/Search';
+
 const DiscoverBody = () => {
   return (
     <div className="d-flex flex-column">
@@ -14,7 +16,9 @@ const DiscoverBody = () => {
           <Form className="d-flex flex-row">
             <Form.Control placeholder="Search" />
             <span>
-              <Button>Search</Button>
+              <Button href="/searchResults" variant="flat">
+                <SearchIcon />
+              </Button>
             </span>
           </Form>
         </Container>
