@@ -74,6 +74,11 @@ const data = {
       artist: 'Asia',
     },
   ],
+  playlists: [
+    { id: 1, owner: '2', name: '2020 Bops' },
+    { id: 2, owner: '1', name: 'Good Songs to Cry To' },
+    { id: 3, owner: '3', name: 'That Airport Feeling' },
+  ],
   songRecommendations: [
     {
       id: 1,

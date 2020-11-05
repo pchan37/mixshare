@@ -13,12 +13,14 @@ import DiscoverBody from './DiscoverBody';
 import DiscoverHeader from './DiscoverHeader';
 import DisplayThumbnails from './DisplayThumbnails';
 import FixedMusicPlayer from './FixedMusicPlayer';
+import FriendListPopup from './FriendListPopup';
 import FriendItem from './FriendItem';
 import GiftBody from './GiftBody';
 import GiftItem from './GiftItem';
 import HorizontalThumbnail from './HorizontalThumbnail';
 import LoginForm from './LoginForm';
 import MyPlaylistsBody from './MyPlaylistsBody';
+import MyPlaylistsPopup from './MyPlaylistsPopup';
 import PlaylistEditItem from './PlaylistEditItem';
 import PlaylistEditorBody from './PlaylistEditorBody';
 import PlaylistsBody from './PlaylistsBody';
@@ -51,11 +53,13 @@ export {
   DisplayThumbnails,
   FixedMusicPlayer,
   FriendItem,
+  FriendListPopup,
   GiftBody,
   GiftItem,
   HorizontalThumbnail,
   LoginForm,
   MyPlaylistsBody,
+  MyPlaylistsPopup,
   PlaylistEditItem,
   PlaylistEditorBody,
   PlaylistsBody,

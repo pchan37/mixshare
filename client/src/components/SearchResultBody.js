@@ -1,10 +1,9 @@
 import React from 'react';
 import { Button, Container, Form, Tabs, Tab } from 'react-bootstrap';
 
-import { SearchResultItem } from '.';
+import { FriendListPopup, MyPlaylistsPopup, SearchResultItem } from '.';
 import AddIcon from '@material-ui/icons/Add';
 import CallSplitIcon from '@material-ui/icons/CallSplit';
-import CardGiftcardIcon from '@material-ui/icons/CardGiftcard';
 import SearchIcon from '@material-ui/icons/Search';
 import data from '../placeholders/data';
 
@@ -27,17 +26,29 @@ const SearchResultBody = (props) => {
 
       <Tabs>
         <Tab eventKey="playlistsSearch" title="Playlists" className="p-3">
-          <SearchResultItem>
-            <CallSplitIcon className="mx-2" />
-            <CardGiftcardIcon />
-          </SearchResultItem>
+          {data.playlists.map((p) => {
+            return (
+              <SearchResultItem key={p.id} name={p.name} artist={p.owner}>
+                <Button variant="flat">
+                  <CallSplitIcon />
+                </Button>
+
+                <FriendListPopup />
+              </SearchResultItem>
+            );
+          })}
         </Tab>
         <Tab eventKey="songsSearch" title="Songs" className="p-3">
           {data.songs.map((p) => {
             return (
               <SearchResultItem key={p.id} name={p.name} artist={p.artist}>
-                <AddIcon className="mx-2" />
-                <CardGiftcardIcon />
+                <MyPlaylistsPopup>
+                  <Button variant="flat">
+                    <AddIcon />
+                  </Button>
+                </MyPlaylistsPopup>
+
+                <FriendListPopup />
               </SearchResultItem>
             );
           })}
