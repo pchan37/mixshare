@@ -2,15 +2,16 @@ import React from 'react';
 
 import { Image } from 'react-bootstrap';
 
-const Thumbnail = () => {
+const Thumbnail = (props) => {
   return (
-    <div className="d-flex flex-column">
+    <div className="d-flex flex-column mr-4">
       <Image
         fluid
+        style={{ maxWidth: '19vw' }}
         src="https://wp-en.oberlo.com/wp-content/uploads/2019/04/image13-1-1024x576.png"
       />
       <p>
-        Name of video <br /> Name of Creator
+        {props.name} <br /> {props.artist}
       </p>
     </div>
   );

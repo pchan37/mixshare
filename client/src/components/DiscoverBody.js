@@ -2,7 +2,8 @@ import React from 'react';
 
 import { Button, Container, Form } from 'react-bootstrap';
 
-import { DisplayThumbnails } from './';
+import { Thumbnail } from './';
+import data from '../placeholders/data';
 
 const DiscoverBody = () => {
   return (
@@ -22,13 +23,23 @@ const DiscoverBody = () => {
       <div className="d-flex flex-column">
         <h5>Top Songs</h5>
         <div className="d-flex flex-row">
-          <DisplayThumbnails />
+          {data.songs.map((p) => {
+            return (
+              <Thumbnail key={p.id} name={p.name} artist={p.artist}></Thumbnail>
+            );
+          })}
         </div>
       </div>
 
       <div className="d-flex flex-column">
         <h5>Top Playlists</h5>
-        <DisplayThumbnails />
+        <div className="d-flex flex-row">
+          {data.playlists.map((p) => {
+            return (
+              <Thumbnail key={p.id} name={p.name} artist={p.owner}></Thumbnail>
+            );
+          })}
+        </div>
       </div>
     </div>
   );
