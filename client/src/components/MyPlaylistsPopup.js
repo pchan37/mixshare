@@ -7,9 +7,6 @@ import data from '../placeholders/data';
 import SimpleUser from './SimpleUser';
 import SearchResultItem from './SearchResultItem';
 
-/*{data.playlists.map((f) => {
-        return <SearchResultItem name={f.name} artist={f.owner} />;
-      })}*/
 const PlaylistsPopup = (
   <Popover>
     <Popover.Content className="mr-2">
