@@ -30,7 +30,7 @@ const FriendListPopup = () => {
       overlay={CardGiftPopup}
       trigger="click">
       <Button variant="flat">
-        <CardGiftcardIcon />
+        <CardGiftcardIcon style={{ color: '#979696' }} />
       </Button>
     </OverlayTrigger>
   );

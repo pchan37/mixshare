@@ -17,7 +17,7 @@ const SearchResultBody = (props) => {
             <Form.Control placeholder="Search" />
             <span>
               <Button href="/searchResults" variant="flat">
-                <SearchIcon />
+                <SearchIcon style={{ color: '#979696' }} />
               </Button>
             </span>
           </Form>
@@ -30,7 +30,7 @@ const SearchResultBody = (props) => {
             return (
               <SearchResultItem key={p.id} name={p.name} artist={p.owner}>
                 <Button variant="flat">
-                  <CallSplitIcon />
+                  <CallSplitIcon style={{ color: '#979696' }} />
                 </Button>
 
                 <FriendListPopup />
@@ -44,7 +44,7 @@ const SearchResultBody = (props) => {
               <SearchResultItem key={p.id} name={p.name} artist={p.artist}>
                 <MyPlaylistsPopup>
                   <Button variant="flat">
-                    <AddIcon />
+                    <AddIcon style={{ color: '#979696' }} />
                   </Button>
                 </MyPlaylistsPopup>
 
