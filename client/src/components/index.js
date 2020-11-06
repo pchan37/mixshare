@@ -18,10 +18,10 @@ import HorizontalThumbnail from './HorizontalThumbnail';
 import LoginForm from './LoginForm';
 import PlaylistEditItem from './PlaylistEditItem';
 import PlaylistEditorBody from './PlaylistEditorBody';
+import PlaylistItem from './PlaylistItem';
 import PlaylistResult from './PlaylistResult';
 import PlaylistSearchBody from './PlaylistSearchBody';
 import PlaylistsBody from './PlaylistsBody';
-import PlaylistsSearchBody from './PlaylistSearchBody';
 import ProfileDetails from './ProfileDetails';
 import SideMenu from './SideMenu';
 import SignUpForm from './SignUpForm';
@@ -52,10 +52,10 @@ export {
   LoginForm,
   PlaylistEditItem,
   PlaylistEditorBody,
+  PlaylistItem,
   PlaylistResult,
   PlaylistSearchBody,
   PlaylistsBody,
-  PlaylistsSearchBody,
   ProfileDetails,
   SideMenu,
   SignUpForm,

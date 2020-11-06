@@ -10,7 +10,7 @@ const PlaylistSearchBody = () => {
         className="d-flex flex-row mb-2"
         style={{ justifyContent: 'space-between' }}>
         <h2 className="col-lg-auto" href="/edit">
-          My playlists
+          My Playlists
         </h2>
         <div className="d-flex flex-row" style={{ alignItems: 'center' }}>
           <Add style={{ color: '#979696', fontSize: 20 }} />
