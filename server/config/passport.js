@@ -42,8 +42,6 @@ const strategy = new LocalStrategy(customFields, verifyCallback);
 passport.use(strategy);
 
 passport.serializeUser((user, done) => {
-  user.password = bcrypt.hashSync(user.password, 10);
-
   console.log(`Serializing user... ${JSON.stringify(user)}`);
   done(null, user._id);
 });
