@@ -1,6 +1,5 @@
 import React from 'react';
 
-// import { SongList } from './';
 import { Button } from 'react-bootstrap';
 import { CallSplit, CardGiftcard } from '@material-ui/icons';
 import { PlaylistItem } from './';
