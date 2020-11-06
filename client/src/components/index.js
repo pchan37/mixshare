@@ -1,6 +1,5 @@
 import Layout from './Layout';
 import MainPageLayout from './MainPageLayout';
-import ExpandedPlayerLayout from './ExpandedPlayerLayout';
 
 import Account from './Account';
 import AccountDetails from './AccountDetails';
@@ -23,7 +22,6 @@ import PlaylistItem from './PlaylistItem';
 import PlaylistResult from './PlaylistResult';
 import PlaylistSearchBody from './PlaylistSearchBody';
 import PlaylistsBody from './PlaylistsBody';
-import PlaylistsSearchBody from './PlaylistSearchBody';
 import ProfileDetails from './ProfileDetails';
 import SideMenu from './SideMenu';
 import SignUpForm from './SignUpForm';
@@ -37,7 +35,6 @@ import UserProfile from './UserProfile';
 export {
   Layout,
   MainPageLayout,
-  ExpandedPlayerLayout,
   Account,
   AccountDetails,
   ChangePasswordPopup,
@@ -59,7 +56,6 @@ export {
   PlaylistResult,
   PlaylistSearchBody,
   PlaylistsBody,
-  PlaylistsSearchBody,
   ProfileDetails,
   SideMenu,
   SignUpForm,

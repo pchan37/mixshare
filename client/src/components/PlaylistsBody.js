@@ -1,7 +1,5 @@
 import React from 'react';
 
-import { Button } from 'react-bootstrap';
-import { CallSplit, CardGiftcard } from '@material-ui/icons';
 import { PlaylistItem } from './';
 
 import data from '../placeholders/data';
