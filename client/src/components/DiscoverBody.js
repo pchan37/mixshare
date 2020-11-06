@@ -19,8 +19,9 @@ function DiscoverBody() {
       const res = await Axios.post('/api/youtube/songs', {
         query: query,
       });
-      setPlaylists(res.data.playlists);
-      console.log(playlists);
+      // setPlaylists(res.data.playlists);
+      sessionStorage.setItem('results', res.data);
+      console.log(sessionStorage.getItem('results'));
     } catch {
       console.error('error');
     }
