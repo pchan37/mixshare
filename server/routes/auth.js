@@ -28,7 +28,7 @@ function ServerErrorResponse(res) {
   });
 }
 
-// retrieve the currently logged in user
+// GET /user: retrieve the currently logged in user
 router.get('/user', (req, res) => {
   if (req.user !== undefined) {
     return res.json({ username: req.user.username });
@@ -38,14 +38,33 @@ router.get('/user', (req, res) => {
   return res.json({});
 });
 
-// attempt to log the client in
-router.post('/login', async (req, res, next) => {});
+// POST /login: attempt to log the client in
+router.post('/login', async (req, res) => {
+  try {
+    passport.authenticate('local', (err, user, _) => {
+      if (err) {
+        next(err);
+      }
+      if (user === null || user === undefined) {
+        console.log('User could not be found.');
+        return UserErrorResponse(res, 404, 'User could not be found.');
+      }
+      req.login(user, async (loginErr) => {
+        if (loginErr) {
+          return next(loginErr);
+        }
+        return SuccessResponse(res, 200, 'Logged in successfully!');
+      });
+    })(req, res, next);
+  } catch (err) {
+    console.log(`Encountered "${err.message}" while logging user in.`);
+    return ServerErrorResponse(res);
+  }
+});
 
-// attempt to register the client
+// POST /register: Attempt to register the client
 router.post('/register', async (req, res) => {
-  const username = req.body.username;
-  const password = req.body.password;
-  const confirmationPassword = req.body.confirmationPassword;
+  const { username, password, confirmationPassword } = req.body;
   try {
     const user = await User.findOne({ username });
     if (user !== null && user !== undefined) {
