@@ -1,3 +1,5 @@
+import AvatarNameMenu from './AvatarNameMenu';
+import AvatarNameSmall from './AvatarNameSmall';
 import Layout from './Layout';
 import MainPageLayout from './MainPageLayout';
 
@@ -11,18 +13,21 @@ import DiscoverBody from './DiscoverBody';
 import DiscoverHeader from './DiscoverHeader';
 import DisplayThumbnails from './DisplayThumbnails';
 import FixedMusicPlayer from './FixedMusicPlayer';
+import FriendListPopup from './FriendListPopup';
 import FriendItem from './FriendItem';
 import GiftBody from './GiftBody';
 import GiftItem from './GiftItem';
 import HorizontalThumbnail from './HorizontalThumbnail';
 import LoginForm from './LoginForm';
+import MyPlaylistsBody from './MyPlaylistsBody';
+import MyPlaylistsPopup from './MyPlaylistsPopup';
 import PlaylistEditItem from './PlaylistEditItem';
 import PlaylistEditorBody from './PlaylistEditorBody';
-import PlaylistResult from './PlaylistResult';
-import PlaylistSearchBody from './PlaylistSearchBody';
 import PlaylistsBody from './PlaylistsBody';
-import PlaylistsSearchBody from './PlaylistSearchBody';
+import ProfileClickPopup from './ProfileClickPopup';
 import ProfileDetails from './ProfileDetails';
+import SearchResultBody from './SearchResultBody';
+import SearchResultItem from './SearchResultItem';
 import SideMenu from './SideMenu';
 import SignUpForm from './SignUpForm';
 import SignUpLogin from './SignUpLogin';
@@ -37,6 +42,8 @@ export {
   MainPageLayout,
   Account,
   AccountDetails,
+  AvatarNameMenu,
+  AvatarNameSmall,
   ChangePasswordPopup,
   ChangeProfilePicPopup,
   ChangeUsernamePopup,
@@ -46,17 +53,20 @@ export {
   DisplayThumbnails,
   FixedMusicPlayer,
   FriendItem,
+  FriendListPopup,
   GiftBody,
   GiftItem,
   HorizontalThumbnail,
   LoginForm,
+  MyPlaylistsBody,
+  MyPlaylistsPopup,
   PlaylistEditItem,
   PlaylistEditorBody,
-  PlaylistResult,
-  PlaylistSearchBody,
   PlaylistsBody,
-  PlaylistsSearchBody,
+  ProfileClickPopup,
   ProfileDetails,
+  SearchResultBody,
+  SearchResultItem,
   SideMenu,
   SignUpForm,
   SignUpLogin,

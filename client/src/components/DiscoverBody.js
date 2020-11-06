@@ -9,21 +9,24 @@ import data from '../placeholders/data';
 import SearchIcon from '@material-ui/icons/Search';
 
 function DiscoverBody() {
-  const [playlists, setPlaylists] = useState([]);
-
-  const getSearch = async (event) => {
+  const getPlaylistResults = async (event) => {
     event.preventDefault();
     const query = event.target.elements.query.value;
     console.log(query);
-    try {
-      const res = await Axios.post('/api/youtube/songs', {
-        query: query,
-      });
-      // setPlaylists(res.data.playlists);
-      sessionStorage.setItem('results', res.data);
-      console.log(sessionStorage.getItem('results'));
-    } catch {
-      console.error('error');
+    if (!(query === '')) {
+      sessionStorage.setItem('query', query);
+      try {
+        const playlistsRes = await Axios.post('/api/youtube/playlists', {
+          query: query,
+        });
+        sessionStorage.setItem(
+          'playlistResults',
+          JSON.stringify(playlistsRes.data)
+        );
+        window.location.href = 'http://localhost:3000/searchResults';
+      } catch {
+        console.log('error');
+      }
     }
   };
 
@@ -33,12 +36,13 @@ function DiscoverBody() {
       <div className="d-flex flex-row mb-2">
         <h2>Discover</h2>
         <Container fluid className="d-flex justify-content-end">
-          <Form className="d-flex flex-row" onSubmit={getSearch}>
+          <Form className="d-flex flex-row" onSubmit={getPlaylistResults}>
             <Form.Control name="query" type="text" placeholder="Search" />
-
-            <Button type="submit" variant="flat">
-              <SearchIcon style={{ color: '#979696' }} />
-            </Button>
+            <span>
+              <Button type="submit" variant="flat">
+                <SearchIcon style={{ color: '#979696' }} />
+              </Button>
+            </span>
           </Form>
         </Container>
       </div>
