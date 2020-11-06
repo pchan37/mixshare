@@ -16,7 +16,7 @@ function DiscoverBody() {
     const query = event.target.elements.query.value;
     console.log(query);
     try {
-      const res = await Axios.post('../api/youtube/songs', {
+      const res = await Axios.post('/api/youtube/songs', {
         query: query,
       });
       setPlaylists(res.data.playlists);
