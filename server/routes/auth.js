@@ -21,6 +21,10 @@ router.post('/login', async (req, res, next) => {});
 router.post('/register', async (req, res, next) => {});
 
 // delete the client's session
-router.post('/logout', async (req, res, next) => {});
+router.post('/logout', async (req, res) => {
+  req.logout();
+  req.session.destroy();
+  res.redirect('/');
+});
 
 module.exports = router;
