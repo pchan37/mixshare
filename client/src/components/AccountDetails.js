@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Container, Row, Col, Button, OverlayTrigger } from 'react-bootstrap';
-import { Edit } from '@material-ui/icons';
+import EditIcon from '@material-ui/icons/Edit';
 import { ChangeUsernamePopup, ChangePasswordPopup } from './';
 
 const AccountDetails = () => {
@@ -18,7 +18,7 @@ const AccountDetails = () => {
             overlay={ChangeUsernamePopup}
             trigger="click">
             <Button variant="light">
-              <Edit />
+              <EditIcon />
             </Button>
           </OverlayTrigger>
         </Col>
@@ -34,7 +34,7 @@ const AccountDetails = () => {
             overlay={ChangePasswordPopup}
             trigger="click">
             <Button variant="light">
-              <Edit />
+              <EditIcon />
             </Button>
           </OverlayTrigger>
         </Col>

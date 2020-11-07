@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Container, Row, Col, Button, OverlayTrigger } from 'react-bootstrap';
 import { AccountDetails, DeleteAccountPopup, ChangeProfilePicPopup } from './';
-import { AccountCircle } from '@material-ui/icons';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 
 const Account = () => {
   return (
@@ -12,7 +12,7 @@ const Account = () => {
       </Row>
       <Row style={{ paddingTop: 20 }}>
         <Col xs={3}>
-          <AccountCircle style={{ fontSize: 200 }} />
+          <AccountCircleIcon style={{ fontSize: 200 }} />
         </Col>
         <Col>
           <AccountDetails />

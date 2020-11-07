@@ -10,7 +10,8 @@ import ChangeProfilePicPopup from './ChangeProfilePicPopup';
 import ChangeUsernamePopup from './ChangeUsernamePopup';
 import DeleteAccountPopup from './DeleteAccountPopup';
 import DiscoverBody from './DiscoverBody';
-import DiscoverHeader from './DiscoverHeader';
+import DiscoverHome from './DiscoverHome';
+import DiscoverSearch from './DiscoverSearch';
 import DisplayThumbnails from './DisplayThumbnails';
 import FixedMusicPlayer from './FixedMusicPlayer';
 import FriendListPopup from './FriendListPopup';
@@ -26,7 +27,6 @@ import PlaylistEditorBody from './PlaylistEditorBody';
 import PlaylistsBody from './PlaylistsBody';
 import ProfileClickPopup from './ProfileClickPopup';
 import ProfileDetails from './ProfileDetails';
-import SearchResultBody from './SearchResultBody';
 import SearchResultItem from './SearchResultItem';
 import SideMenu from './SideMenu';
 import SignUpForm from './SignUpForm';
@@ -49,7 +49,8 @@ export {
   ChangeUsernamePopup,
   DeleteAccountPopup,
   DiscoverBody,
-  DiscoverHeader,
+  DiscoverHome,
+  DiscoverSearch,
   DisplayThumbnails,
   FixedMusicPlayer,
   FriendItem,
@@ -65,7 +66,6 @@ export {
   PlaylistsBody,
   ProfileClickPopup,
   ProfileDetails,
-  SearchResultBody,
   SearchResultItem,
   SideMenu,
   SignUpForm,

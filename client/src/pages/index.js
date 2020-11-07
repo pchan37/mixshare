@@ -7,7 +7,6 @@ import Homepage from './Homepage';
 import MyPlaylists from './MyPlaylists';
 import NotFound from './NotFound';
 import PlaylistEditor from './PlaylistEditor';
-import SearchResults from './SearchResults';
 // import ExpandedMusicPlayer from './ExpandedMusicPlayer';s
 
 export {
@@ -20,6 +19,5 @@ export {
   MyPlaylists,
   NotFound,
   PlaylistEditor,
-  SearchResults,
   // ExpandedMusicPlayer,
 };

@@ -7,7 +7,6 @@ const apiKey = 'AIzaSyCqRkLe3nqTjE7yHIeqMn6jprdkEQPTec8';
 //search youtube API
 router.post('/songs', async (req, res) => {
   var matchedSongs = [];
-  console.log(sampleSongs.songs);
   sampleSongs.songs.filter(function (song) {
     if (song.name.toLowerCase().includes(req.body.query.toLowerCase())) {
       matchedSongs.push(song);
@@ -23,7 +22,6 @@ router.post('/playlists', async (req, res) => {
     if (playlist.name.toLowerCase().includes(req.body.query.toLowerCase()))
       matchedPlaylists.push(playlist);
   });
-  console.log('reponse', matchedPlaylists);
   res.send(matchedPlaylists);
 });
 
