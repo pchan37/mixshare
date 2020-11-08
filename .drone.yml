@@ -9,3 +9,9 @@ steps:
   - cd client
   - yarn install
   - yarn prettier --check '**/*.js'
+- name: server-prettier-check
+  image: node
+  commands:
+  - cd server
+  - yarn install
+  - yarn prettier --check '**/*.js'
