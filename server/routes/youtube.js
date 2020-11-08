@@ -2,18 +2,33 @@ const sampleSongs = require('../placeholders/SampleSongs');
 const samplePlaylists = require('../placeholders/samplePlaylists');
 const express = require('express');
 const router = express.Router();
-const apiKey = 'AIzaSyCqRkLe3nqTjE7yHIeqMn6jprdkEQPTec8';
+
+const Youtube = require('youtube-api');
+const API_KEY = 'AIzaSyCqRkLe3nqTjE7yHIeqMn6jprdkEQPTec8';
+
+Youtube.authenticate({
+  type: 'key',
+  key: API_KEY,
+});
 
 //search youtube API
 router.post('/songs', async (req, res) => {
-  var matchedSongs = [];
-  sampleSongs.songs.filter(function (song) {
-    if (song.name.toLowerCase().includes(req.body.query.toLowerCase())) {
-      matchedSongs.push(song);
-    }
+  q = req.body.query;
+
+  console.log('Youtube');
+  var results = Youtube.search.list({
+    part: 'snippet',
+    maxResults: 10,
+    q: q,
+    type: 'video',
+    videoCategoryId: 10,
   });
-  res.send(matchedSongs);
-  // return ['Hello'];
+  results.then((r) => {
+    r.data.items.forEach((item) => {
+      console.log(item.snippet.thumbnails.default.url);
+    });
+    res.send(r.data.items);
+  });
 });
 
 router.post('/playlists', async (req, res) => {
