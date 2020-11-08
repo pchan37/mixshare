@@ -31,6 +31,7 @@ import SearchResultItem from './SearchResultItem';
 import SideMenu from './SideMenu';
 import SignUpForm from './SignUpForm';
 import SignUpLogin from './SignUpLogin';
+import SimplePlaylist from './SimplePlaylist';
 import SimpleUser from './SimpleUser';
 import SongList from './SongList';
 import Thumbnail from './Thumbnail';
@@ -70,6 +71,7 @@ export {
   SideMenu,
   SignUpForm,
   SignUpLogin,
+  SimplePlaylist,
   SimpleUser,
   SongList,
   Thumbnail,
