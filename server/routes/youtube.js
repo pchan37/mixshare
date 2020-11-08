@@ -23,12 +23,7 @@ router.post('/songs', async (req, res) => {
     type: 'video',
     videoCategoryId: 10,
   });
-  results.then((r) => {
-    r.data.items.forEach((item) => {
-      console.log(item.snippet.thumbnails.default.url);
-    });
-    res.send(r.data.items);
-  });
+  results.then((r) => res.send(r.data.items));
 });
 
 router.post('/playlists', async (req, res) => {
