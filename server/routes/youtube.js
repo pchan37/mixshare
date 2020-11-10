@@ -13,7 +13,6 @@ router.post('/songs', async (req, res) => {
     }
   });
   res.send(matchedSongs);
-  // return ['Hello'];
 });
 
 router.post('/playlists', async (req, res) => {

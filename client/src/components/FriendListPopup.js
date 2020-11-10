@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Button, OverlayTrigger, Popover } from 'react-bootstrap';
-import CardGiftcardIcon from '@material-ui/icons/CardGiftcard';
+import { CardGiftcard } from '@material-ui/icons';
 
 import data from '../placeholders/data';
 import SimpleUser from './SimpleUser';
@@ -13,7 +13,7 @@ const CardGiftPopup = (
         return (
           <SimpleUser key={f.id} username={f.username}>
             <Button variant="flat">
-              <CardGiftcardIcon style={{ color: '#979696' }} />
+              <CardGiftcard style={{ color: '#979696' }} />
             </Button>
           </SimpleUser>
         );
@@ -30,7 +30,7 @@ const FriendListPopup = () => {
       overlay={CardGiftPopup}
       trigger="click">
       <Button variant="flat">
-        <CardGiftcardIcon style={{ color: '#979696' }} />
+        <CardGiftcard style={{ color: '#979696' }} />
       </Button>
     </OverlayTrigger>
   );
