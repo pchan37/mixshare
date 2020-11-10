@@ -26,8 +26,6 @@ import PlaylistEditItem from './PlaylistEditItem';
 import PlaylistEditorBody from './PlaylistEditorBody';
 import ProfileClickPopup from './ProfileClickPopup';
 import PlaylistItem from './PlaylistItem';
-import PlaylistResult from './PlaylistResult';
-import PlaylistSearchBody from './PlaylistSearchBody';
 import PlaylistsBody from './PlaylistsBody';
 import ProfileDetails from './ProfileDetails';
 import SearchResultItem from './SearchResultItem';
@@ -69,8 +67,6 @@ export {
   PlaylistEditorBody,
   ProfileClickPopup,
   PlaylistItem,
-  PlaylistResult,
-  PlaylistSearchBody,
   PlaylistsBody,
   ProfileDetails,
   SearchResultItem,
