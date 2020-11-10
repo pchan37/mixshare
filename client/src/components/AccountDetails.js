@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Container, Row, Col, Button, OverlayTrigger } from 'react-bootstrap';
-import Edit from '@material-ui/iconst';
+import { Edit } from '@material-ui/icons';
 import { ChangeUsernamePopup, ChangePasswordPopup } from './';
 
 const AccountDetails = () => {
