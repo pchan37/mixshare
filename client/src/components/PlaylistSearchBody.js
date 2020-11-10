@@ -1,7 +1,8 @@
 import React from 'react';
 
+import { Button, OverlayTrigger } from 'react-bootstrap';
 import { Add } from '@material-ui/icons';
-import { PlaylistsBody } from './';
+import { PlaylistsBody, NewPlaylistPopup } from './';
 
 const PlaylistSearchBody = () => {
   return (
@@ -13,8 +14,16 @@ const PlaylistSearchBody = () => {
           My Playlists
         </h2>
         <div className="d-flex flex-row" style={{ alignItems: 'center' }}>
-          <Add style={{ color: '#979696', fontSize: 20 }} />
-          new playlist
+          <OverlayTrigger
+            placement="left"
+            delay={{ show: 250, hide: 400 }}
+            overlay={NewPlaylistPopup}
+            trigger="click">
+            <Button variant="flat">
+              <Add style={{ color: '#979696', fontSize: 20 }} />
+              new playlist
+            </Button>
+          </OverlayTrigger>
         </div>
       </div>
       <PlaylistsBody />

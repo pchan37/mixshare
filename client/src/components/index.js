@@ -16,6 +16,7 @@ import GiftBody from './GiftBody';
 import GiftItem from './GiftItem';
 import HorizontalThumbnail from './HorizontalThumbnail';
 import LoginForm from './LoginForm';
+import NewPlaylistPopup from './NewPlaylistPopup';
 import PlaylistEditItem from './PlaylistEditItem';
 import PlaylistEditorBody from './PlaylistEditorBody';
 import PlaylistItem from './PlaylistItem';
@@ -50,6 +51,7 @@ export {
   GiftItem,
   HorizontalThumbnail,
   LoginForm,
+  NewPlaylistPopup,
   PlaylistEditItem,
   PlaylistEditorBody,
   PlaylistItem,
