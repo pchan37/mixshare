@@ -24,8 +24,11 @@ import MyPlaylistsBody from './MyPlaylistsBody';
 import MyPlaylistsPopup from './MyPlaylistsPopup';
 import PlaylistEditItem from './PlaylistEditItem';
 import PlaylistEditorBody from './PlaylistEditorBody';
-import PlaylistsBody from './PlaylistsBody';
 import ProfileClickPopup from './ProfileClickPopup';
+import PlaylistItem from './PlaylistItem';
+import PlaylistResult from './PlaylistResult';
+import PlaylistSearchBody from './PlaylistSearchBody';
+import PlaylistsBody from './PlaylistsBody';
 import ProfileDetails from './ProfileDetails';
 import SearchResultItem from './SearchResultItem';
 import SideMenu from './SideMenu';
@@ -64,8 +67,11 @@ export {
   MyPlaylistsPopup,
   PlaylistEditItem,
   PlaylistEditorBody,
-  PlaylistsBody,
   ProfileClickPopup,
+  PlaylistItem,
+  PlaylistResult,
+  PlaylistSearchBody,
+  PlaylistsBody,
   ProfileDetails,
   SearchResultItem,
   SideMenu,
