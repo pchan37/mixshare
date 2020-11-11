@@ -1,16 +1,28 @@
 import React from 'react';
 
 import { Button, OverlayTrigger, Popover } from 'react-bootstrap';
-import CardGiftcardIcon from '@material-ui/icons/CardGiftcard';
 
+import { Add } from '@material-ui/icons';
+
+import SimplePlaylist from './SimplePlaylist';
 import data from '../placeholders/data';
-import SimpleUser from './SimpleUser';
-import SearchResultItem from './SearchResultItem';
 
 const PlaylistsPopup = (
   <Popover>
     <Popover.Content className="mr-2">
-      <p>Work in Progress</p>
+      <Button variant="flat">
+        <Add style={{ color: '#979696', fontSize: 20 }} />
+        new playlist
+      </Button>
+      {data.playlists.map((p) => {
+        return (
+          <SimplePlaylist key={p.id} name={p.name}>
+            <Button variant="flat">
+              <Add style={{ color: '#979696' }} />
+            </Button>
+          </SimplePlaylist>
+        );
+      })}
     </Popover.Content>
   </Popover>
 );
