@@ -6,10 +6,10 @@ import { Button, Container, Form } from 'react-bootstrap';
 import { DiscoverHome, DiscoverSearch } from './';
 import data from '../placeholders/data';
 
-import { Search } from '@material-ui/icons';
+import SearchIcon from '@material-ui/icons/Search';
 
 const ChooseDisplay = (props) => {
-  if (props.query !== '') {
+  if (!(props.query === '')) {
     return (
       <DiscoverSearch
         query={props.query}
@@ -30,7 +30,7 @@ function DiscoverBody() {
   const updateQueryAndReturn = (event) => {
     event.preventDefault();
     var enteredQuery = event.target.elements.query.value;
-    if (enteredQuery !== '') {
+    if (!(enteredQuery === '')) {
       getPlaylistResults(enteredQuery);
       getSongResults(enteredQuery);
     }
@@ -55,8 +55,8 @@ function DiscoverBody() {
         query: query,
       });
       updateSongResults(songRes.data);
-    } catch (err) {
-      console.error(`Got an error while retrieving songs results: ${err}`);
+    } catch {
+      console.error('error');
     }
   };
 
@@ -69,7 +69,7 @@ function DiscoverBody() {
             <Form.Control name="query" type="text" placeholder="Search" />
             <span>
               <Button type="submit" variant="flat">
-                <Search style={{ color: '#979696' }} />
+                <SearchIcon style={{ color: '#979696' }} />
               </Button>
             </span>
           </Form>
