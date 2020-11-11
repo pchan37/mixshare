@@ -60,7 +60,6 @@ function DiscoverBody() {
     }
   };
 
-  //const DiscoverBody = () => {
   return (
     <div className="d-flex flex-column">
       <div className="d-flex flex-row mb-2">
@@ -83,7 +82,6 @@ function DiscoverBody() {
       />
     </div>
   );
-  //};
 }
 
 export default DiscoverBody;

@@ -19,18 +19,21 @@ import FriendItem from './FriendItem';
 import GiftBody from './GiftBody';
 import GiftItem from './GiftItem';
 import HorizontalThumbnail from './HorizontalThumbnail';
-import LoginForm from './LoginForm';
 import MyPlaylistsBody from './MyPlaylistsBody';
+import NewPlaylistPopup from './NewPlaylistPopup';
 import MyPlaylistsPopup from './MyPlaylistsPopup';
 import PlaylistEditItem from './PlaylistEditItem';
 import PlaylistEditorBody from './PlaylistEditorBody';
-import PlaylistsBody from './PlaylistsBody';
 import ProfileClickPopup from './ProfileClickPopup';
+import PlaylistItem from './PlaylistItem';
+import PlaylistResult from './PlaylistResult';
+import PlaylistsBody from './PlaylistsBody';
+import PlaylistSearchBody from './PlaylistSearchBody';
 import ProfileDetails from './ProfileDetails';
 import SearchResultItem from './SearchResultItem';
 import SideMenu from './SideMenu';
-import SignUpForm from './SignUpForm';
 import SignUpLogin from './SignUpLogin';
+import SimplePlaylist from './SimplePlaylist';
 import SimpleUser from './SimpleUser';
 import SongList from './SongList';
 import Thumbnail from './Thumbnail';
@@ -58,18 +61,21 @@ export {
   GiftBody,
   GiftItem,
   HorizontalThumbnail,
-  LoginForm,
   MyPlaylistsBody,
   MyPlaylistsPopup,
+  NewPlaylistPopup,
   PlaylistEditItem,
   PlaylistEditorBody,
-  PlaylistsBody,
   ProfileClickPopup,
+  PlaylistItem,
+  PlaylistResult,
+  PlaylistSearchBody,
+  PlaylistsBody,
   ProfileDetails,
   SearchResultItem,
   SideMenu,
-  SignUpForm,
   SignUpLogin,
+  SimplePlaylist,
   SimpleUser,
   SongList,
   Thumbnail,

@@ -28,13 +28,7 @@ const Account = () => {
         </OverlayTrigger>
       </Row>
       <Row style={{ paddingLeft: 30, paddingTop: 200 }}>
-        <OverlayTrigger
-          placement="bottom"
-          delay={{ show: 250, hide: 400 }}
-          overlay={DeleteAccountPopup}
-          trigger="click">
-          <Button variant="danger">Delete My Account</Button>
-        </OverlayTrigger>
+        <DeleteAccountPopup />
       </Row>
     </Container>
   );

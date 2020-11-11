@@ -1,80 +1,19 @@
 import React from 'react';
 
-import { SongList } from './';
-import { Container, Row, Col, Image, Button } from 'react-bootstrap';
-import { Archive, CardGiftcard } from '@material-ui/icons';
+import { PlaylistItem } from './';
+
+import data from '../placeholders/data';
 
 const PlaylistBody = () => {
-  return (
-    <Container>
-      <Row class="pt-4">
-        <h3>Playlist 1</h3>
-      </Row>
-      <Row>
-        <Col xs={4}>
-          <Image
-            fluid
-            src="https://wp-en.oberlo.com/wp-content/uploads/2019/04/image13-1-1024x576.png"
-          />
-        </Col>
-        <Col class="my-auto pl-4">
-          <SongList />
-        </Col>
-        <Col class="my-auto">
-          <Button variant="flat">
-            <Archive style={{ color: '#979696' }} />
-          </Button>
-          <Button variant="flat">
-            <CardGiftcard style={{ color: '#979696' }} />
-          </Button>
-        </Col>
-      </Row>
-      <Row class="pt-4">
-        <h3>Playlist 2</h3>
-      </Row>
-      <Row>
-        <Col xs={4}>
-          <Image
-            fluid
-            src="https://wp-en.oberlo.com/wp-content/uploads/2019/04/image13-1-1024x576.png"
-          />
-        </Col>
-        <Col class="my-auto pl-4">
-          <SongList />
-        </Col>
-        <Col class="my-auto">
-          <Button variant="flat">
-            <Archive style={{ color: '#979696' }} />
-          </Button>
-          <Button variant="flat">
-            <CardGiftcard style={{ color: '#979696' }} />
-          </Button>
-        </Col>
-      </Row>
-      <Row class="pt-4">
-        <h3>Playlist 3</h3>
-      </Row>
-      <Row>
-        <Col xs={4}>
-          <Image
-            fluid
-            src="https://wp-en.oberlo.com/wp-content/uploads/2019/04/image13-1-1024x576.png"
-          />
-        </Col>
-        <Col class="my-auto pl-4">
-          <SongList />
-        </Col>
-        <Col class="my-auto">
-          <Button variant="flat">
-            <Archive style={{ color: '#979696' }} />
-          </Button>
-          <Button variant="flat">
-            <CardGiftcard style={{ color: '#979696' }} />
-          </Button>
-        </Col>
-      </Row>
-    </Container>
-  );
+  return data.playlists.map((p) => {
+    return (
+      <PlaylistItem
+        key={p.id}
+        name={p.name}
+        owner={p.owner}
+        songs={p.songs}></PlaylistItem>
+    );
+  });
 };
 
 export default PlaylistBody;
