@@ -24,6 +24,9 @@ import NewPlaylistPopup from './NewPlaylistPopup';
 import MyPlaylistsPopup from './MyPlaylistsPopup';
 import PlaylistEditItem from './PlaylistEditItem';
 import PlaylistEditorBody from './PlaylistEditorBody';
+import PlaylistsBody from './PlaylistsBody';
+import ProfileDetails from './ProfileDetails';
+import SearchResultBody from './SearchResultBody';
 import ProfileClickPopup from './ProfileClickPopup';
 import PlaylistItem from './PlaylistItem';
 import PlaylistResult from './PlaylistResult';
@@ -66,6 +69,9 @@ export {
   NewPlaylistPopup,
   PlaylistEditItem,
   PlaylistEditorBody,
+  PlaylistsBody,
+  ProfileDetails,
+  SearchResultBody,
   ProfileClickPopup,
   PlaylistItem,
   PlaylistResult,

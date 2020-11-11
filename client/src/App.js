@@ -14,6 +14,7 @@ import {
   NotFound,
   PlaylistEditor,
   Profile,
+  SearchResults,
   Friends,
   Gifts,
   Homepage,
@@ -28,6 +29,7 @@ function App() {
         <Route exact path="/discover" component={Discover} />
         <Route exact path="/playlists" component={MyPlaylists} />
         <Route exact path="/profile" component={Profile} />
+        <Route exact path="/searchResults" component={SearchResults} />
         <Route exact path="/edit" component={PlaylistEditor} />
         <Route exact path="/friends" component={Friends} />
         <Route exact path="/gifts" component={Gifts} />
