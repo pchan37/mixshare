@@ -20,6 +20,7 @@ import GiftBody from './GiftBody';
 import GiftItem from './GiftItem';
 import HorizontalThumbnail from './HorizontalThumbnail';
 import MyPlaylistsBody from './MyPlaylistsBody';
+import NewPlaylistPopup from './NewPlaylistPopup';
 import MyPlaylistsPopup from './MyPlaylistsPopup';
 import PlaylistEditItem from './PlaylistEditItem';
 import PlaylistEditorBody from './PlaylistEditorBody';
@@ -62,6 +63,7 @@ export {
   HorizontalThumbnail,
   MyPlaylistsBody,
   MyPlaylistsPopup,
+  NewPlaylistPopup,
   PlaylistEditItem,
   PlaylistEditorBody,
   ProfileClickPopup,
