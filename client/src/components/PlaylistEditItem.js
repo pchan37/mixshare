@@ -3,7 +3,7 @@ import PropsType from 'prop-types';
 
 import { Button, OverlayTrigger, Popover } from 'react-bootstrap';
 import { CardGiftcard, Delete } from '@material-ui/icons';
-import HorizontalThumbnail from './HorizontalThumbnail';
+import { HorizontalThumbnail } from './';
 import SimpleUser from './SimpleUser';
 
 import data from '../placeholders/data';

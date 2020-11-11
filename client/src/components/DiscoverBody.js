@@ -3,12 +3,13 @@ import Axios from 'axios';
 
 import { Button, Container, Form } from 'react-bootstrap';
 
-import { DiscoverHome, DiscoverSearch } from './';
+import { DiscoverHome, DiscoverSearch, Thumbnail } from './';
 import data from '../placeholders/data';
 
 import SearchIcon from '@material-ui/icons/Search';
 
 const ChooseDisplay = (props) => {
+  console.log(props);
   if (!(props.query === '')) {
     return (
       <DiscoverSearch
@@ -74,27 +75,6 @@ function DiscoverBody() {
             </span>
           </Form>
         </Container>
-      </div>
-      <div className="d-flex flex-column">
-        <h5>Top Songs</h5>
-        <div className="d-flex flex-row">
-          {data.songs.map((p) => {
-            return (
-              <Thumbnail key={p.id} name={p.name} artist={p.artist}></Thumbnail>
-            );
-          })}
-        </div>
-      </div>
-
-      <div className="d-flex flex-column">
-        <h5>Top Playlists</h5>
-        <div className="d-flex flex-row">
-          {data.playlists.map((p) => {
-            return (
-              <Thumbnail key={p.id} name={p.name} artist={p.owner}></Thumbnail>
-            );
-          })}
-        </div>
       </div>
       <ChooseDisplay
         query={query}
