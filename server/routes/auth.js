@@ -2,29 +2,33 @@ const express = require('express');
 const router = express.Router();
 const passport = require('passport');
 
+const bcrypt = require('bcrypt');
 const { v4: uuid } = require('uuid');
 
 const { User } = require('../database/models');
 
-function UserErrorResponse(res, statusCode, message) {
+function UserErrorResponse(res, statusCode, message, additionalFields = {}) {
   return res.status(statusCode).json({
     statusType: 'warning',
     statusMessage: message,
+    ...additionalFields,
   });
 }
 
-function SuccessResponse(res, statusCode, message) {
+function SuccessResponse(res, statusCode, message, additionalFields = {}) {
   return res.status(statusCode).json({
     statusType: 'success',
     statusMessage: message,
+    ...additionalFields,
   });
 }
 
-function ServerErrorResponse(res) {
+function ServerErrorResponse(res, additionalFields = {}) {
   return res.status(500).json({
     statusType: 'error',
     statusMessage:
       'Sorry, we cannot process your request right now.  Please try again later!',
+    ...additionalFields,
   });
 }
 
@@ -39,25 +43,27 @@ router.get('/user', (req, res) => {
 });
 
 // POST /login: attempt to log the client in
-router.post('/login', async (req, res) => {
+router.post('/login', async (req, res, next) => {
   try {
-    passport.authenticate('local', (err, user, _) => {
+    passport.authenticate('local', (err, user, info) => {
       if (err) {
         next(err);
       }
-      if (user === null || user === undefined) {
+      console.log('User in POST /login', user);
+      if (!user) {
         console.log('User could not be found.');
-        return UserErrorResponse(res, 404, 'User could not be found.');
+        return UserErrorResponse(res, 401, 'Invalid username or password.');
       }
-      req.login(user, async (loginErr) => {
+
+      req.login(user, (loginErr) => {
         if (loginErr) {
           return next(loginErr);
         }
-        return SuccessResponse(res, 200, 'Logged in successfully!');
+        return SuccessResponse(res, 200, 'Successfully logged in!');
       });
     })(req, res, next);
   } catch (err) {
-    console.log(`Encountered "${err.message}" while logging user in.`);
+    console.log(`B: Encountered "${err.message}" while logging user in.`);
     return ServerErrorResponse(res);
   }
 });
@@ -94,6 +100,7 @@ router.post('/register', async (req, res) => {
       return SuccessResponse(res, 200, 'Account created successfully!');
     }
   } catch (err) {
+    console.log(`Encountered error when registering: ${err.message}`);
     return ServerErrorResponse(res);
   }
 });
@@ -101,8 +108,10 @@ router.post('/register', async (req, res) => {
 // POST /logout: delete the client's session
 router.post('/logout', async (req, res) => {
   req.logout();
-  req.session.destroy();
-  res.redirect('/');
+  req.session.destroy((_) => {
+    res.clearCookie('sid');
+    return res.redirect('/');
+  });
 });
 
 module.exports = router;

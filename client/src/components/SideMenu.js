@@ -1,5 +1,7 @@
 import React from 'react';
 
+import Axios from 'axios';
+import { useHistory } from 'react-router-dom';
 import { Nav, Navbar, OverlayTrigger, Popover } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import { AccountCircle } from '@material-ui/icons';
@@ -11,28 +13,36 @@ const LargerNavLink = styled(Nav.Link)`
   font-size: 25px;
 `;
 
-const ProfileClickPopup = (
-  <Popover>
-    <Popover.Content>
-      <Navbar className="p-0">
-        <Nav className="flex-column">
-          <LinkContainer to="/profile">
-            <Nav.Link>Profile</Nav.Link>
-          </LinkContainer>
-          <LinkContainer to="/account" className="border-bottom">
-            <Nav.Link>Manage Account</Nav.Link>
-          </LinkContainer>
-
-          <LinkContainer to="/">
-            <Nav.Link>Logout</Nav.Link>
-          </LinkContainer>
-        </Nav>
-      </Navbar>
-    </Popover.Content>
-  </Popover>
-);
-
 const SideMenu = () => {
+  const history = useHistory();
+
+  const logoutHandler = () => {
+    Axios.post('/api/auth/logout').then(() => {
+      history.push('/');
+    });
+  };
+
+  const ProfileClickPopup = (
+    <Popover>
+      <Popover.Content>
+        <Navbar className="p-0">
+          <Nav className="flex-column">
+            <LinkContainer to="/profile">
+              <Nav.Link>Profile</Nav.Link>
+            </LinkContainer>
+            <LinkContainer to="/account" className="border-bottom">
+              <Nav.Link>Manage Account</Nav.Link>
+            </LinkContainer>
+
+            <LinkContainer to="#" onClick={logoutHandler}>
+              <Nav.Link>Logout</Nav.Link>
+            </LinkContainer>
+          </Nav>
+        </Navbar>
+      </Popover.Content>
+    </Popover>
+  );
+
   return (
     <div
       style={{ height: '100vh', width: '15vw' }}
