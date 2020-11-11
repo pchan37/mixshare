@@ -19,7 +19,6 @@ import FriendItem from './FriendItem';
 import GiftBody from './GiftBody';
 import GiftItem from './GiftItem';
 import HorizontalThumbnail from './HorizontalThumbnail';
-import LoginForm from './LoginForm';
 import MyPlaylistsBody from './MyPlaylistsBody';
 import MyPlaylistsPopup from './MyPlaylistsPopup';
 import PlaylistEditItem from './PlaylistEditItem';
@@ -32,7 +31,6 @@ import PlaylistsBody from './PlaylistsBody';
 import ProfileDetails from './ProfileDetails';
 import SearchResultItem from './SearchResultItem';
 import SideMenu from './SideMenu';
-import SignUpForm from './SignUpForm';
 import SignUpLogin from './SignUpLogin';
 import SimplePlaylist from './SimplePlaylist';
 import SimpleUser from './SimpleUser';
@@ -62,7 +60,6 @@ export {
   GiftBody,
   GiftItem,
   HorizontalThumbnail,
-  LoginForm,
   MyPlaylistsBody,
   MyPlaylistsPopup,
   PlaylistEditItem,
@@ -75,7 +72,6 @@ export {
   ProfileDetails,
   SearchResultItem,
   SideMenu,
-  SignUpForm,
   SignUpLogin,
   SimplePlaylist,
   SimpleUser,
