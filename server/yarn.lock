@@ -704,7 +704,7 @@ google-p12-pem@^3.0.3:
   dependencies:
     node-forge "^0.10.0"
 
-googleapis-common@^4.4.1:
+googleapis-common@^4.4.0, googleapis-common@^4.4.1:
   version "4.4.3"
   resolved "https://registry.yarnpkg.com/googleapis-common/-/googleapis-common-4.4.3.tgz#a2063adf17b14501a5f426b9cb0685496d835b7d"
   integrity sha512-W46WKCk3QtlCCfmZyQIH5zxmDOyeV5Qj+qs7nr2ox08eRkEJMWp6iwv542R/PsokXaGUSrmif4vCC4+rGzRSsQ==
@@ -715,6 +715,14 @@ googleapis-common@^4.4.1:
     qs "^6.7.0"
     url-template "^2.0.8"
     uuid "^8.0.0"
+
+googleapis@^54.1.0:
+  version "54.1.0"
+  resolved "https://registry.yarnpkg.com/googleapis/-/googleapis-54.1.0.tgz#b0b91bad3c48f5286732ea13ac5c9b77202f75e9"
+  integrity sha512-xkBk3wRRYeJxEp9bVyAaYQM7qt3Eo3wBoznk+XnXbcSAjhl+M7icsUGb6VGNbZJfvpKAU7/tfhsed50pfs/jmA==
+  dependencies:
+    google-auth-library "^6.0.0"
+    googleapis-common "^4.4.0"
 
 googleapis@^64.0.0:
   version "64.0.0"
@@ -1937,3 +1945,10 @@ yallist@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/yallist/-/yallist-4.0.0.tgz#9bb92790d9c0effec63be73519e11a35019a3a72"
   integrity sha512-3wdGidZyq5PB084XLES5TpOSRA3wjXAlIWMhum2kRcv/41Sn2emQ0dycQW4uZXLejwKvg6EsvbdlVL+FYEct7A==
+
+youtube-api@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/youtube-api/-/youtube-api-3.0.1.tgz#3cf8e7ce9dfa772ac09716cf1e87ab563131457f"
+  integrity sha512-r3N8xmE46desGsnTRD1KRiYnfPKElgp1BDMfeCkpyTMrE1qkTb8DxtJrQjEJxFpCE4s6xIQZa/cnWtTbOoNlkA==
+  dependencies:
+    googleapis "^54.1.0"
