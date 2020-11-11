@@ -74,6 +74,11 @@ const data = {
       artist: 'Asia',
     },
   ],
+  playlists: [
+    { id: 1, owner: '2', name: '2020 Bops' },
+    { id: 2, owner: '1', name: 'Good Songs to Cry To' },
+    { id: 3, owner: '3', name: 'That Airport Feeling' },
+  ],
   songRecommendations: [
     {
       id: 1,
@@ -95,6 +100,11 @@ const data = {
       gifter: 'Jo',
       message: 'Wassup!',
     },
+  ],
+  playlists: [
+    { id: 1, owner: '2', name: '2020 Bops' },
+    { id: 2, owner: '1', name: 'Good Songs to Cry To' },
+    { id: 3, owner: '3', name: 'That Airport Feeling' },
   ],
   playlistRecommendations: [
     {
@@ -123,6 +133,36 @@ const data = {
       artist: 'Taylor Swift',
       gifter: 'Jo',
       message: 'Hope you enjoy!',
+    },
+  ],
+  playlists: [
+    {
+      id: 1,
+      name: 'Hello World',
+      owner: 'Jo',
+      songs: ['Hello by A1', 'Goodbye by A2', 'Blah Blah by A3', 'Bloop by A4'],
+    },
+    {
+      id: 2,
+      name: 'Car Jam',
+      owner: 'Jasmine',
+      songs: [
+        'Happy Birthday by Me',
+        'Let It Go by Elsa',
+        'Blank Space by Taylor Swift',
+        'Idk by A5',
+      ],
+    },
+    {
+      id: 3,
+      name: 'Random Mix',
+      owner: 'Patrick',
+      songs: [
+        'Sleep? Haha by Patrick',
+        'What is this by Jasmine',
+        'I Want to Ded by Jo',
+        'Save Us by MixShare',
+      ],
     },
   ],
 };
