@@ -1,6 +1,5 @@
 import React from 'react';
 
-import { Image } from 'react-bootstrap';
 import { AccountCircle } from '@material-ui/icons';
 
 const AvatarNameSmall = () => {

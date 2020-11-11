@@ -4,7 +4,7 @@ import { Button, OverlayTrigger } from 'react-bootstrap';
 import { Add } from '@material-ui/icons';
 import { PlaylistsBody, NewPlaylistPopup } from './';
 
-const PlaylistSearchBody = () => {
+const MyPlaylistsBody = () => {
   return (
     <>
       <div
@@ -31,4 +31,4 @@ const PlaylistSearchBody = () => {
   );
 };
 
-export default PlaylistSearchBody;
+export default MyPlaylistsBody;

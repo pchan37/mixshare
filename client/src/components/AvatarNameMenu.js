@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Button, Image, OverlayTrigger } from 'react-bootstrap';
+import { Button, OverlayTrigger } from 'react-bootstrap';
 import { ProfileClickPopup } from './';
 import { AccountCircle } from '@material-ui/icons';
 

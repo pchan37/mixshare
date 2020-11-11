@@ -1,20 +1,138 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 
-import { Tabs, Tab } from 'react-bootstrap';
-import { SignUpForm, LoginForm } from './';
+import Axios from 'axios';
+import { Alert, Button, Col, Form, Row, Tabs, Tab } from 'react-bootstrap';
 
 const SignUpLogin = () => {
+  const [tabKey, setTabKey] = useState('signup');
+  const [registerStatus, setRegisterStatus] = useState(null);
+  const [loginStatus, setLoginStatus] = useState(null);
+
+  const history = useHistory();
+
+  const handleRegister = async (event) => {
+    event.preventDefault();
+    const form = event.target;
+
+    try {
+      const res = await Axios.post('/api/auth/register', {
+        username: form.elements.username.value,
+        password: form.elements.password.value,
+        confirmationPassword: form.elements.confirmationPassword.value,
+      });
+      console.log(res.data);
+      setLoginStatus(res.data);
+      setTabKey('login');
+    } catch (err) {
+      console.log(err.response);
+      setRegisterStatus(err.response.data);
+    }
+  };
+
+  const handleLogin = async (event) => {
+    event.preventDefault();
+    const form = event.target;
+
+    try {
+      const res = await Axios.post('/api/auth/login', {
+        username: form.elements.username.value,
+        password: form.elements.password.value,
+      });
+      history.push('/discover');
+      console.log(res.data);
+    } catch (err) {
+      console.log(err.response);
+      setLoginStatus(err.response.data);
+    }
+  };
+
   return (
     <Tabs
-      defaultActiveKey="signup"
       transition={false}
       id="signuptab"
-      className="w-75">
+      className="w-75"
+      activeKey={tabKey}
+      onSelect={(k) => setTabKey(k)}>
       <Tab eventKey="signup" title="SignUp">
-        <SignUpForm />
+        {registerStatus && (
+          <div className="mt-3">
+            <Alert
+              variant={
+                registerStatus.statusType === 'success' ? 'success' : 'danger'
+              }>
+              {registerStatus.statusMessage}
+            </Alert>
+          </div>
+        )}
+
+        <Form className="w-75 px-5" onSubmit={handleRegister}>
+          <Form.Group controlId="username" className="pt-5">
+            <Form.Control
+              type="username"
+              name="username"
+              placeholder="Username"
+            />
+          </Form.Group>
+          <Form.Group controlId="password" className="pt-2">
+            <Form.Control
+              type="password"
+              name="password"
+              placeholder="Password"
+            />
+          </Form.Group>
+          <Form.Group className="pt-2">
+            <Form.Control
+              type="password"
+              name="confirmationPassword"
+              placeholder="Confirm Password"
+            />
+          </Form.Group>
+          <Row>
+            <Col style={{ textAlign: 'center' }} className="pt-2">
+              <Button variant="outline-primary" type="submit">
+                Sign Up
+              </Button>
+            </Col>
+          </Row>
+        </Form>
       </Tab>
       <Tab eventKey="login" title="Login">
-        <LoginForm />
+        {loginStatus && (
+          <div className="mt-3">
+            <Alert
+              variant={
+                loginStatus.statusType === 'success' ? 'success' : 'danger'
+              }>
+              {loginStatus.statusMessage}
+            </Alert>
+          </div>
+        )}
+
+        <Form className="w-75 px-5" onSubmit={handleLogin}>
+          <Form.Group controlId="username" className="pt-5">
+            <Form.Control
+              type="username"
+              name="username"
+              placeholder="Username"
+            />
+          </Form.Group>
+          <Form.Group controlId="password" className="pt-3">
+            <Form.Control
+              type="password"
+              name="password"
+              placeholder="Password"
+            />
+          </Form.Group>
+          <div style={{ height: '15px' }}></div>
+          <Row>
+            <Col style={{ textAlign: 'center' }}>
+              <Button variant="outline-primary" type="submit">
+                Login
+              </Button>
+            </Col>
+          </Row>
+        </Form>
       </Tab>
     </Tabs>
   );
