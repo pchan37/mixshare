@@ -5,7 +5,10 @@ import { Nav, Popover } from 'react-bootstrap';
 const ProfileClickPopup = (
   <Popover id="popover-basic">
     <Popover.Content>
-      <Nav className="flex-column">
+      <Nav
+        activeKey="/"
+        onSelect={(selectedKey) => alert(`selected ${selectedKey}`)}
+        className="flex-column">
         <Nav.Item>
           <Nav.Link href="#">Profile</Nav.Link>
         </Nav.Item>

@@ -20,6 +20,7 @@ import GiftBody from './GiftBody';
 import GiftItem from './GiftItem';
 import HorizontalThumbnail from './HorizontalThumbnail';
 import MyPlaylistsBody from './MyPlaylistsBody';
+import NewPlaylistPopup from './NewPlaylistPopup';
 import MyPlaylistsPopup from './MyPlaylistsPopup';
 import PlaylistEditItem from './PlaylistEditItem';
 import PlaylistEditorBody from './PlaylistEditorBody';
@@ -29,8 +30,8 @@ import SearchResultBody from './SearchResultBody';
 import ProfileClickPopup from './ProfileClickPopup';
 import PlaylistItem from './PlaylistItem';
 import PlaylistResult from './PlaylistResult';
-import PlaylistSearchBody from './PlaylistSearchBody';
 import PlaylistsBody from './PlaylistsBody';
+import PlaylistSearchBody from './PlaylistSearchBody';
 import ProfileDetails from './ProfileDetails';
 import SearchResultItem from './SearchResultItem';
 import SideMenu from './SideMenu';
@@ -65,6 +66,7 @@ export {
   HorizontalThumbnail,
   MyPlaylistsBody,
   MyPlaylistsPopup,
+  NewPlaylistPopup,
   PlaylistEditItem,
   PlaylistEditorBody,
   PlaylistsBody,
