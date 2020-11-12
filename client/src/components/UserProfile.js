@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Container, Row } from 'react-bootstrap';
-import { ProfileDetails, PlaylistsBody } from './';
+import { ProfileDetails, PlaylistItemList } from './';
 
 const UserProfile = () => {
   return (
@@ -10,7 +10,7 @@ const UserProfile = () => {
         <ProfileDetails />
       </Row>
       <Row>
-        <PlaylistsBody />
+        <PlaylistItemList />
       </Row>
     </Container>
   );

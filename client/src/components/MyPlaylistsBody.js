@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Button, OverlayTrigger } from 'react-bootstrap';
 import { Add } from '@material-ui/icons';
-import { PlaylistsBody, NewPlaylistPopup } from './';
+import { PlaylistItemList, NewPlaylistPopup } from './';
 
 const MyPlaylistsBody = () => {
   return (
@@ -26,7 +26,7 @@ const MyPlaylistsBody = () => {
           </OverlayTrigger>
         </div>
       </div>
-      <PlaylistsBody />
+      <PlaylistItemList />
     </>
   );
 };
