@@ -9,7 +9,6 @@ import data from '../placeholders/data';
 import SearchIcon from '@material-ui/icons/Search';
 
 const ChooseDisplay = (props) => {
-  console.log(props);
   if (!(props.query === '')) {
     return (
       <DiscoverSearch

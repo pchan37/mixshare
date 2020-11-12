@@ -3,7 +3,7 @@ import PropsType from 'prop-types';
 
 import { Button, OverlayTrigger, Popover } from 'react-bootstrap';
 import { CardGiftcard, Delete } from '@material-ui/icons';
-import { HorizontalThumbnail } from './';
+import { HorizontalThumbnail, FriendListPopup } from './';
 import SimpleUser from './SimpleUser';
 
 import data from '../placeholders/data';
@@ -31,15 +31,7 @@ const PlaylistEditItem = (props) => {
         <HorizontalThumbnail name={props.name} artist={props.artist} />
       </div>
 
-      <OverlayTrigger
-        placement="left"
-        delay={{ show: 250, hide: 400 }}
-        overlay={CardGiftPopup}
-        trigger="click">
-        <Button variant="flat">
-          <CardGiftcard style={{ color: '#979696' }} />
-        </Button>
-      </OverlayTrigger>
+      <FriendListPopup />
 
       <Button variant="flat">
         <Delete style={{ color: '#979696' }} />
