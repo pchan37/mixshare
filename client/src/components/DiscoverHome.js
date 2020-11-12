@@ -44,6 +44,7 @@ const DiscoverHome = (props) => {
           arrowRight={ArrowRight}
           selected={songSelected}
           onSelect={onSongSelect}
+          wheel={false}
         />
       </div>
 
@@ -59,6 +60,7 @@ const DiscoverHome = (props) => {
           arrowRight={ArrowRight}
           selected={playlistSelected}
           onSelect={onPlaylistSelect}
+          wheel={false}
         />
       </div>
     </div>
