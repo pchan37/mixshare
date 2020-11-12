@@ -1,15 +1,32 @@
-import React from 'react';
-
+import React, { useState, useEffect } from 'react';
+import Axios from 'axios';
 import { Container, Row, Col, Button, OverlayTrigger } from 'react-bootstrap';
 import EditIcon from '@material-ui/icons/Edit';
 import { ChangeUsernamePopup, ChangePasswordPopup } from './';
 
-const AccountDetails = () => {
+function AccountDetails() {
+  const [username, updateUsername] = useState('');
+
+  // Gets username from database and updates username state
+  const getUsername = async () => {
+    try {
+      const usernameRes = await Axios.get('/api/auth/user');
+      updateUsername(usernameRes.data.username);
+    } catch {
+      console.log('Error retrieving username');
+    }
+  };
+
+  // called on load
+  useEffect(() => {
+    getUsername();
+  });
+
   return (
     <Container style={{ paddingTop: 70 }}>
       <Row>
         <Col>
-          <label>Username: JohnSmith</label>
+          <label>Username: {username}</label>
         </Col>
         <Col>
           <OverlayTrigger
@@ -41,6 +58,6 @@ const AccountDetails = () => {
       </Row>
     </Container>
   );
-};
+}
 
 export default AccountDetails;
