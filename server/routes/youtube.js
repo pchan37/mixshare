@@ -32,11 +32,11 @@ Youtube.authenticate({
   key: API_KEY,
 });
 
-//search youtube API
+// search youtube API given query
 router.post('/songs', async (req, res) => {
   q = req.body.query;
+  console.log('Youtube:', q);
 
-  console.log('Youtube');
   var results = Youtube.search.list({
     part: 'snippet',
     maxResults: 10,
@@ -47,6 +47,7 @@ router.post('/songs', async (req, res) => {
   results.then((r) => res.send(r.data.items));
 });
 
+// searches playlists from sample Playlists
 router.post('/playlists', async (req, res) => {
   var matchedPlaylists = [];
   samplePlaylists.playlists.filter(function (playlist) {
