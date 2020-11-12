@@ -3,7 +3,7 @@ import Axios from 'axios';
 
 import { Button, Container, Form } from 'react-bootstrap';
 
-import { DiscoverHome, DiscoverSearch, Thumbnail } from './';
+import { DiscoverHome, DiscoverSearch } from './';
 import data from '../placeholders/data';
 
 import SearchIcon from '@material-ui/icons/Search';
