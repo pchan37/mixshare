@@ -9,7 +9,7 @@ const NewPlaylistPopup = (
         <Form.Group>
           <Form.Control type="name" placeholder="Name of Playlist" />
         </Form.Group>
-        <Button>Submit</Button>
+        <Button>Create</Button>
       </Form>
     </Popover.Content>
   </Popover>
