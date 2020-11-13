@@ -13,7 +13,6 @@ import DiscoverBody from './DiscoverBody';
 import DiscoverHome from './DiscoverHome';
 import DiscoverSearch from './DiscoverSearch';
 import DisplayThumbnails from './DisplayThumbnails';
-import FriendListPopup from './FriendListPopup';
 import FriendItem from './FriendItem';
 import FriendListPopup from './FriendListPopup';
 import FriendsBody from './FriendsBody';
