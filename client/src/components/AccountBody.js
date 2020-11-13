@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Container, Row, Col, Button, OverlayTrigger } from 'react-bootstrap';
-import { AccountDetails, DeleteAccountPopup, ChangeProfilePicPopup } from './';
+import { AccountDetails, DeleteAccountPopup, ChangeProfilePicPopup } from '.';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 
 const Account = () => {
