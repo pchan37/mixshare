@@ -4,11 +4,7 @@ const serverErrorStatusType = 'error';
 
 // Return a response with 200 status code and specified message
 exports.OK = (res, message, additionalFields = {}) => {
-  return res.status(200).json({
-    statusType: successStatusType,
-    statusMessage: message,
-    ...additionalFields,
-  });
+  return this.Success(res, 200, message, additionalFields);
 };
 
 // Return a response with specified status code and message
