@@ -1,11 +1,11 @@
 import React from 'react';
 
-import { MainPageLayout, Account } from '../components';
+import { MainPageLayout, AccountBody } from '../components';
 
 const AccountSettings = () => {
   return (
     <MainPageLayout>
-      <Account />
+      <AccountBody />
     </MainPageLayout>
   );
 };

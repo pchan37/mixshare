@@ -3,7 +3,7 @@ import AvatarNameSmall from './AvatarNameSmall';
 import Layout from './Layout';
 import MainPageLayout from './MainPageLayout';
 
-import Account from './Account';
+import AccountBody from './AccountBody';
 import AccountDetails from './AccountDetails';
 import ChangePasswordPopup from './ChangePasswordPopup';
 import ChangeProfilePicPopup from './ChangeProfilePicPopup';
@@ -42,7 +42,7 @@ import UserProfile from './UserProfile';
 export {
   Layout,
   MainPageLayout,
-  Account,
+  AccountBody,
   AccountDetails,
   AvatarNameMenu,
   AvatarNameSmall,
