@@ -1,6 +1,7 @@
 import React from 'react';
-
 import { Image } from 'react-bootstrap';
+
+import styled from 'styled-components';
 
 import PlayCircleOutlineOutlinedIcon from '@material-ui/icons/PlayCircleOutlineOutlined';
 import SkipPreviousIcon from '@material-ui/icons/SkipPrevious';
@@ -13,33 +14,54 @@ import MenuIcon from '@material-ui/icons/Menu';
 import FullscreenIcon from '@material-ui/icons/Fullscreen';
 import FullscreenExitIcon from '@material-ui/icons/FullscreenExit';
 
-const fixedMusicPlayerStyles = {
-  width: '85vw',
-  height: '15vh',
-};
+const FixedMusicPlayer = styled.div`
+  width: '85vw';
+  height: '15vw';
+`;
 
 const MusicPlayer = ({ expandedState, setExpandedState }) => {
+  const FullscreenButton = (
+    <FullscreenIcon
+      onClick={() => setExpandedState(!expandedState)}
+      style={{ color: '#979696', fontSize: 40, cursor: 'pointer' }}
+    />
+  );
+
+  const FullscreenExitButton = (
+    <FullscreenExitIcon
+      onClick={() => setExpandedState(!expandedState)}
+      style={{ color: '#979696', fontSize: 40, cursor: 'pointer' }}
+    />
+  );
+
+  const NormalVideo = (
+    <Image
+      fluid
+      style={{ height: '15vh' }}
+      src="https://wp-en.oberlo.com/wp-content/uploads/2019/04/image13-1-1024x576.png"
+    />
+  );
+
+  const ExpandedVideo = (
+    <div className="d-flex align-items-center justify-content-center">
+      <Image
+        fluid
+        src="https://wp-en.oberlo.com/wp-content/uploads/2019/04/image13-1-1024x576.png"
+      />
+    </div>
+  );
+
   return (
     <>
-      {expandedState && (
-        <div className="d-flex align-items-center justify-content-center">
-          <Image
-            fluid
-            src="https://wp-en.oberlo.com/wp-content/uploads/2019/04/image13-1-1024x576.png"
-          />
-        </div>
-      )}
-      <div style={fixedMusicPlayerStyles}>
-        <div className="d-flex align-items-center h-100">
-          {!expandedState && (
-            <Image
-              fluid
-              style={{ maxWidth: '16%' }}
-              src="https://wp-en.oberlo.com/wp-content/uploads/2019/04/image13-1-1024x576.png"
-            />
-          )}
+      {expandedState && ExpandedVideo}
 
-          <div className="d-flex align-items-center w-100">
+      <FixedMusicPlayer>
+        <div className="d-flex align-items-center h-100">
+          {!expandedState && NormalVideo}
+
+          <div
+            className="d-flex align-items-center w-100"
+            style={{ height: '15vh' }}>
             <div
               className="d-flex justify-content-center"
               style={{ backgroundColor: 'white', gap: '2rem', flex: '5' }}>
@@ -61,22 +83,11 @@ const MusicPlayer = ({ expandedState, setExpandedState }) => {
               style={{ backgroundColor: 'white', gap: '1rem' }}>
               <VolumeUpIcon style={{ color: '#979696', fontSize: 40 }} />
               <MenuIcon style={{ color: '#979696', fontSize: 40 }} />
-              {!expandedState && (
-                <FullscreenIcon
-                  onClick={() => setExpandedState(!expandedState)}
-                  style={{ color: '#979696', fontSize: 40, cursor: 'pointer' }}
-                />
-              )}
-              {expandedState && (
-                <FullscreenExitIcon
-                  onClick={() => setExpandedState(!expandedState)}
-                  style={{ color: '#979696', fontSize: 40, cursor: 'pointer' }}
-                />
-              )}
+              {expandedState ? FullscreenExitButton : FullscreenButton}
             </div>
           </div>
         </div>
-      </div>
+      </FixedMusicPlayer>
     </>
   );
 };

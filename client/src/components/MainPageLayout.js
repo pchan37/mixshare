@@ -6,6 +6,7 @@ import { MusicPlayer, SideMenu } from './';
 const pullDown = {
   bottom: 0,
   position: 'fixed',
+  width: '85vw',
 };
 
 const MainPageLayout = (props) => {
@@ -18,7 +19,7 @@ const MainPageLayout = (props) => {
         {!expandedState && (
           <div
             className="p-5"
-            style={{ width: '85vw', maxHeight: '85vh', overflowY: 'scroll' }}>
+            style={{ width: '85vw', maxHeight: '85vh', overflowY: 'auto' }}>
             {props.children}
           </div>
         )}
