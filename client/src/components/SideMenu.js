@@ -1,19 +1,23 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { useHistory } from 'react-router-dom';
 
 import Axios from 'axios';
-import { useHistory } from 'react-router-dom';
-import { Nav, Navbar, OverlayTrigger, Popover } from 'react-bootstrap';
-import { LinkContainer } from 'react-router-bootstrap';
-import { AccountCircle } from '@material-ui/icons';
 import styled from 'styled-components';
 
+import { Nav, Navbar, OverlayTrigger, Popover } from 'react-bootstrap';
+import { LinkContainer } from 'react-router-bootstrap';
+
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import Logo from '../assets/images/logo.png';
+
+import { UserContext } from '../contexts';
 
 const LargerNavLink = styled(Nav.Link)`
   font-size: 25px;
 `;
 
 const SideMenu = () => {
+  const { currentUser } = useContext(UserContext);
   const history = useHistory();
 
   const logoutHandler = () => {
@@ -22,7 +26,7 @@ const SideMenu = () => {
     });
   };
 
-  const ProfileClickPopup = (
+  const ProfilePopup = (
     <Popover>
       <Popover.Content>
         <Navbar className="p-0">
@@ -77,15 +81,15 @@ const SideMenu = () => {
             <OverlayTrigger
               placement="top-start"
               delay={{ show: 250, hide: 400 }}
-              overlay={ProfileClickPopup}
+              overlay={ProfilePopup}
               trigger="click">
               <LargerNavLink>
-                <AccountCircle
+                <AccountCircleIcon
                   fluid
                   className="mr-3"
                   style={{ fontSize: 50 }}
                 />
-                Profile
+                {currentUser.username}
               </LargerNavLink>
             </OverlayTrigger>
           </div>
