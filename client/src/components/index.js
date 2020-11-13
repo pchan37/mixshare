@@ -13,7 +13,6 @@ import DiscoverBody from './DiscoverBody';
 import DiscoverHome from './DiscoverHome';
 import DiscoverSearch from './DiscoverSearch';
 import DisplayThumbnails from './DisplayThumbnails';
-import FixedMusicPlayer from './FixedMusicPlayer';
 import FriendItem from './FriendItem';
 import FriendListPopup from './FriendListPopup';
 import FriendsBody from './FriendsBody';
@@ -31,14 +30,16 @@ import PlaylistItem from './PlaylistItem';
 import PlaylistItemList from './PlaylistItemList';
 import ProfileDetails from './ProfileDetails';
 import SearchResultItem from './SearchResultItem';
-import SideMenu from './SideMenu';
-import SignUpLogin from './SignUpLogin';
 import SimplePlaylist from './SimplePlaylist';
 import SimpleUser from './SimpleUser';
 import SongList from './SongList';
 import Thumbnail from './Thumbnail';
 import User from './User';
 import UserProfile from './UserProfile';
+
+import MusicPlayer from './MusicPlayer';
+import SideMenu from './SideMenu';
+import SignUpLogin from './SignUpLogin';
 
 export {
   Layout,
@@ -55,7 +56,6 @@ export {
   DiscoverHome,
   DiscoverSearch,
   DisplayThumbnails,
-  FixedMusicPlayer,
   FriendItem,
   FriendListPopup,
   FriendsBody,
@@ -81,4 +81,5 @@ export {
   Thumbnail,
   User,
   UserProfile,
+  MusicPlayer,
 };
