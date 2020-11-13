@@ -46,7 +46,11 @@ const SignUpLogin = () => {
       });
 
       setCurrentUser(res.data);
-      history.push(state?.from || '/discover');
+      if (state !== null && state !== undefined) {
+        history.push(state?.from || '/discover');
+      } else {
+        history.push('/discover');
+      }
     } catch (err) {
       setLoginStatus(err.response.data);
     }
