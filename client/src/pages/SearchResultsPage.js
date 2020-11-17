@@ -3,7 +3,7 @@ import React from 'react';
 import { SearchResultBody } from '../components';
 import { Layout } from '../layout';
 
-const SearchResults = () => {
+const SearchResultsPage = () => {
   return (
     <Layout>
       <SearchResultBody />
@@ -11,4 +11,4 @@ const SearchResults = () => {
   );
 };
 
-export default SearchResults;
+export default SearchResultsPage;

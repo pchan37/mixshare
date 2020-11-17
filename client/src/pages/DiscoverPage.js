@@ -3,7 +3,7 @@ import React from 'react';
 import { DiscoverBody } from '../components';
 import { Layout } from '../layout';
 
-const Discover = () => {
+const DiscoverPage = () => {
   return (
     <Layout>
       <DiscoverBody />
@@ -11,4 +11,4 @@ const Discover = () => {
   );
 };
 
-export default Discover;
+export default DiscoverPage;

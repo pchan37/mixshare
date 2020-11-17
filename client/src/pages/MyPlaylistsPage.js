@@ -3,7 +3,7 @@ import React from 'react';
 import { MyPlaylistsBody } from '../components';
 import { Layout } from '../layout';
 
-const MyPlaylists = () => {
+const MyPlaylistsPage = () => {
   return (
     <Layout>
       <MyPlaylistsBody />
@@ -11,4 +11,4 @@ const MyPlaylists = () => {
   );
 };
 
-export default MyPlaylists;
+export default MyPlaylistsPage;

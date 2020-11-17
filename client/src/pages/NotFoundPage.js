@@ -2,7 +2,7 @@ import React from 'react';
 
 import { BasicLayout } from '../layout';
 
-const NotFound = () => {
+const NotFoundPage = () => {
   return (
     <BasicLayout>
       <h1>404 Not Found</h1>
@@ -10,4 +10,4 @@ const NotFound = () => {
   );
 };
 
-export default NotFound;
+export default NotFoundPage;

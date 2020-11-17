@@ -3,7 +3,7 @@ import React from 'react';
 import { GiftBody } from '../components';
 import { Layout } from '../layout';
 
-const Gifts = () => {
+const GiftsPage = () => {
   return (
     <Layout>
       <GiftBody />
@@ -11,4 +11,4 @@ const Gifts = () => {
   );
 };
 
-export default Gifts;
+export default GiftsPage;

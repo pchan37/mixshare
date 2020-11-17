@@ -5,7 +5,7 @@ import { SignUpLogin } from '../components';
 import { BasicLayout } from '../layout';
 import Logo from '../assets/images/logo.png';
 
-const Homepage = () => {
+const HomePage = () => {
   return (
     <BasicLayout>
       <div style={{ height: '100vh', padding: '30vh 0 0 0' }}>
@@ -25,4 +25,4 @@ const Homepage = () => {
   );
 };
 
-export default Homepage;
+export default HomePage;

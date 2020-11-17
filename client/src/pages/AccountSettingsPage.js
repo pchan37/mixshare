@@ -3,7 +3,7 @@ import React from 'react';
 import { AccountBody } from '../components';
 import { Layout } from '../layout';
 
-const AccountSettings = () => {
+const AccountSettingsPage = () => {
   return (
     <Layout>
       <AccountBody />
@@ -11,4 +11,4 @@ const AccountSettings = () => {
   );
 };
 
-export default AccountSettings;
+export default AccountSettingsPage;
