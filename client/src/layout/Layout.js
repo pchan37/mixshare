@@ -32,7 +32,7 @@ const Layout = (props) => {
       <div className="flex-column flex-grow-1">
         {!expandedMusicPlayerState && PageBody}
         <div
-          className={expandedState ? '' : 'border-top'}
+          className={expandedMusicPlayerState ? '' : 'border-top'}
           style={musicPlayerStyle}>
           <MusicPlayer
             expandedState={expandedMusicPlayerState}
