@@ -1,12 +1,13 @@
 import React from 'react';
 
-import { MainPageLayout, GiftBody } from '../components';
+import { GiftBody } from '../components';
+import { Layout } from '../layout';
 
 const Gifts = () => {
   return (
-    <MainPageLayout>
+    <Layout>
       <GiftBody />
-    </MainPageLayout>
+    </Layout>
   );
 };
 

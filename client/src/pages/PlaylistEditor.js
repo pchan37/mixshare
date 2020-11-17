@@ -1,12 +1,13 @@
 import React from 'react';
 
-import { MainPageLayout, PlaylistEditorBody } from '../components';
+import { PlaylistEditorBody } from '../components';
+import { Layout } from '../layout';
 
 const Homepage = () => {
   return (
-    <MainPageLayout>
+    <Layout>
       <PlaylistEditorBody />
-    </MainPageLayout>
+    </Layout>
   );
 };
 

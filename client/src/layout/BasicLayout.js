@@ -1,12 +1,13 @@
 import React from 'react';
+
 import PropTypes from 'prop-types';
 
-const Layout = (props) => {
+const BasicLayout = (props) => {
   return <div style={{ height: '100vh' }}>{props.children}</div>;
 };
 
-Layout.propTypes = {
+BasicLayout.propTypes = {
   children: PropTypes.node,
 };
 
-export default Layout;
+export default BasicLayout;

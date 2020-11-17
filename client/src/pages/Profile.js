@@ -1,12 +1,13 @@
 import React from 'react';
 
-import { MainPageLayout, UserProfile } from '../components';
+import { UserProfile } from '../components';
+import { Layout } from '../layout';
 
 const Profile = () => {
   return (
-    <MainPageLayout>
+    <Layout>
       <UserProfile />
-    </MainPageLayout>
+    </Layout>
   );
 };
 

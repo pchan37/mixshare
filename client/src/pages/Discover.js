@@ -1,12 +1,13 @@
 import React from 'react';
 
-import { DiscoverBody, MainPageLayout } from '../components';
+import { DiscoverBody } from '../components';
+import { Layout } from '../layout';
 
 const Discover = () => {
   return (
-    <MainPageLayout>
+    <Layout>
       <DiscoverBody />
-    </MainPageLayout>
+    </Layout>
   );
 };
 

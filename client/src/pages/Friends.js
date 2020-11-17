@@ -1,12 +1,13 @@
 import React from 'react';
 
-import { MainPageLayout, FriendsBody } from '../components';
+import { FriendsBody } from '../components';
+import { Layout } from '../layout';
 
 const Friends = () => {
   return (
-    <MainPageLayout>
+    <Layout>
       <FriendsBody />
-    </MainPageLayout>
+    </Layout>
   );
 };
 

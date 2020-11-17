@@ -1,12 +1,13 @@
 import React from 'react';
 
 import { Container, Figure, Row, Col } from 'react-bootstrap';
-import { Layout, SignUpLogin } from '../components';
+import { SignUpLogin } from '../components';
+import { BasicLayout } from '../layout';
 import Logo from '../assets/images/logo.png';
 
 const Homepage = () => {
   return (
-    <Layout>
+    <BasicLayout>
       <div style={{ height: '100vh', padding: '30vh 0 0 0' }}>
         <Container>
           <Row>
@@ -20,7 +21,7 @@ const Homepage = () => {
           </Row>
         </Container>
       </div>
-    </Layout>
+    </BasicLayout>
   );
 };
 

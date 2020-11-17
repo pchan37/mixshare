@@ -1,12 +1,13 @@
 import React from 'react';
 
-import { MainPageLayout, AccountBody } from '../components';
+import { AccountBody } from '../components';
+import { Layout } from '../layout';
 
 const AccountSettings = () => {
   return (
-    <MainPageLayout>
+    <Layout>
       <AccountBody />
-    </MainPageLayout>
+    </Layout>
   );
 };
 

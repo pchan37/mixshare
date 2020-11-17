@@ -1,12 +1,13 @@
 import React from 'react';
 
-import { MainPageLayout, SearchResultBody } from '../components';
+import { SearchResultBody } from '../components';
+import { Layout } from '../layout';
 
 const SearchResults = () => {
   return (
-    <MainPageLayout>
+    <Layout>
       <SearchResultBody />
-    </MainPageLayout>
+    </Layout>
   );
 };
 

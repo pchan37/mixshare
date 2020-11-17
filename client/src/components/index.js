@@ -1,7 +1,5 @@
 import AvatarNameMenu from './AvatarNameMenu';
 import AvatarNameSmall from './AvatarNameSmall';
-import Layout from './Layout';
-import MainPageLayout from './MainPageLayout';
 
 import AccountBody from './AccountBody';
 import AccountDetails from './AccountDetails';
@@ -42,8 +40,6 @@ import SideMenu from './SideMenu';
 import SignUpLogin from './SignUpLogin';
 
 export {
-  Layout,
-  MainPageLayout,
   AccountBody,
   AccountDetails,
   AvatarNameMenu,
