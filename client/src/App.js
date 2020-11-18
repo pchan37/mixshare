@@ -12,16 +12,16 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 import { UserContext } from './contexts';
 import {
-  AccountSettings,
-  Discover,
-  Friends,
-  Gifts,
-  Homepage,
-  MyPlaylists,
-  NotFound,
-  PlaylistEditor,
-  Profile,
-  SearchResults,
+  AccountSettingsPage,
+  DiscoverPage,
+  FriendsPage,
+  GiftsPage,
+  HomePage,
+  MyPlaylistsPage,
+  NotFoundPage,
+  PlaylistEditorPage,
+  ProfilePage,
+  SearchResultsPage,
 } from './pages';
 
 function App() {
@@ -65,20 +65,24 @@ function App() {
     <UserContext.Provider value={{ currentUser, setCurrentUser }}>
       <Router>
         <Switch>
-          <Route exact path="/" component={Homepage} />
-          <ProtectedRoute exact path="/account" component={AccountSettings} />
-          <ProtectedRoute exact path="/discover" component={Discover} />
-          <ProtectedRoute exact path="/playlists" component={MyPlaylists} />
-          <ProtectedRoute exact path="/profile" component={Profile} />
+          <Route exact path="/" component={HomePage} />
+          <ProtectedRoute
+            exact
+            path="/account"
+            component={AccountSettingsPage}
+          />
+          <ProtectedRoute exact path="/discover" component={DiscoverPage} />
+          <ProtectedRoute exact path="/playlists" component={MyPlaylistsPage} />
+          <ProtectedRoute exact path="/profile" component={ProfilePage} />
           <ProtectedRoute
             exact
             path="/searchResults"
-            component={SearchResults}
+            component={SearchResultsPage}
           />
-          <ProtectedRoute exact path="/edit" component={PlaylistEditor} />
-          <ProtectedRoute exact path="/friends" component={Friends} />
-          <ProtectedRoute exact path="/gifts" component={Gifts} />
-          <Route path="/404" component={NotFound} />
+          <ProtectedRoute exact path="/edit" component={PlaylistEditorPage} />
+          <ProtectedRoute exact path="/friends" component={FriendsPage} />
+          <ProtectedRoute exact path="/gifts" component={GiftsPage} />
+          <Route path="/404" component={NotFoundPage} />
           <Redirect to="/404" />
         </Switch>
       </Router>
