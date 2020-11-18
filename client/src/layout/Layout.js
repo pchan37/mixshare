@@ -33,8 +33,8 @@ const Layout = (props) => {
 
   return (
     <div className="d-flex flex-row vh-100">
-      <SideMenu width={{ SideMenuWidth }} />
-      <div className="flex-column flex-grow-1">
+      <SideMenu width={SideMenuWidth} />
+      <div className="flex-column flex-grow-1 flex-shrink-1">
         {!expandedMusicPlayerState && PageBody}
         <div
           className={expandedMusicPlayerState ? '' : 'border-top'}
