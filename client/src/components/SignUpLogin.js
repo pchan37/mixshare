@@ -81,7 +81,7 @@ const SignUpLogin = () => {
           </div>
         )}
 
-        <Form className="w-75 px-5" onSubmit={handleRegister}>
+        <Form className="px-5" onSubmit={handleRegister}>
           <Form.Group controlId="username" className="pt-5">
             <Form.Control
               type="username"
@@ -124,7 +124,7 @@ const SignUpLogin = () => {
           </div>
         )}
 
-        <Form className="w-75 px-5" onSubmit={handleLogin}>
+        <Form className="px-5" onSubmit={handleLogin}>
           <Form.Group controlId="username" className="pt-5">
             <Form.Control
               type="username"

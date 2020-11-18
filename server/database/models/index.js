@@ -1,4 +1,4 @@
-const User = require('./User');
+const Account = require('./Account');
 const Playlist = require('./Playlist');
 
-module.exports = { Playlist, User };
+module.exports = { Account, Playlist };

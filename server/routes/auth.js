@@ -4,7 +4,7 @@ const passport = require('passport');
 const bcrypt = require('bcrypt');
 const { v4: uuid } = require('uuid');
 
-const { User } = require('../database/models');
+const { Account } = require('../database/models');
 const response = require('../lib').Response;
 
 const router = express.Router();
@@ -51,7 +51,7 @@ router.post('/login', async (req, res, next) => {
 router.post('/register', async (req, res) => {
   const { username, password, confirmationPassword } = req.body;
   try {
-    const user = await User.findOne({ username });
+    const user = await Account.findOne({ username });
     if (user !== null && user !== undefined) {
       console.log(`${username} already exists!`);
       return response.UserError(res, 400, `${username} already exists!`);
@@ -69,7 +69,7 @@ router.post('/register', async (req, res) => {
           return response.ServerError(res);
         }
 
-        await User.create({
+        await Account.create({
           username,
           password: hash,
           userId: `U-${uuid()}`,

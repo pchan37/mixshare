@@ -1,6 +1,6 @@
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
-const { User } = require('../database/models');
+const { Account } = require('../database/models');
 const bcrypt = require('bcrypt');
 
 const customFields = {
@@ -10,7 +10,7 @@ const customFields = {
 
 const verifyCallback = (username, password, done) => {
   console.log('Verifying auth callback.');
-  User.findOne({ username }, async function (err, user) {
+  Account.findOne({ username }, async (err, user) => {
     console.log(`Found user: ${user}`);
     if (user === undefined || user === null) {
       return done(null, false, {
@@ -46,7 +46,7 @@ passport.serializeUser((user, done) => {
 });
 
 passport.deserializeUser((userId, done) => {
-  User.findById(userId)
+  Account.findById(userId)
     .then((user) => {
       console.log(`Deserialized user... ${JSON.stringify(user)}`);
       done(null, user);
