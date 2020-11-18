@@ -1,14 +1,14 @@
 import React, { useContext } from 'react';
+import { Image, Nav, Navbar, OverlayTrigger, Popover } from 'react-bootstrap';
+import { LinkContainer } from 'react-router-bootstrap';
 import { useHistory } from 'react-router-dom';
 
 import Axios from 'axios';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import { Nav, Navbar, OverlayTrigger, Popover } from 'react-bootstrap';
-import { LinkContainer } from 'react-router-bootstrap';
-
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+
 import Logo from '../assets/images/logo.png';
 
 import { UserContext } from '../contexts';
@@ -57,16 +57,13 @@ const SideMenu = ({ width }) => {
     <SideMenuContainer
       className="d-flex flex-column border-right"
       width={width}>
-      <Navbar className="flex-column flex-grow-1" style={{ width }}>
-        <Nav className="flex-column flex-grow-1">
+      <Navbar
+        className="flex-column flex-grow-1 flex-shrink-1"
+        style={{ width }}>
+        <Nav className="flex-column flex-grow-1 flex-shrink-1">
           <LinkContainer to="/">
             <Navbar.Brand>
-              <img
-                src={Logo}
-                width="100%"
-                className="d-inline-block align-top"
-                alt="Mixshare"
-              />
+              <Image src={Logo} alt="Mixshare" fluid />
             </Navbar.Brand>
           </LinkContainer>
 
