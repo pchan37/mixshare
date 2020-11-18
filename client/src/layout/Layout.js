@@ -5,15 +5,20 @@ import styled from 'styled-components';
 
 import { MusicPlayer, SideMenu } from '../components';
 
+const MusicPlayerHeight = '15vh';
+const MusicPlayerWidth = '85vw';
+const PageBodyHeight = '85vh';
+const PageBodyWidth = MusicPlayerWidth;
+const SideMenuWidth = '15vw';
+
 const musicPlayerStyle = {
   bottom: 0,
   position: 'fixed',
-  width: '85vw',
 };
 
 const PageBodyContainer = styled.div`
-  width: 85vw;
-  max-height: 85vh;
+  width: ${PageBodyWidth};
+  height: ${PageBodyHeight};
   overflow-y: auto;
 `;
 
@@ -27,8 +32,8 @@ const Layout = (props) => {
   );
 
   return (
-    <div className="d-flex flex-row" style={{ maxHeight: '100vh' }}>
-      <SideMenu />
+    <div className="d-flex flex-row vh-100">
+      <SideMenu width={{ SideMenuWidth }} />
       <div className="flex-column flex-grow-1">
         {!expandedMusicPlayerState && PageBody}
         <div
@@ -36,7 +41,9 @@ const Layout = (props) => {
           style={musicPlayerStyle}>
           <MusicPlayer
             expandedState={expandedMusicPlayerState}
+            height={MusicPlayerHeight}
             setExpandedState={setExpandedMusicPlayerState}
+            width={MusicPlayerWidth}
           />
         </div>
       </div>
@@ -45,7 +52,7 @@ const Layout = (props) => {
 };
 
 Layout.propTypes = {
-  children: PropTypes.node,
+  children: PropTypes.node.isRequired,
 };
 
 export default Layout;
