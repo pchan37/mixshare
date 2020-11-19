@@ -1,11 +1,12 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Image } from 'react-bootstrap';
-import Youtube from 'react-youtube';
+import YouTube from 'react-youtube';
 
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import PlayCircleOutlineOutlinedIcon from '@material-ui/icons/PlayCircleOutlineOutlined';
+import PauseCircleOutlineIcon from '@material-ui/icons/PauseCircleOutline';
 import SkipPreviousIcon from '@material-ui/icons/SkipPrevious';
 import SkipNextIcon from '@material-ui/icons/SkipNext';
 import ShuffleIcon from '@material-ui/icons/Shuffle';
@@ -35,7 +36,11 @@ const FixedMusicPlayer = styled.div`
 `;
 
 const MusicPlayer = ({ expandedState, height, setExpandedState, width }) => {
-  const { currentlyPlaying } = useContext(CurrentlyPlayingContext);
+  const { currentlyPlaying, setCurrentlyPlaying } = useContext(
+    CurrentlyPlayingContext
+  );
+  const [player, setPlayer] = useState(null);
+  const [playing, setPlaying] = useState(false);
 
   const FullscreenButton = (
     <FullscreenIcon
@@ -63,7 +68,18 @@ const MusicPlayer = ({ expandedState, height, setExpandedState, width }) => {
 
   const NormalVideo = (
     <div style={{ height: '100%' }}>
-      <Youtube videoId={currentlyPlaying.song} id="player" opts={opts} />
+      <YouTube
+        videoId={currentlyPlaying.song}
+        id="player"
+        opts={opts}
+        onReady={(e) => {
+          setPlayer(e.target);
+          setPlaying(true);
+        }}
+        onEnd={() =>
+          setCurrentlyPlaying({ song: '', playlist: currentlyPlaying.playlist })
+        }
+      />
     </div>
   );
 
@@ -74,6 +90,26 @@ const MusicPlayer = ({ expandedState, height, setExpandedState, width }) => {
         src="https://wp-en.oberlo.com/wp-content/uploads/2019/04/image13-1-1024x576.png"
       />
     </div>
+  );
+
+  const PlayButton = (
+    <PlayCircleOutlineOutlinedIcon
+      style={largeIconStyle}
+      onClick={() => {
+        player.playVideo();
+        setPlaying(true);
+      }}
+    />
+  );
+
+  const PauseButton = (
+    <PauseCircleOutlineIcon
+      style={largeIconStyle}
+      onClick={() => {
+        player.pauseVideo();
+        setPlaying(false);
+      }}
+    />
   );
 
   return (
@@ -89,7 +125,7 @@ const MusicPlayer = ({ expandedState, height, setExpandedState, width }) => {
               className="d-flex justify-content-center"
               style={{ gap: '2rem', flex: '5' }}>
               <SkipPreviousIcon style={largeIconStyle} />
-              <PlayCircleOutlineOutlinedIcon style={largeIconStyle} />
+              {playing ? PauseButton : PlayButton}
               <SkipNextIcon style={largeIconStyle} />
             </div>
             <div

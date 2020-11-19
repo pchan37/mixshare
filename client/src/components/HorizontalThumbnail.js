@@ -17,6 +17,7 @@ const HorizontalThumbnail = (props) => {
             setCurrentlyPlaying({ song: props.ytID, playlist: '' });
             console.log(currentlyPlaying);
           }}
+          style={{ cursor: 'pointer' }}
           fluid
           src={props.thumbnail}
         />
