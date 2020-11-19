@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { Button, OverlayTrigger, Popover } from 'react-bootstrap';
+
 import { Add } from '@material-ui/icons';
 
 import SimplePlaylist from './SimplePlaylist';

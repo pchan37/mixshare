@@ -1,10 +1,10 @@
 import React from 'react';
 
-import { PlaylistItem } from './';
+import { PlaylistItem } from '.';
 
 import data from '../placeholders/data';
 
-const PlaylistBody = () => {
+const PlaylistItemList = () => {
   return data.playlists.map((p) => {
     return (
       <PlaylistItem
@@ -16,4 +16,4 @@ const PlaylistBody = () => {
   });
 };
 
-export default PlaylistBody;
+export default PlaylistItemList;

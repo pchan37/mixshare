@@ -1,21 +1,23 @@
-import AccountSettings from './AccountSettings';
-import Discover from './Discover';
-import Friends from './Friends';
-import Profile from './Profile';
-import Gifts from './Gifts';
-import Homepage from './Homepage';
-import MyPlaylists from './MyPlaylists';
-import NotFound from './NotFound';
-import PlaylistEditor from './PlaylistEditor';
+import AccountSettingsPage from './AccountSettingsPage';
+import DiscoverPage from './DiscoverPage';
+import FriendsPage from './FriendsPage';
+import ProfilePage from './ProfilePage';
+import GiftsPage from './GiftsPage';
+import HomePage from './HomePage';
+import MyPlaylistsPage from './MyPlaylistsPage';
+import NotFoundPage from './NotFoundPage';
+import PlaylistEditorPage from './PlaylistEditorPage';
+import SearchResultsPage from './SearchResultsPage';
 
 export {
-  AccountSettings,
-  Discover,
-  Friends,
-  Profile,
-  Gifts,
-  Homepage,
-  MyPlaylists,
-  NotFound,
-  PlaylistEditor,
+  AccountSettingsPage,
+  DiscoverPage,
+  FriendsPage,
+  ProfilePage,
+  GiftsPage,
+  HomePage,
+  MyPlaylistsPage,
+  NotFoundPage,
+  PlaylistEditorPage,
+  SearchResultsPage,
 };

@@ -1,15 +1,20 @@
-import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import React, { useContext, useEffect, useState } from 'react';
+import { useHistory, useLocation } from 'react-router-dom';
 
 import Axios from 'axios';
 import { Alert, Button, Col, Form, Row, Tabs, Tab } from 'react-bootstrap';
+
+import { UserContext } from '../contexts';
 
 const SignUpLogin = () => {
   const [tabKey, setTabKey] = useState('signup');
   const [registerStatus, setRegisterStatus] = useState(null);
   const [loginStatus, setLoginStatus] = useState(null);
 
+  const { setCurrentUser } = useContext(UserContext);
+
   const history = useHistory();
+  const { state } = useLocation();
 
   const handleRegister = async (event) => {
     event.preventDefault();
@@ -39,13 +44,23 @@ const SignUpLogin = () => {
         username: form.elements.username.value,
         password: form.elements.password.value,
       });
-      history.push('/discover');
-      console.log(res.data);
+
+      setCurrentUser(res.data);
+      history.push(state?.from || '/discover');
     } catch (err) {
-      console.log(err.response);
       setLoginStatus(err.response.data);
     }
   };
+
+  useEffect(() => {
+    if (state?.from !== undefined && state?.from !== null) {
+      setTabKey('login');
+      setLoginStatus({
+        status: 'warning',
+        statusMessage: 'You need to be logged in to view this page!',
+      });
+    }
+  }, [state?.from]);
 
   return (
     <Tabs
@@ -66,7 +81,7 @@ const SignUpLogin = () => {
           </div>
         )}
 
-        <Form className="w-75 px-5" onSubmit={handleRegister}>
+        <Form className="px-5" onSubmit={handleRegister}>
           <Form.Group controlId="username" className="pt-5">
             <Form.Control
               type="username"
@@ -109,7 +124,7 @@ const SignUpLogin = () => {
           </div>
         )}
 
-        <Form className="w-75 px-5" onSubmit={handleLogin}>
+        <Form className="px-5" onSubmit={handleLogin}>
           <Form.Group controlId="username" className="pt-5">
             <Form.Control
               type="username"

@@ -1,10 +1,31 @@
 import React from 'react';
+import {
+  Button,
+  Col,
+  Container,
+  Form,
+  OverlayTrigger,
+  Popover,
+  Row,
+} from 'react-bootstrap';
 
-import { Container, Row, Col, Button, OverlayTrigger } from 'react-bootstrap';
-import { AccountDetails, DeleteAccountPopup, ChangeProfilePicPopup } from './';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 
-const Account = () => {
+import { AccountDetails, DeleteAccountPopup } from './';
+
+const ChangeProfilePicPopup = (
+  <Popover id="popover-basic">
+    <Popover.Content>
+      <Form>
+        <Form.Group class="p-1">
+          <Form.File id="profile-pic" label="Select a Profile Picture" />
+        </Form.Group>
+      </Form>
+    </Popover.Content>
+  </Popover>
+);
+
+const AccountBody = () => {
   return (
     <Container class="px-0">
       <Row>
@@ -34,4 +55,4 @@ const Account = () => {
   );
 };
 
-export default Account;
+export default AccountBody;
