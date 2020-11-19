@@ -28,6 +28,7 @@ const DiscoverSearch = (props) => {
             return (
               <SearchResultItem
                 key={p.id.videoId}
+                ytID={p.id.videoId}
                 name={p.snippet.title}
                 artist={p.snippet.channelTitle}
                 thumbnail={p.snippet.thumbnails.medium.url}>

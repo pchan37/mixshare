@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Image } from 'react-bootstrap';
+import Youtube from 'react-youtube';
 
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
@@ -14,6 +15,8 @@ import VolumeUpIcon from '@material-ui/icons/VolumeUp';
 import MenuIcon from '@material-ui/icons/Menu';
 import FullscreenIcon from '@material-ui/icons/Fullscreen';
 import FullscreenExitIcon from '@material-ui/icons/FullscreenExit';
+
+import { CurrentlyPlayingContext } from '../contexts';
 
 const normalIconStyle = {
   color: '#979696',
@@ -32,6 +35,8 @@ const FixedMusicPlayer = styled.div`
 `;
 
 const MusicPlayer = ({ expandedState, height, setExpandedState, width }) => {
+  const { currentlyPlaying } = useContext(CurrentlyPlayingContext);
+
   const FullscreenButton = (
     <FullscreenIcon
       onClick={() => setExpandedState(!expandedState)}
@@ -46,12 +51,20 @@ const MusicPlayer = ({ expandedState, height, setExpandedState, width }) => {
     />
   );
 
+  var opts = {
+    height: '100px',
+    width: 'auto',
+    playerVars: {
+      // https://developers.google.com/youtube/player_parameters
+      controls: 0,
+      autoplay: 1,
+    },
+  };
+
   const NormalVideo = (
-    <Image
-      fluid
-      style={{ height }}
-      src="https://wp-en.oberlo.com/wp-content/uploads/2019/04/image13-1-1024x576.png"
-    />
+    <div style={{ height: '100%' }}>
+      <Youtube videoId={currentlyPlaying.song} id="player" opts={opts} />
+    </div>
   );
 
   const ExpandedVideo = (

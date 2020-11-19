@@ -33,7 +33,7 @@ router.post('/playlists', async (req, res) => {
   });
   res.send(matchedPlaylists);
 });
-
+/*
 const Youtube = require('youtube-api');
 const API_KEY = 'AIzaSyCqRkLe3nqTjE7yHIeqMn6jprdkEQPTec8';
 
@@ -66,5 +66,5 @@ router.post('/playlists', async (req, res) => {
   });
   res.send(matchedPlaylists);
 });
-
+*/
 module.exports = router;
