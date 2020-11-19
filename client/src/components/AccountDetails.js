@@ -131,11 +131,7 @@ function AccountDetails() {
             trigger="click"
             rootClose={true}>
             <Button variant="light">
-<<<<<<< HEAD
-              <EditIcon />
-=======
               <EditIcon style={{ color: '#979696' }} />
->>>>>>> main
             </Button>
           </OverlayTrigger>
         </Col>
@@ -151,11 +147,7 @@ function AccountDetails() {
             overlay={ChangePasswordPopup}
             trigger="click">
             <Button variant="light">
-<<<<<<< HEAD
-              <EditIcon />
-=======
               <EditIcon style={{ color: '#979696' }} />
->>>>>>> main
             </Button>
           </OverlayTrigger>
         </Col>

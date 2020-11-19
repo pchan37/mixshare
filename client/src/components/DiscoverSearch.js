@@ -25,7 +25,6 @@ const DiscoverSearch = (props) => {
         </Tab>
         <Tab eventKey="songsSearch" title="Songs" className="p-3">
           {props.songResults.map((p) => {
-            console.log(p);
             return (
               <SearchResultItem
                 key={p.id.videoId}
