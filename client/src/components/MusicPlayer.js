@@ -25,6 +25,12 @@ const normalIconStyle = {
   cursor: 'pointer',
 };
 
+const normalIconStyleActive = {
+  color: '#6efae5',
+  fontSize: 40,
+  cursor: 'pointer',
+};
+
 const largeIconStyle = {
   ...normalIconStyle,
   fontSize: 60,
@@ -41,6 +47,9 @@ const MusicPlayer = ({ expandedState, height, setExpandedState, width }) => {
   );
   const [player, setPlayer] = useState(null);
   const [playing, setPlaying] = useState(false);
+  const [loop, setLoop] = useState(currentlyPlaying.opts.playerVars.loop);
+
+  const playingContextCopy = { ...currentlyPlaying };
 
   const FullscreenButton = (
     <FullscreenIcon
@@ -56,29 +65,26 @@ const MusicPlayer = ({ expandedState, height, setExpandedState, width }) => {
     />
   );
 
-  var opts = {
-    height: '100px',
-    width: 'auto',
-    playerVars: {
-      // https://developers.google.com/youtube/player_parameters
-      controls: 0,
-      autoplay: 1,
-    },
-  };
-
+  //const MyYouTube = React.memo(YouTube);
   const NormalVideo = (
     <div style={{ height: '100%' }}>
       <YouTube
         videoId={currentlyPlaying.song}
         id="player"
-        opts={opts}
+        opts={currentlyPlaying.opts}
         onReady={(e) => {
           setPlayer(e.target);
           setPlaying(true);
         }}
-        onEnd={() =>
-          setCurrentlyPlaying({ song: '', playlist: currentlyPlaying.playlist })
-        }
+        onEnd={() => {
+          if (!loop) {
+            playingContextCopy.song = '';
+            playingContextCopy.opts.playerVars.loop = 0;
+            setCurrentlyPlaying(playingContextCopy);
+          } else {
+            setCurrentlyPlaying(playingContextCopy);
+          }
+        }}
       />
     </div>
   );
@@ -112,6 +118,28 @@ const MusicPlayer = ({ expandedState, height, setExpandedState, width }) => {
     />
   );
 
+  const LoopButtonInactive = (
+    <RepeatOneIcon
+      style={normalIconStyle}
+      onClick={() => {
+        setLoop(1);
+        playingContextCopy.opts.playerVars.loop = 1;
+        playingContextCopy.opts.playerVars.playlist = currentlyPlaying.song;
+      }}
+    />
+  );
+
+  const LoopButtonActive = (
+    <RepeatOneIcon
+      style={normalIconStyleActive}
+      onClick={() => {
+        setLoop(0);
+        playingContextCopy.opts.playerVars.loop = 0;
+        playingContextCopy.opts.playerVars.playlist = '';
+      }}
+    />
+  );
+
   return (
     <>
       {expandedState && ExpandedVideo}
@@ -133,7 +161,7 @@ const MusicPlayer = ({ expandedState, height, setExpandedState, width }) => {
               style={{ gap: '1rem' }}>
               <ShuffleIcon style={normalIconStyle} />
               <RepeatIcon style={normalIconStyle} />
-              <RepeatOneIcon style={normalIconStyle} />
+              {loop == 1 ? LoopButtonActive : LoopButtonInactive}
             </div>
             <div
               className="d-flex justify-content-center flex-grow-1 flex-shrink-1"

@@ -29,6 +29,16 @@ function App() {
   const [currentlyPlaying, setCurrentlyPlaying] = useState({
     song: '',
     playlist: '',
+    opts: {
+      height: '100px',
+      width: 'auto',
+      playerVars: {
+        controls: 0,
+        autoplay: 1,
+        loop: 0,
+        playlist: '',
+      },
+    },
   });
 
   useEffect(() => {

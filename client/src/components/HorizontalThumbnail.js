@@ -8,14 +8,16 @@ const HorizontalThumbnail = (props) => {
     CurrentlyPlayingContext
   );
 
+  const currentlyPlayingCopy = { ...currentlyPlaying };
+
   return (
     <div style={{ minWidth: '50vw' }} className="d-flex flex-row">
       <div style={{ maxWidth: '15vw' }}>
         <Image
           onClick={() => {
-            console.log(currentlyPlaying);
-            setCurrentlyPlaying({ song: props.ytID, playlist: '' });
-            console.log(currentlyPlaying);
+            currentlyPlayingCopy.song = props.ytID;
+            console.log(currentlyPlayingCopy);
+            setCurrentlyPlaying(currentlyPlayingCopy);
           }}
           style={{ cursor: 'pointer' }}
           fluid
