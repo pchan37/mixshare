@@ -19,8 +19,9 @@ const Thumbnail = (props) => {
         style={{ maxWidth: '19vw', cursor: 'pointer' }}
         src={props.thumbnail != null ? props.thumbnail : defaultThumbnail}
         onClick={() => {
-          console.log(props.ytID);
           currentlyPlayingCopy.song = props.ytID;
+          currentlyPlayingCopy.opts.playerVars.loop = 0;
+          currentlyPlayingCopy.opts.playerVars.playlist = '';
           setCurrentlyPlaying(currentlyPlayingCopy);
         }}
       />

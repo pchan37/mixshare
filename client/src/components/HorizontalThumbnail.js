@@ -16,6 +16,8 @@ const HorizontalThumbnail = (props) => {
         <Image
           onClick={() => {
             currentlyPlayingCopy.song = props.ytID;
+            currentlyPlayingCopy.opts.playerVars.loop = 0;
+            currentlyPlayingCopy.opts.playerVars.playlist = '';
             setCurrentlyPlaying(currentlyPlayingCopy);
           }}
           style={{ cursor: 'pointer' }}
