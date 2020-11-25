@@ -35,7 +35,6 @@ const getModalResponse = async (del, user) => {
       });
     } catch (err) {
       console.log(err.response);
-      setChangeUsernameStatus(err.response.data);
     }
   }
 };
