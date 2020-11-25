@@ -5,7 +5,7 @@ import { Button, Modal } from 'react-bootstrap';
 import { UserContext } from '../contexts';
 
 function DeleteAccountPopup({ parentCallback }) {
-  const { currentUser } = useContext(UserContext);
+  const { currentUser, setCurrentUser } = useContext(UserContext);
   const [show, setShow] = useState(false);
 
   const handleShow = () => setShow(true);
@@ -16,6 +16,7 @@ function DeleteAccountPopup({ parentCallback }) {
   const handleDelete = () => {
     setShow(false);
     parentCallback(true, currentUser.username);
+    setCurrentUser(null);
   };
 
   return (

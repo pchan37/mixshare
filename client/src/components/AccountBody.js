@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Axios from 'axios';
 import {
   Button,
@@ -26,11 +26,11 @@ const ChangeProfilePicPopup = (
   </Popover>
 );
 
-const getModalResponse = async (del, usernameP) => {
+const getModalResponse = async (del, user) => {
   if (del) {
     console.log('Deleting Account');
     const deletingAccount = await Axios.post('/api/account/deleteAccount', {
-      username = usernameP,
+      username: user,
     });
     console.log(deletingAccount.data);
   }

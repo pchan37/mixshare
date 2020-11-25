@@ -60,4 +60,17 @@ router.post('/changePassword', async (req, res) => {
   }
 });
 
+router.post('/deleteAccount', async (req, res) => {
+  console.log('in Server');
+  const username = req.body.username; // to be replaced with uuid
+
+  try {
+    await Account.deleteOne({ username: username });
+    return response.OK(res, 'Account Deleted');
+  } catch (err) {
+    console.error(err);
+    return response.ServerError(res);
+  }
+});
+
 module.exports = router;
