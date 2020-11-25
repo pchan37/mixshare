@@ -1,12 +1,22 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 
-import { Button, Popover, Modal } from 'react-bootstrap';
+import { Button, Modal } from 'react-bootstrap';
 
-function DeleteAccountPopup(props) {
+import { UserContext } from '../contexts';
+
+function DeleteAccountPopup({ parentCallback }) {
+  const { currentUser } = useContext(UserContext);
   const [show, setShow] = useState(false);
 
-  const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const handleClose = () => {
+    setShow(false);
+    parentCallback(false, currentUser.username);
+  };
+  const handleDelete = () => {
+    setShow(false);
+    parentCallback(true, currentUser.username);
+  };
 
   return (
     <>
@@ -15,7 +25,6 @@ function DeleteAccountPopup(props) {
       </Button>
 
       <Modal
-        {...props}
         aria-labelledby="contained-modal-title-vcenter"
         centered
         show={show}
@@ -31,7 +40,7 @@ function DeleteAccountPopup(props) {
           <p>Are you sure you want to delete your account?</p>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="danger" onClick={handleClose}>
+          <Button variant="danger" onClick={handleDelete}>
             Yes
           </Button>
           <Button onClick={handleClose}>No</Button>

@@ -1,19 +1,19 @@
 import React from 'react';
 
 import { Container, Row } from 'react-bootstrap';
-import { ProfileDetails, PlaylistsBody } from './';
+import { ProfileDetails, PlaylistItemList } from './';
 
-const UserProfile = () => {
+const ProfileBody = () => {
   return (
     <Container>
       <Row>
         <ProfileDetails />
       </Row>
       <Row>
-        <PlaylistsBody />
+        <PlaylistItemList />
       </Row>
     </Container>
   );
 };
 
-export default UserProfile;
+export default ProfileBody;

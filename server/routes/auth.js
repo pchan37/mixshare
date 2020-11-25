@@ -1,36 +1,13 @@
 const express = require('express');
-const router = express.Router();
 const passport = require('passport');
 
 const bcrypt = require('bcrypt');
 const { v4: uuid } = require('uuid');
 
-const { User } = require('../database/models');
+const { Account } = require('../database/models');
+const response = require('../lib').Response;
 
-function UserErrorResponse(res, statusCode, message, additionalFields = {}) {
-  return res.status(statusCode).json({
-    statusType: 'warning',
-    statusMessage: message,
-    ...additionalFields,
-  });
-}
-
-function SuccessResponse(res, statusCode, message, additionalFields = {}) {
-  return res.status(statusCode).json({
-    statusType: 'success',
-    statusMessage: message,
-    ...additionalFields,
-  });
-}
-
-function ServerErrorResponse(res, additionalFields = {}) {
-  return res.status(500).json({
-    statusType: 'error',
-    statusMessage:
-      'Sorry, we cannot process your request right now.  Please try again later!',
-    ...additionalFields,
-  });
-}
+const router = express.Router();
 
 // GET /user: retrieve the currently logged in user
 router.get('/user', (req, res) => {
@@ -45,21 +22,23 @@ router.get('/user', (req, res) => {
 // POST /login: attempt to log the client in
 router.post('/login', async (req, res, next) => {
   try {
-    passport.authenticate('local', (err, user, info) => {
+    passport.authenticate('local', (err, user, _) => {
       if (err) {
         next(err);
       }
       console.log('User in POST /login', user);
       if (!user) {
         console.log('User could not be found.');
-        return UserErrorResponse(res, 401, 'Invalid username or password.');
+        return response.UserError(res, 401, 'Invalid username or password.');
       }
 
       req.login(user, (loginErr) => {
         if (loginErr) {
           return next(loginErr);
         }
-        return SuccessResponse(res, 200, 'Successfully logged in!');
+        return response.OK(res, 'Successfully logged in!', {
+          username: user.username,
+        });
       });
     })(req, res, next);
   } catch (err) {
@@ -72,14 +51,14 @@ router.post('/login', async (req, res, next) => {
 router.post('/register', async (req, res) => {
   const { username, password, confirmationPassword } = req.body;
   try {
-    const user = await User.findOne({ username });
+    const user = await Account.findOne({ username });
     if (user !== null && user !== undefined) {
       console.log(`${username} already exists!`);
-      return UserErrorResponse(res, 400, `${username} already exists!`);
+      return response.UserError(res, 400, `${username} already exists!`);
     } else {
       // TODO: Replace comparison with a linear time comparison
       if (password !== confirmationPassword) {
-        return UserErrorResponse(res, 400, 'The passwords do not match.');
+        return response.UserError(res, 400, 'The passwords do not match.');
       }
 
       bcrypt.hash(password, 10, async (err, hash) => {
@@ -87,21 +66,21 @@ router.post('/register', async (req, res) => {
           console.log(
             `There was an issue hashing the password: ${err.message}`
           );
-          return ServerErrorResponse(res);
+          return response.ServerError(res);
         }
 
-        await User.create({
+        await Account.create({
           username,
           password: hash,
           userId: `U-${uuid()}`,
         });
       });
 
-      return SuccessResponse(res, 200, 'Account created successfully!');
+      return response.OK(res, 'Account created successfully!');
     }
   } catch (err) {
     console.log(`Encountered error when registering: ${err.message}`);
-    return ServerErrorResponse(res);
+    return response.ServerError(res);
   }
 });
 
