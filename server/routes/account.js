@@ -61,7 +61,6 @@ router.post('/changePassword', async (req, res) => {
 });
 
 router.post('/deleteAccount', async (req, res) => {
-  console.log('in Server');
   const username = req.body.username; // to be replaced with uuid
 
   try {

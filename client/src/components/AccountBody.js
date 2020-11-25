@@ -28,11 +28,15 @@ const ChangeProfilePicPopup = (
 
 const getModalResponse = async (del, user) => {
   if (del) {
-    console.log('Deleting Account');
-    const deletingAccount = await Axios.post('/api/account/deleteAccount', {
-      username: user,
-    });
-    console.log(deletingAccount.data);
+    try {
+      console.log('Deleting Account');
+      const deletingAccount = await Axios.post('/api/account/deleteAccount', {
+        username: user,
+      });
+    } catch (err) {
+      console.log(err.response);
+      setChangeUsernameStatus(err.response.data);
+    }
   }
 };
 
