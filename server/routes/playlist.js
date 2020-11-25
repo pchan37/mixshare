@@ -3,29 +3,25 @@ const router = express.Router();
 
 const { v4: uuid } = require('uuid');
 
-const { Playlist } = require('../database/models');
+const { Playlist, Song } = require('../database/models');
 
 // POST /newPlaylist: Create a new playlist
 router.post('/newPlaylist', async (req, res) => {
   const playlistID = uuid();
-  if (req.body.playlistName !== '') {
-    try {
-      const new_playlist = await Playlist.create({
-        playlistId: playlistID,
-        ownerUsername: req.body.username,
-        playlistName: req.body.playlistName,
-        mixtapeMode: false,
-        private: false,
-        views: 0,
-        songs: [],
-      });
-      console.log(new_playlist);
-      res.send(new_playlist);
-    } catch (err) {
-      console.error(err);
-    }
-  } else {
-    console.log('Playlist name cannot be empty');
+  try {
+    const new_playlist = await Playlist.create({
+      playlistId: playlistID,
+      ownerUsername: req.body.username,
+      playlistName: req.body.playlistName,
+      mixtapeMode: false,
+      private: false,
+      views: 0,
+      songs: [],
+    });
+    console.log(new_playlist);
+    res.send(new_playlist);
+  } catch (err) {
+    console.error(err);
   }
 });
 
@@ -40,15 +36,47 @@ router.post('/getPlaylist', async (req, res) => {
   }
 });
 
+// POST /getPlaylistById: retrieve a playlist with playlistId
+router.post('/getPlaylistById', async (req, res) => {
+  const playlistId = req.body.playlistId;
+  try {
+    const playlist = await Playlist.findOne({ playlistId: playlistId });
+    res.send(playlist);
+  } catch (err) {
+    console.error(err);
+  }
+});
+
 // POST /deletePlaylist: delete a playlist
 router.post('/deletePlaylist', async (req, res) => {
   const playlistId = req.body.playlistId;
   const username = req.body.username;
-  console.log(playlistId, username);
   try {
     await Playlist.findOneAndDelete({ playlistId: playlistId });
     const updatedPlaylist = await Playlist.find({ ownerUsername: username });
     res.send(updatedPlaylist);
+  } catch (err) {
+    console.error(err);
+  }
+});
+
+// POST /addSong: add a song to playlist
+router.post('/addSong', async (req, res) => {
+  const playlistId = req.body.playlistId;
+  const songId = req.body.song.id.videoId;
+  try {
+    await Playlist.findOneAndUpdate(
+      { playlistId: playlistId },
+      { $addToSet: { songs: songId } }
+    );
+    await Song.create({
+      songId: songId,
+      title: req.body.song.snippet.title,
+      artist: req.body.song.snippet.channelTitle,
+      thumbnail: req.body.song.snippet.thumbnails.medium.url,
+    });
+    console.log(songId);
+    res.send(songId);
   } catch (err) {
     console.error(err);
   }

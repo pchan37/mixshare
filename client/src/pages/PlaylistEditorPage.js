@@ -1,12 +1,13 @@
+import { checkPropTypes } from 'prop-types';
 import React from 'react';
 
 import { PlaylistEditorBody } from '../components';
 import { Layout } from '../layout';
 
-const PlaylistEditorPage = () => {
+const PlaylistEditorPage = (props) => {
   return (
     <Layout>
-      <PlaylistEditorBody />
+      <PlaylistEditorBody id={props.location.playlistEditorProps} />
     </Layout>
   );
 };

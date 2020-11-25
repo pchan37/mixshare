@@ -2,6 +2,7 @@ import React, { useContext, useState, useEffect } from 'react';
 import Axios from 'axios';
 
 import { Button, Image, Form, Popover, OverlayTrigger } from 'react-bootstrap';
+import { NavLink } from 'react-router-dom';
 import { Add, DeleteOutline, Edit } from '@material-ui/icons';
 
 import FriendListPopup from './FriendListPopup';
@@ -31,14 +32,18 @@ const MyPlaylistsBody = () => {
       event.preventDefault();
       const form = event.target;
 
-      try {
-        const newPlaylistRes = await Axios.post('/api/playlist/newPlaylist', {
-          playlistName: form.elements.name.value,
-          username: currentUser.username,
-        });
-        updateListOfPlaylists(listOfPlaylists.concat(newPlaylistRes.data));
-      } catch (err) {
-        console.log(err.response);
+      if (form.elements.name.value !== '') {
+        try {
+          const newPlaylistRes = await Axios.post('/api/playlist/newPlaylist', {
+            playlistName: form.elements.name.value,
+            username: currentUser.username,
+          });
+          updateListOfPlaylists(listOfPlaylists.concat(newPlaylistRes.data));
+        } catch (err) {
+          console.log(err.response);
+        }
+      } else {
+        console.log('Playlist name cannot be empty');
       }
     };
 
@@ -92,7 +97,13 @@ const MyPlaylistsBody = () => {
           </div>
           <div className="d-flex flex-row">
             <Button variant="flat">
-              <Edit style={{ color: '#979696' }} />
+              <NavLink
+                to={{
+                  pathname: '/edit',
+                  playlistEditorProps: { id: props.id },
+                }}>
+                <Edit style={{ color: '#979696' }} />
+              </NavLink>
             </Button>
             <FriendListPopup />
             <Button variant="flat" onClick={() => deletePlaylist(props)}>

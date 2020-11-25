@@ -26,9 +26,13 @@ const CardGiftPopup = (
 
 const PlaylistEditItem = (props) => {
   return (
-    <div className="d-flex flex-row mt-3" key={props.id}>
+    <div className="d-flex flex-row mt-3">
       <div className="d-flex flex-row flex-grow-1 ml-4">
-        <HorizontalThumbnail name={props.name} artist={props.artist} />
+        <HorizontalThumbnail
+          name={props.name}
+          artist={props.artist}
+          thumbnail={props.thumbnail}
+        />
       </div>
 
       <OverlayTrigger
@@ -50,7 +54,6 @@ const PlaylistEditItem = (props) => {
 
 PlaylistEditItem.propsType = {
   name: PropsType.string.isRequired,
-  artist: PropsType.string.isRequired,
 };
 
 export default PlaylistEditItem;
