@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Axios from 'axios';
 
 import { Button, Container, Form } from 'react-bootstrap';
@@ -18,7 +18,7 @@ const ChooseDisplay = (props) => {
       />
     );
   } else {
-    return <DiscoverHome songs={data.songs} playlists={data.playlists} />;
+    return <DiscoverHome songs={props.topSongs} playlists={data.playlists} />;
   }
 };
 
@@ -26,6 +26,16 @@ function DiscoverBody() {
   const [query, updateQuery] = useState('');
   const [playlistResults, updatePlaylistResults] = useState([]);
   const [songResults, updateSongResults] = useState([]);
+  const [topSongs, updateTopSongs] = useState([]);
+
+  useEffect(() => {
+    async function getTopSongs() {
+      const gettingSongs = await Axios.get('/api/youtube/topSongs');
+      console.log(gettingSongs.data);
+      updateTopSongs(gettingSongs.data);
+    }
+    getTopSongs();
+  }, []);
 
   const updateQueryAndReturn = (event) => {
     event.preventDefault();
@@ -79,6 +89,7 @@ function DiscoverBody() {
         query={query}
         songResults={songResults}
         playlistResults={playlistResults}
+        topSongs={topSongs}
       />
     </div>
   );

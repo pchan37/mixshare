@@ -9,7 +9,13 @@ const DiscoverHome = (props) => {
         <div className="d-flex flex-row">
           {props.songs.map((p) => {
             return (
-              <Thumbnail key={p.id} name={p.name} artist={p.artist}></Thumbnail>
+              <Thumbnail
+                key={p.id}
+                ytID={p.id}
+                name={p.snippet.title}
+                artist={p.snippet.channelTitle}
+                thumbnail={p.snippet.thumbnails.medium.url}
+              />
             );
           })}
         </div>
