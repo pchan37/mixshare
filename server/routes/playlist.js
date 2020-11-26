@@ -69,12 +69,16 @@ router.post('/addSong', async (req, res) => {
       { playlistId: playlistId },
       { $addToSet: { songs: songId } }
     );
-    await Song.create({
-      songId: songId,
-      title: req.body.song.snippet.title,
-      artist: req.body.song.snippet.channelTitle,
-      thumbnail: req.body.song.snippet.thumbnails.medium.url,
-    });
+
+    const findSong = await Song.findOne({ songId: songId });
+    if (findSong == null) {
+      await Song.create({
+        songId: songId,
+        title: req.body.song.snippet.title,
+        artist: req.body.song.snippet.channelTitle,
+        thumbnail: req.body.song.snippet.thumbnails.medium.url,
+      });
+    }
     console.log(songId);
     res.send(songId);
   } catch (err) {

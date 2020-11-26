@@ -63,7 +63,6 @@ const MyPlaylistsBody = () => {
 
   const deletePlaylist = async (props) => {
     try {
-      console.log(props);
       const playlistRes = await Axios.post('/api/playlist/deletePlaylist', {
         playlistId: props.id,
         username: props.owner,
@@ -100,7 +99,7 @@ const MyPlaylistsBody = () => {
               <NavLink
                 to={{
                   pathname: '/edit',
-                  playlistEditorProps: { id: props.id },
+                  playlistEditorProps: { id: props.id, songs: props.songs },
                 }}>
                 <Edit style={{ color: '#979696' }} />
               </NavLink>
