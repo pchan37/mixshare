@@ -141,10 +141,11 @@ const PlaylistEditorBody = (props) => {
         playlistId: props.id.id,
         song: song,
       });
-      console.log(songRes);
-      console.log(listOfSongs);
-      updateListOfSongs(listOfSongs.concat(songRes.data));
-      console.log(listOfSongs);
+      console.log('Song Results');
+      console.log(songRes.data);
+      updatePlaylist(playlist.push(songRes.data));
+      retrieveSongs();
+      console.log(playlist);
     } catch (err) {
       console.error(err);
     }
@@ -161,26 +162,30 @@ const PlaylistEditorBody = (props) => {
     }
   };
 
-  const retrieveSongs = async () => {
+  const initPlaylistState = async () => {
     try {
       const playlistRes = await Axios.post('/api/playlist/getPlaylistById', {
         playlistId: props.id.id,
       });
-      console.log(playlistRes.data);
-      updatePlaylist(playlistRes.data);
-      console.log(playlistRes.data);
+      updatePlaylist(playlistRes.data.songs);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const retrieveSongs = async () => {
+    try {
       const songRes = await Axios.post('/api/song/getSongs', {
-        songIds: playlistRes.data.songs,
+        songIds: playlist,
       });
-      console.log(listOfSongs);
       updateListOfSongs(songRes.data);
-      console.log(listOfSongs);
     } catch (err) {
       console.error(err);
     }
   };
 
   useEffect(() => {
+    initPlaylistState();
     retrieveSongs();
   }, []);
 
