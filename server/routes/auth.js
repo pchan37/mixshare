@@ -4,7 +4,7 @@ const passport = require('passport');
 const bcrypt = require('bcrypt');
 const { v4: uuid } = require('uuid');
 
-const { Account } = require('../database/models');
+const { Account, User } = require('../database/models');
 const response = require('../lib').Response;
 
 const router = express.Router();
@@ -69,13 +69,18 @@ router.post('/register', async (req, res) => {
           return response.ServerError(res);
         }
 
+        const generatedId = `U-${uuid()}`;
+
         await Account.create({
           username,
           password: hash,
-          userId: `U-${uuid()}`,
+          userId: generatedId,
+        });
+
+        await User.create({
+          userId: generatedId,
         });
       });
-
       return response.OK(res, 'Account created successfully!');
     }
   } catch (err) {
