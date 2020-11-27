@@ -27,6 +27,7 @@ import PlaylistItem from './PlaylistItem';
 import PlaylistItemList from './PlaylistItemList';
 import ProfileDetails from './ProfileDetails';
 import SearchResultItem from './SearchResultItem';
+import SearchUsersPopup from './SearchUsersPopup';
 import SimplePlaylist from './SimplePlaylist';
 import SimpleUser from './SimpleUser';
 import SongList from './SongList';
@@ -67,6 +68,7 @@ export {
   PlaylistItemList,
   ProfileDetails,
   SearchResultItem,
+  SearchUsersPopup,
   SideMenu,
   SignUpLogin,
   SimplePlaylist,
