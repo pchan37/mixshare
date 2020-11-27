@@ -39,6 +39,7 @@ const MyPlaylistsBody = () => {
             username: currentUser.username,
           });
           updateListOfPlaylists(listOfPlaylists.concat(newPlaylistRes.data));
+          document.body.click();
         } catch (err) {
           console.log(err.response);
         }
@@ -142,9 +143,10 @@ const MyPlaylistsBody = () => {
         <div className="d-flex flex-row" style={{ alignItems: 'center' }}>
           <OverlayTrigger
             placement="left"
-            delay={{ show: 250, hide: 400 }}
+            delay={{ show: 250, hide: 250 }}
             overlay={NewPlaylistPopup}
-            trigger="click">
+            trigger="click"
+            rootClose>
             <Button variant="flat">
               <Add style={{ color: '#979696', fontSize: 20 }} />
               new playlist
