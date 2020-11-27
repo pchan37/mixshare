@@ -27,7 +27,7 @@ const MyPlaylistsBody = () => {
     getPlaylist();
   }, []);
 
-  const NewPlaylistPopup = () => {
+  const NewPlaylistPopup = (props) => {
     const createPlaylist = async (event) => {
       event.preventDefault();
       const form = event.target;
@@ -48,7 +48,7 @@ const MyPlaylistsBody = () => {
     };
 
     return (
-      <Popover id="popover-basic">
+      <Popover id="popover-basic" {...props}>
         <Popover.Content style={{ textAlign: 'center' }}>
           <Form onSubmit={createPlaylist}>
             <Form.Group>
