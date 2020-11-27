@@ -3,13 +3,14 @@ $theme-colors: (
   'primary': #6efae5,
 );
 
+/* Everything is commented out for now, because you can't read some of the text on a dark background yet */
 /* General styles */
-$body-bg: #171c17;
+/*$body-bg: #171c17;
 $text-color: #e6e1e4;
-$headings-color: #e6e1e4;
+$headings-color: #e6e1e4; */
 
 /* Button styles */
-$btn-primary-border: #6efae5;
+/*$btn-primary-border: #6efae5;*/
 
 /* import bootstrap to set changes */
 @import '~bootstrap/scss/bootstrap';

@@ -7,7 +7,7 @@ const PlaylistSchema = new Schema({
     required: true,
     unique: true,
   },
-  ownerUserId: {
+  ownerUsername: {
     type: String,
     required: true,
   },

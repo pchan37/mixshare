@@ -1,13 +1,14 @@
 import React, { useContext } from 'react';
+import { Image, Nav, Navbar, OverlayTrigger, Popover } from 'react-bootstrap';
+import { LinkContainer } from 'react-router-bootstrap';
 import { useHistory } from 'react-router-dom';
 
 import Axios from 'axios';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import { Nav, Navbar, OverlayTrigger, Popover } from 'react-bootstrap';
-import { LinkContainer } from 'react-router-bootstrap';
-
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+
 import Logo from '../assets/images/logo.png';
 
 import { UserContext } from '../contexts';
@@ -16,7 +17,12 @@ const LargerNavLink = styled(Nav.Link)`
   font-size: 25px;
 `;
 
-const SideMenu = () => {
+const SideMenuContainer = styled.div`
+  height: 100vh;
+  width: ${(props) => props.width};
+`;
+
+const SideMenu = ({ width }) => {
   const { currentUser } = useContext(UserContext);
   const history = useHistory();
 
@@ -48,19 +54,16 @@ const SideMenu = () => {
   );
 
   return (
-    <div
-      style={{ height: '100vh', width: '15vw' }}
-      className="d-flex flex-column border-right">
-      <Navbar className="flex-column flex-grow-1" style={{ width: '15vw' }}>
-        <Nav className="flex-column flex-grow-1">
+    <SideMenuContainer
+      className="d-flex flex-column border-right"
+      width={width}>
+      <Navbar
+        className="flex-column flex-grow-1 flex-shrink-1"
+        style={{ width }}>
+        <Nav className="flex-column flex-grow-1 flex-shrink-1">
           <LinkContainer to="/">
             <Navbar.Brand>
-              <img
-                src={Logo}
-                width="100%"
-                className="d-inline-block align-top"
-                alt="Mixshare"
-              />
+              <Image src={Logo} alt="Mixshare" fluid />
             </Navbar.Brand>
           </LinkContainer>
 
@@ -84,19 +87,19 @@ const SideMenu = () => {
               overlay={ProfilePopup}
               trigger="click">
               <LargerNavLink>
-                <AccountCircleIcon
-                  fluid
-                  className="mr-3"
-                  style={{ fontSize: 50 }}
-                />
+                <AccountCircleIcon className="mr-3" style={{ fontSize: 50 }} />
                 {currentUser.username}
               </LargerNavLink>
             </OverlayTrigger>
           </div>
         </Nav>
       </Navbar>
-    </div>
+    </SideMenuContainer>
   );
+};
+
+SideMenu.propTypes = {
+  width: PropTypes.number.isRequired,
 };
 
 export default SideMenu;

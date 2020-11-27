@@ -3,7 +3,7 @@ import React from 'react';
 import { Container, Row } from 'react-bootstrap';
 import { ProfileDetails, PlaylistItemList } from './';
 
-const UserProfile = () => {
+const ProfileBody = () => {
   return (
     <Container>
       <Row>
@@ -16,4 +16,4 @@ const UserProfile = () => {
   );
 };
 
-export default UserProfile;
+export default ProfileBody;
