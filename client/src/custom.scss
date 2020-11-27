@@ -4,15 +4,12 @@ $theme-colors: (
 );
 
 /* General styles */
-$body-bg: #052021;
+$body-bg: #171c17;
 $text-color: #e6e1e4;
 $headings-color: #e6e1e4;
 
 /* Button styles */
 $btn-primary-border: #6efae5;
-
-/* Nav items styles */
-$link-color: #e6e1e4;
 
 /* import bootstrap to set changes */
 @import '~bootstrap/scss/bootstrap';
