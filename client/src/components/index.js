@@ -19,6 +19,7 @@ import HorizontalThumbnail from './HorizontalThumbnail';
 import MyPlaylistsBody from './MyPlaylistsBody';
 import NewPlaylistPopup from './NewPlaylistPopup';
 import MyPlaylistsPopup from './MyPlaylistsPopup';
+import PendingFriendsPopup from './PendingFriendsPopup';
 import PlaylistEditItem from './PlaylistEditItem';
 import PlaylistEditorBody from './PlaylistEditorBody';
 import SearchResultBody from './SearchResultBody';
@@ -27,7 +28,6 @@ import PlaylistItem from './PlaylistItem';
 import PlaylistItemList from './PlaylistItemList';
 import ProfileDetails from './ProfileDetails';
 import SearchResultItem from './SearchResultItem';
-import SearchUsersPopup from './SearchUsersPopup';
 import SimplePlaylist from './SimplePlaylist';
 import SimpleUser from './SimpleUser';
 import SongList from './SongList';
@@ -60,6 +60,7 @@ export {
   MyPlaylistsBody,
   MyPlaylistsPopup,
   NewPlaylistPopup,
+  PendingFriendsPopup,
   PlaylistEditItem,
   PlaylistEditorBody,
   SearchResultBody,
@@ -68,7 +69,6 @@ export {
   PlaylistItemList,
   ProfileDetails,
   SearchResultItem,
-  SearchUsersPopup,
   SideMenu,
   SignUpLogin,
   SimplePlaylist,

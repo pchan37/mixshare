@@ -48,19 +48,15 @@ const UserSchema = new Schema({
 
   friends: [
     {
-      userId: {
-        type: String,
-        unique: true,
-      },
+      type: String,
+      unique: true,
     },
   ],
 
   pendingFriendRequests: [
     {
-      userId: {
-        type: String,
-        unique: true,
-      },
+      type: String,
+      unique: true,
     },
   ],
 });

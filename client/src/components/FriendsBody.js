@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import Axios from 'axios';
 
 import { FriendItem, User } from './';
@@ -12,21 +12,38 @@ import {
 } from 'react-bootstrap';
 import { ErrorOutline, PersonAdd } from '@material-ui/icons';
 
+import { UserContext } from '../contexts';
+
 import data from '../placeholders/data';
 
 const FriendsBody = () => {
-  const [query, setQuery] = useState('');
+  const { currentUser } = useContext(UserContext);
   const [searchResults, setSearchResults] = useState([]);
+  const [response, setResponse] = useState('');
 
   const searchUsers = async (event) => {
     event.preventDefault();
-    const query = event.target.elements.query.value;
-    console.log('search Users');
+    setResponse('');
+    const enteredQuery = event.target.elements.query.value;
     const gettingResults = await Axios.post('/api/user/searchUsers', {
-      query: query,
+      query: enteredQuery,
+      username: currentUser.username,
     });
     setSearchResults(gettingResults.data);
-    //console.log(gettingResults.data);
+  };
+
+  const sendFriendRequest = async (userId) => {
+    try {
+      const sendRequest = await Axios.post('/api/user/sendFriendRequest', {
+        userId: userId,
+        selfUsername: currentUser.username,
+      });
+      console.log(sendRequest.data.statusMessage);
+      //setResponse(sendRequest.data);
+    } catch (err) {
+      console.error(err);
+      setResponse(err.response.data.statusMessage);
+    }
   };
 
   const SearchUsersPopup = (
@@ -44,10 +61,32 @@ const FriendsBody = () => {
               Go
             </Button>
           </div>
-          {searchResults.map((f) => {
-            return <User key={f.id} username={f.username} />;
-          })}
+          {response !== '' ? <Form.Text>{response}</Form.Text> : null}
         </Form>
+        <div
+          style={{
+            margin: '2vh 0',
+            maxHeight: '30vh',
+            overflowY: 'scroll',
+            overflowX: 'hidden',
+          }}>
+          {searchResults.map((f) => {
+            return (
+              <User key={f.userId} username={f.username}>
+                <PersonAdd
+                  style={{
+                    color: '#979696',
+                    fontSize: 40,
+                    cursor: 'pointer',
+                  }}
+                  onClick={() => {
+                    sendFriendRequest(f.userId);
+                  }}
+                />
+              </User>
+            );
+          })}
+        </div>
       </Popover.Content>
     </Popover>
   );
@@ -68,9 +107,13 @@ const FriendsBody = () => {
           <div className="d-flex flex-row" style={{ alignItems: 'flex-end' }}>
             <OverlayTrigger
               placement="bottom"
-              delay={{ show: 250, hide: 400 }}
+              delay={{ show: 100, hide: 0 }}
               overlay={SearchUsersPopup}
-              hidden={() => setSearchResults([])} // still broken
+              rootClose
+              onToggle={() => {
+                setSearchResults([]);
+                setResponse('');
+              }}
               trigger="click">
               <Button variant="flat pb-0" style={{ color: '#979696' }}>
                 <PersonAdd className="mr-2" style={{ color: '#979696' }} />
