@@ -143,7 +143,7 @@ const MyPlaylistsBody = () => {
         <div className="d-flex flex-row" style={{ alignItems: 'center' }}>
           <OverlayTrigger
             placement="left"
-            delay={{ show: 250, hide: 250 }}
+            delay={{ show: 250 }}
             overlay={NewPlaylistPopup}
             trigger="click"
             rootClose>

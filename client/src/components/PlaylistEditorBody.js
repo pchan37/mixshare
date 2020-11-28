@@ -74,9 +74,8 @@ const SettingsPopup = () => {
 };
 
 const PlaylistEditorBody = (props) => {
-  const [playlist, updatePlaylist] = useState(props.id.songs);
-  const [listOfSongs, updateListOfSongs] = useState([]);
-  const [query, updateQuery] = useState('');
+  const [playlist, updatePlaylist] = useState(props.id.songs); // list of songIds
+  const [listOfSongs, updateListOfSongs] = useState([]); // list of Song objects
   const [songResults, updateSongResults] = useState([]);
 
   const updateQueryAndReturn = (event) => {
@@ -85,7 +84,6 @@ const PlaylistEditorBody = (props) => {
     if (!(enteredQuery === '')) {
       getSongResults(enteredQuery);
     }
-    updateQuery(enteredQuery);
   };
 
   const SearchPopup = (
@@ -195,9 +193,10 @@ const PlaylistEditorBody = (props) => {
 
         <OverlayTrigger
           placement="left"
-          delay={{ show: 250, hide: 400 }}
+          delay={{ show: 250 }}
           overlay={SearchPopup}
-          trigger="click">
+          trigger="click"
+          rootClose>
           <Button variant="flat">
             <Search
               className="align-self-center"
@@ -217,18 +216,20 @@ const PlaylistEditorBody = (props) => {
 
         <OverlayTrigger
           placement="left"
-          delay={{ show: 250, hide: 400 }}
+          delay={{ show: 250 }}
           overlay={HelpButton}
-          trigger="click">
+          trigger="click"
+          rootClose>
           <Button variant="flat">
             <HelpOutline style={{ color: '#979696' }} />
           </Button>
         </OverlayTrigger>
         <OverlayTrigger
           placement="bottom-end"
-          delay={{ show: 250, hide: 400 }}
+          delay={{ show: 250 }}
           overlay={SettingsPopup()}
-          trigger="click">
+          trigger="click"
+          rootClose>
           <Button variant="flat">
             <Settings style={{ color: '#979696' }} />
           </Button>
@@ -238,6 +239,8 @@ const PlaylistEditorBody = (props) => {
       {listOfSongs.map((s) => {
         return (
           <PlaylistEditItem
+            playlistId={props.id.id}
+            songId={s.songId}
             name={s.title}
             artist={s.artist}
             thumbnail={s.thumbnail}

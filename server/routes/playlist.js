@@ -86,4 +86,19 @@ router.post('/addSong', async (req, res) => {
   }
 });
 
+// POST /deleteSong: delete a song from playlist
+router.post('/deleteSong', async (req, res) => {
+  const playlistId = req.body.playlistId;
+  const songId = req.body.songId;
+  try {
+    await Playlist.findOneAndUpdate(
+      { playlistId: playlistId },
+      { $pull: { songs: songId } }
+    );
+    res.send('Song was deleted');
+  } catch (err) {
+    console.error(err);
+  }
+});
+
 module.exports = router;
