@@ -50,6 +50,7 @@ const UserSchema = new Schema({
     {
       type: String,
       unique: true,
+      sparse: true,
     },
   ],
 
@@ -57,6 +58,7 @@ const UserSchema = new Schema({
     {
       type: String,
       unique: true,
+      sparse: true,
     },
   ],
 });

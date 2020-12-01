@@ -19,9 +19,9 @@ import HorizontalThumbnail from './HorizontalThumbnail';
 import MyPlaylistsBody from './MyPlaylistsBody';
 import NewPlaylistPopup from './NewPlaylistPopup';
 import MyPlaylistsPopup from './MyPlaylistsPopup';
-import PendingFriendsPopup from './PendingFriendsPopup';
 import PlaylistEditItem from './PlaylistEditItem';
 import PlaylistEditorBody from './PlaylistEditorBody';
+import PopupUser from './PopupUser';
 import SearchResultBody from './SearchResultBody';
 import ProfileClickPopup from './ProfileClickPopup';
 import PlaylistItem from './PlaylistItem';
@@ -60,9 +60,9 @@ export {
   MyPlaylistsBody,
   MyPlaylistsPopup,
   NewPlaylistPopup,
-  PendingFriendsPopup,
   PlaylistEditItem,
   PlaylistEditorBody,
+  PopupUser,
   SearchResultBody,
   ProfileClickPopup,
   PlaylistItem,

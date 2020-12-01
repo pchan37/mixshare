@@ -1,7 +1,7 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Axios from 'axios';
 
-import { FriendItem, User } from './';
+import { FriendItem, PopupUser, SimpleUser, User } from './';
 import {
   Button,
   Form,
@@ -16,10 +16,25 @@ import { UserContext } from '../contexts';
 
 import data from '../placeholders/data';
 
+const popupBodyStyle = {
+  margin: '2vh 0',
+  maxHeight: '30vh',
+  overflowY: 'scroll',
+  overflowX: 'hidden',
+};
+
+const iconStyle = {
+  color: '#979696',
+  fontSize: 20,
+  cursor: 'pointer',
+};
+
 const FriendsBody = () => {
   const { currentUser } = useContext(UserContext);
   const [searchResults, setSearchResults] = useState([]);
   const [response, setResponse] = useState('');
+  const [pendingFriendRequests, setPending] = useState([]);
+  const [friends, setFriends] = useState([]);
 
   const searchUsers = async (event) => {
     event.preventDefault();
@@ -32,17 +47,69 @@ const FriendsBody = () => {
     setSearchResults(gettingResults.data);
   };
 
+  // get pending friend requests; called on load
+  async function getPendingRequests() {
+    const pendingRequests = await Axios.post('/api/user/getPendingRequests', {
+      username: currentUser.username,
+    });
+    setPending(pendingRequests.data);
+  }
+
+  async function getFriends() {
+    const friends = await Axios.post('api/user/friends', {
+      username: currentUser.username,
+    });
+    setFriends(friends.data);
+  }
+
+  useEffect(() => {
+    getFriends();
+    getPendingRequests();
+  }, []);
+
   const sendFriendRequest = async (userId) => {
     try {
       const sendRequest = await Axios.post('/api/user/sendFriendRequest', {
         userId: userId,
         selfUsername: currentUser.username,
       });
-      console.log(sendRequest.data.statusMessage);
-      //setResponse(sendRequest.data);
+      setResponse(sendRequest.data.statusMessage);
     } catch (err) {
       console.error(err);
       setResponse(err.response.data.statusMessage);
+    }
+  };
+
+  const acceptRequest = async (userId) => {
+    console.log(`accepting friend request from ${userId}`);
+
+    try {
+      await Axios.post('/api/user/removeRequest', {
+        currUser: currentUser.username,
+        userToAccept: userId,
+      });
+      getPendingRequests();
+
+      await Axios.post('/api/user/addUser', {
+        currUser: currentUser.username,
+        userToAccept: userId,
+      });
+      getFriends();
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const rejectRequest = async (userId) => {
+    console.log(`rejecting request from ${userId}`);
+    try {
+      const removingRequest = await Axios.post('/api/user/removeRequest', {
+        currUser: currentUser.username,
+        userToAccept: userId,
+      });
+      getPendingRequests();
+    } catch (err) {
+      console.error(err);
     }
   };
 
@@ -63,27 +130,52 @@ const FriendsBody = () => {
           </div>
           {response !== '' ? <Form.Text>{response}</Form.Text> : null}
         </Form>
-        <div
-          style={{
-            margin: '2vh 0',
-            maxHeight: '30vh',
-            overflowY: 'scroll',
-            overflowX: 'hidden',
-          }}>
+        <div style={popupBodyStyle}>
           {searchResults.map((f) => {
             return (
-              <User key={f.userId} username={f.username}>
+              <PopupUser key={f.userId} username={f.username}>
+                <Button variant="flat" style={{ color: '#979696' }}>
+                  View Profile
+                </Button>
                 <PersonAdd
-                  style={{
-                    color: '#979696',
-                    fontSize: 40,
-                    cursor: 'pointer',
-                  }}
+                  style={iconStyle}
                   onClick={() => {
+                    getPendingRequests();
                     sendFriendRequest(f.userId);
                   }}
                 />
-              </User>
+              </PopupUser>
+            );
+          })}
+        </div>
+      </Popover.Content>
+    </Popover>
+  );
+
+  const PendingFriendsPopup = (
+    <Popover style={{ minWidth: '25%' }}>
+      <Popover.Content>
+        Incoming Friend Requests
+        <div style={popupBodyStyle}>
+          {pendingFriendRequests.map((p) => {
+            return (
+              <PopupUser key={p.userId} username={p.username}>
+                <Button variant="flat" style={{ color: '#979696' }}>
+                  View Profile
+                </Button>
+                <Button
+                  variant="flat"
+                  className="btn btn-link"
+                  onClick={() => acceptRequest(p.userId)}>
+                  Accept
+                </Button>
+                <Button
+                  variant="flat"
+                  className="btn btn-link"
+                  onClick={() => rejectRequest(p.userId)}>
+                  Delete
+                </Button>
+              </PopupUser>
             );
           })}
         </div>
@@ -98,16 +190,23 @@ const FriendsBody = () => {
           <h2 className="m-0 p-0">Friends</h2>
         </Col>
         <Col>
-          <Button variant="flat pb-0" style={{ color: '#979696' }}>
-            Pending Friend Requests
-          </Button>
-          <ErrorOutline className="mb-3" style={{ color: '#979696' }} />
+          <OverlayTrigger
+            placement="bottom"
+            overlay={PendingFriendsPopup}
+            rootClose
+            trigger="click">
+            <Button variant="flat pb-0" style={{ color: '#979696' }}>
+              Pending Friend Requests
+            </Button>
+          </OverlayTrigger>
+          {pendingFriendRequests.length != 0 && (
+            <ErrorOutline className="mb-3" style={{ color: '#979696' }} />
+          )}
         </Col>
         <Col>
           <div className="d-flex flex-row" style={{ alignItems: 'flex-end' }}>
             <OverlayTrigger
               placement="bottom"
-              delay={{ show: 100, hide: 0 }}
               overlay={SearchUsersPopup}
               rootClose
               onToggle={() => {
@@ -132,8 +231,8 @@ const FriendsBody = () => {
           </div>
         </Col>
       </Row>
-      {data.friends.map((f) => {
-        return <FriendItem key={f.id} username={f.username} />;
+      {friends.map((f) => {
+        return <FriendItem key={f.userId} username={f.username} />;
       })}
     </div>
   );

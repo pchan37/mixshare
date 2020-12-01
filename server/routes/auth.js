@@ -79,6 +79,10 @@ router.post('/register', async (req, res) => {
 
         await User.create({
           userId: generatedId,
+          friends: [],
+          pendingFriendRequests: [],
+          receivedGiftPlaylists: [],
+          receivedSongRecommendations: [],
         });
       });
       return response.OK(res, 'Account created successfully!');
