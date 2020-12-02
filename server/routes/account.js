@@ -9,6 +9,10 @@ router.post('/changeUsername', async (req, res) => {
   const currentUsername = req.body.username;
   const newUsername = req.body.newname;
 
+  if (newUsername === '') {
+    return response.UserError(res, 400, 'Username cannot be blank');
+  }
+
   if (currentUsername === newUsername) {
     console.log(`Already your current username`);
     return response.UserError(res, 400, `Already your current username`);
@@ -38,6 +42,10 @@ router.post('/changePassword', async (req, res) => {
   const confirmPassword = req.body.confirmPassword;
 
   try {
+    if (password === '') {
+      return response.UserError(res, 400, 'Password cannot be blank');
+    }
+
     if (password !== confirmPassword) {
       return response.UserError(res, 400, 'The passwords do not match.');
     }
