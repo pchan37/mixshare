@@ -25,14 +25,21 @@ const CardGiftPopup = (
   </Popover>
 );
 
-function DeleteSongPopup(props) {
+function DeleteSongModal(props) {
   const [show, setShow] = useState(false);
 
   const handleShow = () => setShow(true);
   const handleClose = () => setShow(false);
   const handleDelete = () => {
     setShow(false);
-    props.parentCallback(true, props.song.playlistId, props.song.songId);
+    const val = props.parentCallback(
+      true,
+      props.song.playlistId,
+      props.song.songId
+    );
+    val.then((updatedPlaylist) => {
+      props.song.handleDelete(updatedPlaylist);
+    });
   };
 
   return (
@@ -73,12 +80,11 @@ function DeleteSongPopup(props) {
 const getModalResponse = async (del, playlistId, songId) => {
   if (del) {
     try {
-      console.log('Deleting Song');
       const deletedSong = await Axios.post('api/playlist/deleteSong', {
         playlistId: playlistId,
         songId: songId,
       });
-      console.log(deletedSong);
+      return deletedSong.data;
     } catch (err) {
       console.error(err);
     }
@@ -106,7 +112,7 @@ const PlaylistEditItem = (props) => {
         </Button>
       </OverlayTrigger>
 
-      <DeleteSongPopup song={props} parentCallback={getModalResponse} />
+      <DeleteSongModal song={props} parentCallback={getModalResponse} />
     </div>
   );
 };

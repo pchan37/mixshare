@@ -95,7 +95,8 @@ router.post('/deleteSong', async (req, res) => {
       { playlistId: playlistId },
       { $pull: { songs: songId } }
     );
-    res.send('Song was deleted');
+    const updatedPlaylist = await Playlist.findOne({ playlistId: playlistId });
+    res.send(updatedPlaylist.songs);
   } catch (err) {
     console.error(err);
   }

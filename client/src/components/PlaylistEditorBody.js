@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import Axios from 'axios';
 
 import {
@@ -22,8 +22,6 @@ import {
   Settings,
 } from '@material-ui/icons';
 import { PlaylistEditItem } from './';
-
-import data from '../placeholders/data';
 
 const HelpButton = (
   <Popover>
@@ -77,6 +75,12 @@ const PlaylistEditorBody = (props) => {
   const [playlist, updatePlaylist] = useState(props.id.songs); // list of songIds
   const [listOfSongs, updateListOfSongs] = useState([]); // list of Song objects
   const [songResults, updateSongResults] = useState([]);
+  const [playlistName, updatePlaylistName] = useState('');
+
+  const handleSongDelete = (updatedPlaylist) => {
+    updatePlaylist(updatedPlaylist);
+    retrieveSongs(updatedPlaylist);
+  };
 
   const updateQueryAndReturn = (event) => {
     event.preventDefault();
@@ -134,7 +138,6 @@ const PlaylistEditorBody = (props) => {
   );
 
   const addSongToPlaylist = async (song) => {
-    console.log('adding song to playlist');
     try {
       const songRes = await Axios.post('/api/playlist/addSong', {
         playlistId: props.id.id,
@@ -166,6 +169,10 @@ const PlaylistEditorBody = (props) => {
         songIds: songList,
       });
       updateListOfSongs(songRes.data);
+      const playlistObject = await Axios.post('/api/playlist/getPlaylistById', {
+        playlistId: props.id.id,
+      });
+      updatePlaylistName(playlistObject.data.playlistName);
     } catch (err) {
       console.error(err);
     }
@@ -196,6 +203,7 @@ const PlaylistEditorBody = (props) => {
           delay={{ show: 250 }}
           overlay={SearchPopup}
           trigger="click"
+          onToggle={() => updateSongResults([])}
           rootClose>
           <Button variant="flat">
             <Search
@@ -208,7 +216,7 @@ const PlaylistEditorBody = (props) => {
 
       <div className="d-flex flex-row mt-3">
         <div className="d-flex flex-row flex-grow-1 ml-4">
-          <h5 className="align-self-center">{playlist.playlistName}</h5>
+          <h5 className="align-self-center">{playlistName}</h5>
           <Button variant="flat">
             <Edit className="ml-3" style={{ color: '#979696' }} />
           </Button>
@@ -244,6 +252,7 @@ const PlaylistEditorBody = (props) => {
             name={s.title}
             artist={s.artist}
             thumbnail={s.thumbnail}
+            handleDelete={handleSongDelete}
           />
         );
       })}
