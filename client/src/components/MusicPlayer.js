@@ -67,7 +67,7 @@ const MusicPlayer = ({ expandedState, height, setExpandedState, width }) => {
   );
 
   const NormalVideo = (
-    <div style={{ height: '100%' }}>
+    <div className="h-100">
       <YouTube
         videoId={currentlyPlaying.song}
         id="player"
