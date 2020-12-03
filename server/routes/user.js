@@ -189,4 +189,37 @@ router.post('/addUser', async (req, res) => {
   }
 });
 
+router.post('/removeFriend', async (req, res) => {
+  try {
+    selfUsername = req.body.currUsername;
+    otherUsername = req.body.unfriend;
+
+    // get userId
+    const gettingSelf = await Account.findOne({
+      username: selfUsername,
+    });
+
+    const gettingOther = await Account.findOne({
+      username: otherUsername,
+    });
+
+    const selfUserId = gettingSelf.userId;
+    const otherUserId = gettingOther.userId;
+
+    await User.findOneAndUpdate(
+      { userId: selfUserId },
+      { $pull: { friends: otherUserId } }
+    );
+
+    await User.findOneAndUpdate(
+      { userId: otherUserId },
+      { $pull: { friends: selfUserId } }
+    );
+    return response.OK(res, 'User removed succesfully');
+  } catch (err) {
+    console.error(err);
+    return response.ServerError(err);
+  }
+});
+
 module.exports = router;

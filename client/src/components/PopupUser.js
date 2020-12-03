@@ -15,7 +15,9 @@ const PopupUser = (props) => {
           />
           {props.username}
         </Col>
-        <Col className="d-flex flex-row">{props.children}</Col>
+        <Col className="d-flex flex-row justify-content-center">
+          {props.children}
+        </Col>
       </Row>
     </div>
   );

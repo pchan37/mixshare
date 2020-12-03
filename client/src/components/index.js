@@ -5,7 +5,7 @@ import AccountBody from './AccountBody';
 import AccountDetails from './AccountDetails';
 import ChangePasswordPopup from './ChangePasswordPopup';
 import ChangeUsernamePopup from './ChangeUsernamePopup';
-import DeleteAccountPopup from './DeleteAccountPopup';
+import DeletePopup from './DeletePopup';
 import DiscoverBody from './DiscoverBody';
 import DiscoverHome from './DiscoverHome';
 import DiscoverSearch from './DiscoverSearch';
@@ -46,7 +46,7 @@ export {
   AvatarNameSmall,
   ChangePasswordPopup,
   ChangeUsernamePopup,
-  DeleteAccountPopup,
+  DeletePopup,
   DiscoverBody,
   DiscoverHome,
   DiscoverSearch,

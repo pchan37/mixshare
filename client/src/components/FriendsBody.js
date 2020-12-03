@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import Axios from 'axios';
 
-import { FriendItem, PopupUser, SimpleUser, User } from './';
+import { FriendItem, PopupUser } from './';
 import {
   Button,
   Form,
@@ -13,8 +13,6 @@ import {
 import { ErrorOutline, PersonAdd } from '@material-ui/icons';
 
 import { UserContext } from '../contexts';
-
-import data from '../placeholders/data';
 
 const popupBodyStyle = {
   margin: '2vh 0',
@@ -103,7 +101,7 @@ const FriendsBody = () => {
   const rejectRequest = async (userId) => {
     console.log(`rejecting request from ${userId}`);
     try {
-      const removingRequest = await Axios.post('/api/user/removeRequest', {
+      await Axios.post('/api/user/removeRequest', {
         currUser: currentUser.username,
         userToAccept: userId,
       });
@@ -134,9 +132,6 @@ const FriendsBody = () => {
           {searchResults.map((f) => {
             return (
               <PopupUser key={f.userId} username={f.username}>
-                <Button variant="flat" style={{ color: '#979696' }}>
-                  View Profile
-                </Button>
                 <PersonAdd
                   style={iconStyle}
                   onClick={() => {
@@ -155,14 +150,15 @@ const FriendsBody = () => {
   const PendingFriendsPopup = (
     <Popover style={{ minWidth: '25%' }}>
       <Popover.Content>
-        Incoming Friend Requests
+        <div className="text-center">
+          {pendingFriendRequests.length > 0
+            ? 'Incoming Friend Requests'
+            : 'No Friend Requests to Display'}
+        </div>
         <div style={popupBodyStyle}>
           {pendingFriendRequests.map((p) => {
             return (
               <PopupUser key={p.userId} username={p.username}>
-                <Button variant="flat" style={{ color: '#979696' }}>
-                  View Profile
-                </Button>
                 <Button
                   variant="flat"
                   className="btn btn-link"
@@ -171,7 +167,7 @@ const FriendsBody = () => {
                 </Button>
                 <Button
                   variant="flat"
-                  className="btn btn-link"
+                  className="btn btn-link text-danger"
                   onClick={() => rejectRequest(p.userId)}>
                   Delete
                 </Button>
@@ -185,7 +181,9 @@ const FriendsBody = () => {
 
   return (
     <div className="d-flex flex-column mb-5">
-      <Row style={{ alignItems: 'flex-end', justifyContent: 'space-evenly' }}>
+      <Row
+        className="mb-4"
+        style={{ alignItems: 'flex-end', justifyContent: 'space-evenly' }}>
         <Col>
           <h2 className="m-0 p-0">Friends</h2>
         </Col>
@@ -232,7 +230,13 @@ const FriendsBody = () => {
         </Col>
       </Row>
       {friends.map((f) => {
-        return <FriendItem key={f.userId} username={f.username} />;
+        return (
+          <FriendItem
+            key={f.userId}
+            username={f.username}
+            updateFriends={getFriends}
+          />
+        );
       })}
     </div>
   );
