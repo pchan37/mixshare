@@ -17,7 +17,11 @@ const Thumbnail = (props) => {
       <Image
         fluid
         style={{ maxWidth: '19vw', cursor: 'pointer' }}
-        src={props.thumbnail != null ? props.thumbnail : defaultThumbnail}
+        src={
+          props.thumbnail !== undefined && props.thumbnail !== null
+            ? props.thumbnail
+            : defaultThumbnail
+        }
         onClick={() => {
           currentlyPlayingCopy.song = props.ytID;
           currentlyPlayingCopy.opts.playerVars.loop = 0;

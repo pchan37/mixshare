@@ -35,7 +35,6 @@ router.post('/playlists', async (req, res) => {
 });
 
 router.get('/topSongs', async (req, res) => {
-  console.log('in top songs');
   const results = await Youtube.videos.list({
     part: ['snippet,contentDetails,statistics'],
     chart: 'mostPopular',

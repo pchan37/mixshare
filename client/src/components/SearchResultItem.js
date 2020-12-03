@@ -5,7 +5,7 @@ const SearchResultItem = (props) => {
   return (
     <div style={{ width: '100%' }} className="d-flex flex-row mb-3">
       <HorizontalThumbnail
-        ytID={props.ytID}
+        youtubeID={props.youtubeID}
         name={props.name}
         artist={props.artist}
         thumbnail={props.thumbnail}

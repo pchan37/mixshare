@@ -5,8 +5,8 @@ import YouTube from 'react-youtube';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import PlayCircleOutlineOutlinedIcon from '@material-ui/icons/PlayCircleOutlineOutlined';
 import PauseCircleOutlineIcon from '@material-ui/icons/PauseCircleOutline';
+import PlayCircleOutlineOutlinedIcon from '@material-ui/icons/PlayCircleOutlineOutlined';
 import SkipPreviousIcon from '@material-ui/icons/SkipPrevious';
 import SkipNextIcon from '@material-ui/icons/SkipNext';
 import ShuffleIcon from '@material-ui/icons/Shuffle';
@@ -49,6 +49,7 @@ const MusicPlayer = ({ expandedState, height, setExpandedState, width }) => {
   const [playing, setPlaying] = useState(false);
   const [loop, setLoop] = useState(currentlyPlaying.opts.playerVars.loop);
 
+  // copy of state object maintained for ease of updating individual fields
   const playingContextCopy = { ...currentlyPlaying };
 
   const FullscreenButton = (
@@ -65,7 +66,6 @@ const MusicPlayer = ({ expandedState, height, setExpandedState, width }) => {
     />
   );
 
-  //const MyYouTube = React.memo(YouTube);
   const NormalVideo = (
     <div style={{ height: '100%' }}>
       <YouTube
@@ -161,7 +161,7 @@ const MusicPlayer = ({ expandedState, height, setExpandedState, width }) => {
               style={{ gap: '1rem' }}>
               <ShuffleIcon style={normalIconStyle} />
               <RepeatIcon style={normalIconStyle} />
-              {loop == 1 ? LoopButtonActive : LoopButtonInactive}
+              {loop === 1 ? LoopButtonActive : LoopButtonInactive}
             </div>
             <div
               className="d-flex justify-content-center flex-grow-1 flex-shrink-1"

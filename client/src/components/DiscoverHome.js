@@ -1,6 +1,8 @@
 import React from 'react';
 import { Thumbnail } from './';
 
+// TODO: move to another file
+// decodes HTML characters from youtube search results
 function decodeHtml(text) {
   var txt = document.createElement('textarea');
   txt.innerHTML = text;
@@ -17,7 +19,7 @@ const DiscoverHome = (props) => {
             return (
               <Thumbnail
                 key={p.id}
-                ytID={p.id}
+                youtubeID={p.id}
                 name={decodeHtml(p.snippet.title)}
                 artist={p.snippet.channelTitle}
                 thumbnail={p.snippet.thumbnails.medium.url}
