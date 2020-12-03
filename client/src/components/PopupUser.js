@@ -2,14 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { Row, Col } from 'react-bootstrap';
-import { AccountCircle } from '@material-ui/icons';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 
 const PopupUser = (props) => {
   return (
     <div>
       <Row className="d-flex flex-row" style={{ alignItems: 'center' }}>
         <Col className="d-flex flex-row">
-          <AccountCircle
+          <AccountCircleIcon
             className="mr-2"
             style={{ color: '#979696', fontSize: 30 }}
           />

@@ -12,7 +12,6 @@ router.post('/searchUsers', async (req, res) => {
   if (query !== '') {
     try {
       var regexQuery = new RegExp('.*(' + query + ').*');
-      console.log(regexQuery);
 
       const findingUsers = await Account.find({
         username: { $regex: regexQuery, $ne: req.body.username },
@@ -189,6 +188,7 @@ router.post('/addUser', async (req, res) => {
   }
 });
 
+// POST /removeFriend: removes selected friend from friends list
 router.post('/removeFriend', async (req, res) => {
   try {
     selfUsername = req.body.currUsername;

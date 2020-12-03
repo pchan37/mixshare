@@ -10,7 +10,9 @@ import {
   Popover,
   OverlayTrigger,
 } from 'react-bootstrap';
-import { ErrorOutline, PersonAdd } from '@material-ui/icons';
+
+import PersonAddIcon from '@material-ui/icons/PersonAdd';
+import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
 
 import { UserContext } from '../contexts';
 
@@ -34,6 +36,7 @@ const FriendsBody = () => {
   const [pendingFriendRequests, setPending] = useState([]);
   const [friends, setFriends] = useState([]);
 
+  // get search results given query
   const searchUsers = async (event) => {
     event.preventDefault();
     setResponse('');
@@ -46,25 +49,27 @@ const FriendsBody = () => {
   };
 
   // get pending friend requests; called on load
-  async function getPendingRequests() {
+  const getPendingRequests = async () => {
     const pendingRequests = await Axios.post('/api/user/getPendingRequests', {
       username: currentUser.username,
     });
     setPending(pendingRequests.data);
-  }
+  };
 
-  async function getFriends() {
+  // gets friends list; called on load
+  const getFriends = async () => {
     const friends = await Axios.post('api/user/friends', {
       username: currentUser.username,
     });
     setFriends(friends.data);
-  }
+  };
 
   useEffect(() => {
     getFriends();
     getPendingRequests();
   }, []);
 
+  // sends friend request to specified user
   const sendFriendRequest = async (userId) => {
     try {
       const sendRequest = await Axios.post('/api/user/sendFriendRequest', {
@@ -78,6 +83,7 @@ const FriendsBody = () => {
     }
   };
 
+  // accepts friend request from specified user
   const acceptRequest = async (userId) => {
     console.log(`accepting friend request from ${userId}`);
 
@@ -98,6 +104,7 @@ const FriendsBody = () => {
     }
   };
 
+  // rejects friend request from specified user
   const rejectRequest = async (userId) => {
     console.log(`rejecting request from ${userId}`);
     try {
@@ -132,7 +139,7 @@ const FriendsBody = () => {
           {searchResults.map((f) => {
             return (
               <PopupUser key={f.userId} username={f.username}>
-                <PersonAdd
+                <PersonAddIcon
                   style={iconStyle}
                   onClick={() => {
                     getPendingRequests();
@@ -181,9 +188,7 @@ const FriendsBody = () => {
 
   return (
     <div className="d-flex flex-column mb-5">
-      <Row
-        className="mb-4"
-        style={{ alignItems: 'flex-end', justifyContent: 'space-evenly' }}>
+      <Row className="dd-flex justify-content-between mb-4 ">
         <Col>
           <h2 className="m-0 p-0">Friends</h2>
         </Col>
@@ -197,8 +202,8 @@ const FriendsBody = () => {
               Pending Friend Requests
             </Button>
           </OverlayTrigger>
-          {pendingFriendRequests.length != 0 && (
-            <ErrorOutline className="mb-3" style={{ color: '#979696' }} />
+          {pendingFriendRequests.length !== 0 && (
+            <ErrorOutlineIcon className="mb-3" style={{ color: '#979696' }} />
           )}
         </Col>
         <Col>
@@ -213,7 +218,7 @@ const FriendsBody = () => {
               }}
               trigger="click">
               <Button variant="flat pb-0" style={{ color: '#979696' }}>
-                <PersonAdd className="mr-2" style={{ color: '#979696' }} />
+                <PersonAddIcon className="mr-2" style={{ color: '#979696' }} />
                 Add Friend
               </Button>
             </OverlayTrigger>

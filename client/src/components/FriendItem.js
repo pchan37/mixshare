@@ -13,11 +13,10 @@ const FriendItem = (props) => {
   async function getResponse(value) {
     if (value) {
       try {
-        const removingUser = await Axios.post('api/user/removeFriend', {
+        await Axios.post('api/user/removeFriend', {
           unfriend: props.username,
           currUsername: currentUser.username,
         });
-        console.log(removingUser.data.statusMessage);
         props.updateFriends();
       } catch (err) {
         console.error(err);
