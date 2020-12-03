@@ -34,4 +34,14 @@ router.post('/playlists', async (req, res) => {
   res.send(matchedPlaylists);
 });
 
+router.get('/topSongs', async (req, res) => {
+  const results = await Youtube.videos.list({
+    part: ['snippet,contentDetails,statistics'],
+    chart: 'mostPopular',
+    regionCode: 'US',
+    videoCategoryId: 10,
+  });
+  res.send(results.data.items);
+});
+
 module.exports = router;

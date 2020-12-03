@@ -1,3 +1,4 @@
+import CurrentlyPlayingContext from './CurrentlyPlayingContext';
 import UserContext from './UserContext';
 
-export { UserContext };
+export { CurrentlyPlayingContext, UserContext };
