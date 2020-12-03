@@ -23,7 +23,7 @@ const Thumbnail = (props) => {
             : defaultThumbnail
         }
         onClick={() => {
-          currentlyPlayingCopy.song = props.ytID;
+          currentlyPlayingCopy.song = props.youtubeID;
           currentlyPlayingCopy.opts.playerVars.loop = 0;
           currentlyPlayingCopy.opts.playerVars.playlist = '';
           setCurrentlyPlaying(currentlyPlayingCopy);
