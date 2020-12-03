@@ -46,8 +46,9 @@ const SignUpLogin = () => {
       });
 
       setCurrentUser(res.data);
-      history.push(state?.from || '/discover');
+      history.push('/discover');
     } catch (err) {
+      console.error(err);
       setLoginStatus(err.response.data);
     }
   };
