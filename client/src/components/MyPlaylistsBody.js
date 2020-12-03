@@ -75,6 +75,29 @@ const MyPlaylistsBody = () => {
   };
 
   const PlaylistItem = (props) => {
+    const [listOfSongs, updateListOfSongs] = useState([]);
+    const defaultThumbnail =
+      'https://wp-en.oberlo.com/wp-content/uploads/2019/04/image13-1-1024x576.png';
+    // var thumbnail = '';
+    const [thumbnail, updateThumbnail] = useState('');
+
+    const getSongs = async () => {
+      try {
+        const songRes = await Axios.post('/api/song/getPlaylistPreview', {
+          songIds: props.songs,
+        });
+        updateListOfSongs(songRes.data);
+        if (songRes.data.length !== 0)
+          updateThumbnail(songRes.data[0].thumbnail);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    useEffect(() => {
+      getSongs();
+    }, []);
+
     return (
       <div className="d-flex flex-column border-bottom pb-2 mb-2">
         <div className="d-flex flex-row">
@@ -85,14 +108,13 @@ const MyPlaylistsBody = () => {
             <Image
               fluid
               style={{ maxWidth: '20vw' }}
-              src="https://wp-en.oberlo.com/wp-content/uploads/2019/04/image13-1-1024x576.png"
+              src={thumbnail !== '' ? thumbnail : defaultThumbnail}
             />
             <div className="ml-4">
-              <p>{props.songs[0]}</p>
-              <p>{props.songs[1]}</p>
-              <p>{props.songs[2]}</p>
-              <p>{props.songs[3]}</p>
-              <p>And More...</p>
+              {listOfSongs.map((s) => {
+                return <p>{s.title}</p>;
+              })}
+              {props.songs.length > 4 ? <p>And More...</p> : <p></p>}
             </div>
           </div>
           <div className="d-flex flex-row">
