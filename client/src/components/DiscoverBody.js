@@ -3,13 +3,13 @@ import Axios from 'axios';
 
 import { Button, Container, Form } from 'react-bootstrap';
 
-import { DiscoverHome, DiscoverSearch, Thumbnail } from './';
+import { DiscoverHome, DiscoverSearch } from './';
 import data from '../placeholders/data';
 
 import SearchIcon from '@material-ui/icons/Search';
 
 const ChooseDisplay = (props) => {
-  if (!(props.query === '')) {
+  if (props.query !== '') {
     return (
       <DiscoverSearch
         query={props.query}
@@ -31,7 +31,6 @@ function DiscoverBody() {
   useEffect(() => {
     async function getTopSongs() {
       const gettingSongs = await Axios.get('/api/youtube/topSongs');
-      console.log(gettingSongs.data);
       updateTopSongs(gettingSongs.data);
     }
     getTopSongs();
@@ -40,7 +39,7 @@ function DiscoverBody() {
   const updateQueryAndReturn = (event) => {
     event.preventDefault();
     var enteredQuery = event.target.elements.query.value;
-    if (!(enteredQuery === '')) {
+    if (enteredQuery !== '') {
       getPlaylistResults(enteredQuery);
       getSongResults(enteredQuery);
     }
