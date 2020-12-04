@@ -1,4 +1,5 @@
+import CurrentEditPlaylistContext from './CurrentEditPlaylistContext';
 import CurrentlyPlayingContext from './CurrentlyPlayingContext';
 import UserContext from './UserContext';
 
-export { CurrentlyPlayingContext, UserContext };
+export { CurrentEditPlaylistContext, CurrentlyPlayingContext, UserContext };
