@@ -104,6 +104,7 @@ const PlaylistEditItem = (props) => {
           name={props.song.title}
           artist={props.song.artist}
           thumbnail={props.song.thumbnail}
+          youtubeID={props.song.songId}
         />
       </div>
 
