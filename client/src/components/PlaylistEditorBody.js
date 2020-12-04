@@ -12,15 +12,14 @@ import {
   Row,
 } from 'react-bootstrap';
 import { NavLink } from 'react-router-dom';
-import {
-  Add,
-  ArrowBackIos,
-  Check,
-  Search,
-  Edit,
-  HelpOutline,
-  Settings,
-} from '@material-ui/icons';
+import AddIcon from '@material-ui/icons/Add';
+import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
+import CheckIcon from '@material-ui/icons/Check';
+import SearchIcon from '@material-ui/icons/Search';
+import EditIcon from '@material-ui/icons/Edit';
+import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
+import SettingsIcon from '@material-ui/icons/Settings';
+
 import { PlaylistEditItem } from './';
 import { CurrentEditPlaylistContext } from '../contexts';
 
@@ -51,7 +50,7 @@ const SettingsPopup = () => {
           onClick={() => setMixtapeChecked(!mixtapeChecked)}>
           <Col xs="2" className="mr-2">
             {mixtapeChecked && (
-              <Check style={{ color: '#979696', fontSize: 20 }} />
+              <CheckIcon style={{ color: '#979696', fontSize: 20 }} />
             )}
           </Col>
           <Col>Mixtape Mode</Col>
@@ -62,7 +61,7 @@ const SettingsPopup = () => {
           onClick={() => setPublicChecked(!publicChecked)}>
           <Col xs="2" className="mr-2">
             {publicChecked && (
-              <Check style={{ color: '#979696', fontSize: 20 }} />
+              <CheckIcon style={{ color: '#979696', fontSize: 20 }} />
             )}
           </Col>
           <Col>Public</Col>
@@ -133,7 +132,7 @@ const PlaylistEditorBody = () => {
                 </div>
               </div>
               <Button variant="flat" onClick={() => addSongToPlaylist(s)}>
-                <Add style={{ color: '#979696' }} />
+                <AddIcon style={{ color: '#979696' }} />
               </Button>
             </div>
           );
@@ -193,7 +192,7 @@ const PlaylistEditorBody = () => {
         <div className="d-flex flex-row flex-grow-1">
           <Button variant="flat">
             <NavLink to="/playlists">
-              <ArrowBackIos
+              <ArrowBackIosIcon
                 className="align-self-center"
                 style={{ color: '#979696' }}
               />
@@ -211,7 +210,7 @@ const PlaylistEditorBody = () => {
           onToggle={() => updateSongResults([])}
           rootClose>
           <Button variant="flat">
-            <Search
+            <SearchIcon
               className="align-self-center"
               style={{ color: '#979696' }}
             />
@@ -223,7 +222,7 @@ const PlaylistEditorBody = () => {
         <div className="d-flex flex-row flex-grow-1 ml-4">
           <h5 className="align-self-center">{playlistName}</h5>
           <Button variant="flat">
-            <Edit className="ml-3" style={{ color: '#979696' }} />
+            <EditIcon className="ml-3" style={{ color: '#979696' }} />
           </Button>
         </div>
 
@@ -234,7 +233,7 @@ const PlaylistEditorBody = () => {
           trigger="click"
           rootClose>
           <Button variant="flat">
-            <HelpOutline style={{ color: '#979696' }} />
+            <HelpOutlineIcon style={{ color: '#979696' }} />
           </Button>
         </OverlayTrigger>
         <OverlayTrigger
@@ -244,7 +243,7 @@ const PlaylistEditorBody = () => {
           trigger="click"
           rootClose>
           <Button variant="flat">
-            <Settings style={{ color: '#979696' }} />
+            <SettingsIcon style={{ color: '#979696' }} />
           </Button>
         </OverlayTrigger>
       </div>

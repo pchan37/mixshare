@@ -3,7 +3,8 @@ import Axios from 'axios';
 import PropsType from 'prop-types';
 
 import { Button, OverlayTrigger, Popover, Modal } from 'react-bootstrap';
-import { CardGiftcard, Delete } from '@material-ui/icons';
+import CardGiftcardIcon from '@material-ui/icons/CardGiftcard';
+import DeleteIcon from '@material-ui/icons/Delete';
 import { HorizontalThumbnail } from './';
 import SimpleUser from './SimpleUser';
 
@@ -17,7 +18,7 @@ const CardGiftPopup = (
         return (
           <SimpleUser key={f.id} username={f.username}>
             <Button variant="flat">
-              <CardGiftcard style={{ color: '#979696' }} />
+              <CardGiftcardIcon style={{ color: '#979696' }} />
             </Button>
           </SimpleUser>
         );
@@ -44,21 +45,12 @@ function DeleteSongModal(props) {
     } catch (err) {
       console.error(err);
     }
-    setShow(false);
-    // const val = props.parentCallback(
-    //   true,
-    //   currentEditPlaylist.id,
-    //   props.song.songId
-    // );
-    // val.then((updatedPlaylist) => {
-    //   props.deleteSong(updatedPlaylist);
-    // });
   };
 
   return (
     <>
       <Button variant="flat" onClick={handleShow}>
-        <Delete style={{ color: '#979696' }} />
+        <DeleteIcon style={{ color: '#979696' }} />
       </Button>
 
       <Modal
@@ -121,7 +113,7 @@ const PlaylistEditItem = (props) => {
         overlay={CardGiftPopup}
         trigger="click">
         <Button variant="flat">
-          <CardGiftcard style={{ color: '#979696' }} />
+          <CardGiftcardIcon style={{ color: '#979696' }} />
         </Button>
       </OverlayTrigger>
 
