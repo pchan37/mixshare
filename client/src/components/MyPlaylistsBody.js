@@ -43,7 +43,7 @@ const MyPlaylistsBody = () => {
             username: currentUser.username,
           });
           updateListOfPlaylists(listOfPlaylists.concat(newPlaylistRes.data));
-          document.body.click();
+          document.body.click(); // TODO: refactor this in the future
         } catch (err) {
           console.log(err.response);
         }
