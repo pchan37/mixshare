@@ -92,13 +92,13 @@ const FriendsBody = () => {
         currUser: currentUser.username,
         userToAccept: userId,
       });
-      getPendingRequests();
+      await getPendingRequests();
 
       await Axios.post('/api/user/addUser', {
         currUser: currentUser.username,
         userToAccept: userId,
       });
-      getFriends();
+      await getFriends();
     } catch (err) {
       console.error(err);
     }
@@ -112,7 +112,7 @@ const FriendsBody = () => {
         currUser: currentUser.username,
         userToAccept: userId,
       });
-      getPendingRequests();
+      await getPendingRequests();
     } catch (err) {
       console.error(err);
     }
