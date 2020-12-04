@@ -7,10 +7,10 @@ const { Playlist, Song } = require('../database/models');
 
 // POST /newPlaylist: Create a new playlist
 router.post('/newPlaylist', async (req, res) => {
-  const playlistID = uuid();
+  const playlistId = uuid();
   try {
-    const new_playlist = await Playlist.create({
-      playlistId: playlistID,
+    const newPlaylist = await Playlist.create({
+      playlistId,
       ownerUsername: req.body.username,
       playlistName: req.body.playlistName,
       mixtapeMode: false,
@@ -18,8 +18,7 @@ router.post('/newPlaylist', async (req, res) => {
       views: 0,
       songs: [],
     });
-    console.log(new_playlist);
-    res.send(new_playlist);
+    res.send(newPlaylist);
   } catch (err) {
     console.error(err);
   }
@@ -40,7 +39,7 @@ router.post('/getPlaylist', async (req, res) => {
 router.post('/getPlaylistById', async (req, res) => {
   const playlistId = req.body.playlistId;
   try {
-    const playlist = await Playlist.findOne({ playlistId: playlistId });
+    const playlist = await Playlist.findOne({ playlistId });
     res.send(playlist);
   } catch (err) {
     console.error(err);
@@ -52,7 +51,7 @@ router.post('/deletePlaylist', async (req, res) => {
   const playlistId = req.body.playlistId;
   const username = req.body.username;
   try {
-    await Playlist.findOneAndDelete({ playlistId: playlistId });
+    await Playlist.findOneAndDelete({ playlistId });
     const updatedPlaylist = await Playlist.find({ ownerUsername: username });
     res.send(updatedPlaylist);
   } catch (err) {
@@ -70,10 +69,10 @@ router.post('/addSong', async (req, res) => {
       { $addToSet: { songs: songId } }
     );
 
-    const findSong = await Song.findOne({ songId: songId });
-    if (findSong == null) {
+    const findSong = await Song.findOne({ songId });
+    if (findSong === null) {
       await Song.create({
-        songId: songId,
+        songId,
         title: req.body.song.snippet.title,
         artist: req.body.song.snippet.channelTitle,
         thumbnail: req.body.song.snippet.thumbnails.medium.url,
@@ -95,7 +94,7 @@ router.post('/deleteSong', async (req, res) => {
       { playlistId: playlistId },
       { $pull: { songs: songId } }
     );
-    const updatedPlaylist = await Playlist.findOne({ playlistId: playlistId });
+    const updatedPlaylist = await Playlist.findOne({ playlistId });
     res.send(updatedPlaylist.songs);
   } catch (err) {
     console.error(err);

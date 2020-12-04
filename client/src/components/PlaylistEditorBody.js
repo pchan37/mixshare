@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import Axios from 'axios';
 
 import {
@@ -22,8 +22,9 @@ import {
   Settings,
 } from '@material-ui/icons';
 import { PlaylistEditItem } from './';
+import { CurrentEditPlaylistContext } from '../contexts';
 
-const HelpButton = (
+const HelpTooltip = (
   <Popover>
     <Popover.Content className="mr-2">
       <p>
@@ -71,29 +72,34 @@ const SettingsPopup = () => {
   );
 };
 
-const PlaylistEditorBody = (props) => {
-  const [playlist, updatePlaylist] = useState(props.id.songs); // list of songIds
+const PlaylistEditorBody = () => {
+  const { currentEditPlaylist } = useContext(CurrentEditPlaylistContext);
+  const [playlist, updatePlaylist] = useState(currentEditPlaylist.songs); // list of songIds
   const [listOfSongs, updateListOfSongs] = useState([]); // list of Song objects
   const [songResults, updateSongResults] = useState([]);
   const [playlistName, updatePlaylistName] = useState('');
 
-  const handleSongDelete = (updatedPlaylist) => {
+  const handleSongDelete = async (updatedPlaylist) => {
     updatePlaylist(updatedPlaylist);
-    retrieveSongs(updatedPlaylist);
+    try {
+      await retrieveSongs(updatedPlaylist);
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   const updateQueryAndReturn = (event) => {
     event.preventDefault();
     var enteredQuery = event.target.elements.query.value;
-    if (!(enteredQuery === '')) {
+    if (enteredQuery !== '') {
       getSongResults(enteredQuery);
     }
   };
 
-  const SearchPopup = (
+  const searchPopup = (
     <Popover>
       <Popover.Content className="mr-2">
-        <div className="d-flex flex-row mb-3" style={{ alignItems: 'center' }}>
+        <div className="d-flex flex-row mb-3 align-items-center">
           <Form className="d-flex flex-row" onSubmit={updateQueryAndReturn}>
             <Form.Control
               type="text"
@@ -111,9 +117,8 @@ const PlaylistEditorBody = (props) => {
           return (
             <div
               key={s.id.videoId}
-              className="d-flex flex-row"
-              style={{ justifyContent: 'space-between' }}>
-              <div className="d-flex flex-row" style={{ alignItems: 'center' }}>
+              className="d-flex flex-row justify-content-between">
+              <div className="d-flex flex-row align-items-center">
                 <div
                   id={s.id.videoId}
                   className="mb-3"
@@ -140,13 +145,13 @@ const PlaylistEditorBody = (props) => {
   const addSongToPlaylist = async (song) => {
     try {
       const songRes = await Axios.post('/api/playlist/addSong', {
-        playlistId: props.id.id,
-        song: song,
+        playlistId: currentEditPlaylist.id,
+        song,
       });
-      const playlistCopy = playlist.slice();
+      const playlistCopy = playlist.slice(); // copy is made to push an element into it to update state
       playlistCopy.push(songRes.data);
       updatePlaylist(playlistCopy);
-      retrieveSongs(playlistCopy);
+      await retrieveSongs(playlistCopy);
     } catch (err) {
       console.error(err);
     }
@@ -155,7 +160,7 @@ const PlaylistEditorBody = (props) => {
   const getSongResults = async (query) => {
     try {
       const songRes = await Axios.post('/api/youtube/songs', {
-        query: query,
+        query,
       });
       updateSongResults(songRes.data);
     } catch (err) {
@@ -170,7 +175,7 @@ const PlaylistEditorBody = (props) => {
       });
       updateListOfSongs(songRes.data);
       const playlistObject = await Axios.post('/api/playlist/getPlaylistById', {
-        playlistId: props.id.id,
+        playlistId: currentEditPlaylist.id,
       });
       updatePlaylistName(playlistObject.data.playlistName);
     } catch (err) {
@@ -180,7 +185,7 @@ const PlaylistEditorBody = (props) => {
 
   useEffect(() => {
     retrieveSongs(playlist);
-  }, []);
+  }, [playlist]);
 
   return (
     <Container fluid>
@@ -201,7 +206,7 @@ const PlaylistEditorBody = (props) => {
         <OverlayTrigger
           placement="left"
           delay={{ show: 250 }}
-          overlay={SearchPopup}
+          overlay={searchPopup}
           trigger="click"
           onToggle={() => updateSongResults([])}
           rootClose>
@@ -225,7 +230,7 @@ const PlaylistEditorBody = (props) => {
         <OverlayTrigger
           placement="left"
           delay={{ show: 250 }}
-          overlay={HelpButton}
+          overlay={HelpTooltip}
           trigger="click"
           rootClose>
           <Button variant="flat">
@@ -245,16 +250,7 @@ const PlaylistEditorBody = (props) => {
       </div>
 
       {listOfSongs.map((s) => {
-        return (
-          <PlaylistEditItem
-            playlistId={props.id.id}
-            songId={s.songId}
-            name={s.title}
-            artist={s.artist}
-            thumbnail={s.thumbnail}
-            handleDelete={handleSongDelete}
-          />
-        );
+        return <PlaylistEditItem song={s} handleDelete={handleSongDelete} />;
       })}
     </Container>
   );

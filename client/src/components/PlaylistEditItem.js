@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import Axios from 'axios';
 import PropsType from 'prop-types';
 
@@ -8,6 +8,7 @@ import { HorizontalThumbnail } from './';
 import SimpleUser from './SimpleUser';
 
 import data from '../placeholders/data';
+import { CurrentEditPlaylistContext } from '../contexts';
 
 const CardGiftPopup = (
   <Popover>
@@ -26,20 +27,32 @@ const CardGiftPopup = (
 );
 
 function DeleteSongModal(props) {
+  const { currentEditPlaylist } = useContext(CurrentEditPlaylistContext);
   const [show, setShow] = useState(false);
 
   const handleShow = () => setShow(true);
   const handleClose = () => setShow(false);
-  const handleDelete = () => {
+  const handleDelete = async () => {
+    try {
+      setShow(false);
+      const val = await props.parentCallback(
+        true,
+        currentEditPlaylist.id,
+        props.song.songId
+      );
+      props.deleteSong(val);
+    } catch (err) {
+      console.error(err);
+    }
     setShow(false);
-    const val = props.parentCallback(
-      true,
-      props.song.playlistId,
-      props.song.songId
-    );
-    val.then((updatedPlaylist) => {
-      props.song.handleDelete(updatedPlaylist);
-    });
+    // const val = props.parentCallback(
+    //   true,
+    //   currentEditPlaylist.id,
+    //   props.song.songId
+    // );
+    // val.then((updatedPlaylist) => {
+    //   props.deleteSong(updatedPlaylist);
+    // });
   };
 
   return (
@@ -63,7 +76,7 @@ function DeleteSongModal(props) {
         </Modal.Header>
         <Modal.Body>
           <p>
-            Are you sure you want to delete <b>{props.song.name}</b>?
+            Are you sure you want to delete <strong>{props.song.title}</strong>?
           </p>
         </Modal.Body>
         <Modal.Footer>
@@ -81,8 +94,8 @@ const getModalResponse = async (del, playlistId, songId) => {
   if (del) {
     try {
       const deletedSong = await Axios.post('api/playlist/deleteSong', {
-        playlistId: playlistId,
-        songId: songId,
+        playlistId,
+        songId,
       });
       return deletedSong.data;
     } catch (err) {
@@ -96,9 +109,9 @@ const PlaylistEditItem = (props) => {
     <div className="d-flex flex-row mt-3">
       <div className="d-flex flex-row flex-grow-1 ml-4">
         <HorizontalThumbnail
-          name={props.name}
-          artist={props.artist}
-          thumbnail={props.thumbnail}
+          name={props.song.title}
+          artist={props.song.artist}
+          thumbnail={props.song.thumbnail}
         />
       </div>
 
@@ -112,7 +125,11 @@ const PlaylistEditItem = (props) => {
         </Button>
       </OverlayTrigger>
 
-      <DeleteSongModal song={props} parentCallback={getModalResponse} />
+      <DeleteSongModal
+        song={props.song}
+        deleteSong={props.handleDelete}
+        parentCallback={getModalResponse}
+      />
     </div>
   );
 };

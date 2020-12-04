@@ -6,10 +6,11 @@ import { NavLink } from 'react-router-dom';
 import { Add, DeleteOutline, Edit } from '@material-ui/icons';
 
 import FriendListPopup from './FriendListPopup';
-import { UserContext } from '../contexts';
+import { CurrentEditPlaylistContext, UserContext } from '../contexts';
 
 const MyPlaylistsBody = () => {
   const { currentUser } = useContext(UserContext);
+  const { setCurrentEditPlaylist } = useContext(CurrentEditPlaylistContext);
   const [listOfPlaylists, updateListOfPlaylists] = useState([]);
 
   const getPlaylist = async () => {
@@ -25,6 +26,7 @@ const MyPlaylistsBody = () => {
 
   useEffect(() => {
     getPlaylist();
+    setCurrentEditPlaylist(null);
   }, []);
 
   const NewPlaylistPopup = (props) => {
@@ -32,7 +34,9 @@ const MyPlaylistsBody = () => {
       event.preventDefault();
       const form = event.target;
 
-      if (form.elements.name.value !== '') {
+      const playlistName = form.elements.name.value;
+
+      if (playlistName !== '') {
         try {
           const newPlaylistRes = await Axios.post('/api/playlist/newPlaylist', {
             playlistName: form.elements.name.value,
@@ -76,15 +80,14 @@ const MyPlaylistsBody = () => {
 
   const PlaylistItem = (props) => {
     const [listOfSongs, updateListOfSongs] = useState([]);
-    const defaultThumbnail =
+    const DEFAULT_THUMBNAIL =
       'https://wp-en.oberlo.com/wp-content/uploads/2019/04/image13-1-1024x576.png';
-    // var thumbnail = '';
     const [thumbnail, updateThumbnail] = useState('');
 
     const getSongs = async () => {
       try {
-        const songRes = await Axios.post('/api/song/getPlaylistPreview', {
-          songIds: props.songs,
+        const songRes = await Axios.post('/api/song/getSongs', {
+          songIds: props.songs.slice(0, 4),
         });
         updateListOfSongs(songRes.data);
         if (songRes.data.length !== 0)
@@ -108,21 +111,22 @@ const MyPlaylistsBody = () => {
             <Image
               fluid
               style={{ maxWidth: '20vw' }}
-              src={thumbnail !== '' ? thumbnail : defaultThumbnail}
+              src={thumbnail !== '' ? thumbnail : DEFAULT_THUMBNAIL}
             />
             <div className="ml-4">
               {listOfSongs.map((s) => {
                 return <p>{s.title}</p>;
               })}
-              {props.songs.length > 4 ? <p>And More...</p> : <p></p>}
+              {props.songs.length > 4 && <p>And More...</p>}
             </div>
           </div>
           <div className="d-flex flex-row">
-            <Button variant="flat">
+            <Button
+              variant="flat"
+              onClick={() => setCurrentEditPlaylist(props)}>
               <NavLink
                 to={{
                   pathname: '/edit',
-                  playlistEditorProps: { id: props.id, songs: props.songs },
                 }}>
                 <Edit style={{ color: '#979696' }} />
               </NavLink>
