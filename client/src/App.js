@@ -30,7 +30,7 @@ function App() {
     song: '',
     playlist: '',
     opts: {
-      height: '100px',
+      height: '100%',
       width: 'auto',
       playerVars: {
         controls: 0,
