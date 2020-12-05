@@ -28,7 +28,7 @@ router.post('/searchUsers', async (req, res) => {
 
 // POST /sendFriendRequest: adds userId of sender to receiver's pendingFriendRequests field
 router.post('/sendFriendRequest', async (req, res) => {
-  const requestTarget = req.body.userId;
+  const targetId = req.body.targetId;
   const selfUsername = req.body.selfUsername;
 
   try {
@@ -39,15 +39,15 @@ router.post('/sendFriendRequest', async (req, res) => {
     const selfId = selfAccount.userId;
 
     // Check if request has been sent already
-    const getTargetUser = await User.findOne({
-      userId: requestTarget,
+    const targetUser = await User.findOne({
+      userId: targetId,
     });
 
-    if (getTargetUser.pendingFriendRequests.includes(selfId)) {
+    if (targetUser.pendingFriendRequests.includes(selfId)) {
       return response.UserError(res, 400, 'Request already sent!');
     }
 
-    if (getTargetUser.friends.includes(selfId)) {
+    if (targetUser.friends.includes(selfId)) {
       return response.UserError(res, 400, 'Already friends with this user!');
     }
 
@@ -56,14 +56,14 @@ router.post('/sendFriendRequest', async (req, res) => {
       userId: selfId,
     });
 
-    if (selfUser.pendingFriendRequests.includes(requestTarget)) {
+    if (selfUser.pendingFriendRequests.includes(targetId)) {
       return response.UserError(res, 400, 'Check pending friend requests');
     }
 
-    console.log(`Sending request to ${requestTarget}`);
+    console.log(`Sending request to ${targetId}`);
 
     await User.findOneAndUpdate(
-      { userId: requestTarget },
+      { userId: targetId },
       { $push: { pendingFriendRequests: selfId } }
     );
     return response.OK(res, 'Request sent!');
@@ -75,44 +75,50 @@ router.post('/sendFriendRequest', async (req, res) => {
 
 // POST /getPendingRequests: returns a list of current user's pending friend requests
 router.post('/getPendingRequests', async (req, res) => {
-  const username = req.body.username;
+  try {
+    const username = req.body.username;
 
-  // get userId
-  const gettingAccount = await Account.findOne({
-    username: username,
-  });
-
-  const userId = gettingAccount.userId;
-
-  const gettingUser = await User.findOne({
-    userId: userId,
-  });
-
-  const friendRequests = gettingUser.pendingFriendRequests;
-  var requestUsers = [];
-
-  for await (const id of friendRequests) {
-    const user = await Account.findOne({
-      userId: id,
+    // get userId
+    const gettingAccount = await Account.findOne({
+      username: username,
     });
-    requestUsers.push(user);
-  }
 
-  res.send(requestUsers);
+    const userId = gettingAccount.userId;
+
+    const gettingUser = await User.findOne({
+      userId: userId,
+    });
+
+    const friendRequests = gettingUser.pendingFriendRequests;
+    var requestUsers = [];
+
+    for await (const id of friendRequests) {
+      const user = await Account.findOne({
+        userId: id,
+      });
+      requestUsers.push(user);
+    }
+
+    res.send(requestUsers);
+  } catch (err) {
+    console.error(err);
+    return response.ServerError(res);
+  }
 });
 
+// POST /friends: gets list of friends of logged-in user
 router.post('/friends', async (req, res) => {
-  const currUser = req.body.username;
+  const selfUsername = req.body.username;
 
   try {
     // get userId
     const gettingAccount = await Account.findOne({
-      username: currUser,
+      username: selfUsername,
     });
-    const currUserId = gettingAccount.userId;
+    const selfId = gettingAccount.userId;
 
     const gettingUser = await User.findOne({
-      userId: currUserId,
+      userId: selfId,
     });
 
     const friends = gettingUser.friends;
@@ -134,22 +140,20 @@ router.post('/friends', async (req, res) => {
 
 // POST /removeRequest: removes selected pending friend request from current user's list of pending friend requests
 router.post('/removeRequest', async (req, res) => {
-  const currUser = req.body.currUser; // username
-  const userToAccept = req.body.userToAccept;
+  const selfUsername = req.body.selfUsername; // username
+  const targetId = req.body.targetId;
 
   try {
     // get userId
     const gettingAccount = await Account.findOne({
-      username: currUser,
+      username: selfUsername,
     });
-    const currUserId = gettingAccount.userId;
-
-    console.log(currUserId, userToAccept);
+    const selfId = gettingAccount.userId;
 
     // remove request from currUser's pending friend requests
     await User.findOneAndUpdate(
-      { userId: currUserId },
-      { $pull: { pendingFriendRequests: userToAccept } }
+      { userId: selfId },
+      { $pull: { pendingFriendRequests: targetId } }
     );
     return response.OK(res, 'Request Removed!');
   } catch (err) {
@@ -161,24 +165,24 @@ router.post('/removeRequest', async (req, res) => {
 // POST /addUser: adds current user and new friend to each other's friend field arrays
 router.post('/addUser', async (req, res) => {
   try {
-    const currUser = req.body.currUser; // username
-    const userToAccept = req.body.userToAccept;
+    const selfUsername = req.body.selfUsername;
+    const targetId = req.body.targetId;
 
     // get userId
-    const gettingAccount = await Account.findOne({
-      username: currUser,
+    const selfAccount = await Account.findOne({
+      username: selfUsername,
     });
-    const currUserId = gettingAccount.userId;
+    const selfId = selfAccount.userId;
 
     // add to each other's friends lists
     await User.findOneAndUpdate(
-      { userId: currUserId },
-      { $push: { friends: userToAccept, $position: 0 } }
+      { userId: selfId },
+      { $push: { friends: targetId, $position: 0 } }
     );
 
     await User.findOneAndUpdate(
-      { userId: userToAccept },
-      { $push: { friends: currUserId, $position: 0 } }
+      { userId: targetId },
+      { $push: { friends: selfId, $position: 0 } }
     );
 
     return response.OK(res, 'Friend Added Successfully');

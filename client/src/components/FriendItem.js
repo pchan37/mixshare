@@ -4,7 +4,8 @@ import PropTypes from 'prop-types';
 
 import { UserContext } from '../contexts';
 
-import { CardGiftcard, DeleteOutline } from '@material-ui/icons';
+import CardGiftcardIcon from '@material-ui/icons/CardGiftcard';
+import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 import { DeletePopup, User } from './';
 
 const FriendItem = (props) => {
@@ -26,11 +27,11 @@ const FriendItem = (props) => {
 
   return (
     <User username={props.username}>
-      <CardGiftcard style={{ color: '#979696', fontSize: 30 }} />
+      <CardGiftcardIcon style={{ color: '#979696', fontSize: 30 }} />
       <DeletePopup
         bodytext={`Remove ${props.username} from Friends?`}
         getResponse={getResponse}>
-        <DeleteOutline
+        <DeleteOutlineIcon
           style={{ color: '#979696', fontSize: 30, cursor: 'pointer' }}
         />
       </DeletePopup>

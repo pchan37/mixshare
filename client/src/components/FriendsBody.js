@@ -50,10 +50,14 @@ const FriendsBody = () => {
 
   // get pending friend requests; called on load
   const getPendingRequests = async () => {
-    const pendingRequests = await Axios.post('/api/user/getPendingRequests', {
-      username: currentUser.username,
-    });
-    setPending(pendingRequests.data);
+    try {
+      const pendingRequests = await Axios.post('/api/user/getPendingRequests', {
+        username: currentUser.username,
+      });
+      setPending(pendingRequests.data);
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   // gets friends list; called on load
@@ -73,7 +77,7 @@ const FriendsBody = () => {
   const sendFriendRequest = async (userId) => {
     try {
       const sendRequest = await Axios.post('/api/user/sendFriendRequest', {
-        userId: userId,
+        targetId: userId,
         selfUsername: currentUser.username,
       });
       setResponse(sendRequest.data.statusMessage);
@@ -89,14 +93,14 @@ const FriendsBody = () => {
 
     try {
       await Axios.post('/api/user/removeRequest', {
-        currUser: currentUser.username,
-        userToAccept: userId,
+        selfUsername: currentUser.username,
+        targetId: userId,
       });
       await getPendingRequests();
 
       await Axios.post('/api/user/addUser', {
-        currUser: currentUser.username,
-        userToAccept: userId,
+        selfUsername: currentUser.username,
+        targetId: userId,
       });
       await getFriends();
     } catch (err) {
@@ -109,8 +113,8 @@ const FriendsBody = () => {
     console.log(`rejecting request from ${userId}`);
     try {
       await Axios.post('/api/user/removeRequest', {
-        currUser: currentUser.username,
-        userToAccept: userId,
+        selfUsername: currentUser.username,
+        targetId: userId,
       });
       await getPendingRequests();
     } catch (err) {
