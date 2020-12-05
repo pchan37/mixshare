@@ -40,12 +40,16 @@ const FriendsBody = () => {
   const searchUsers = async (event) => {
     event.preventDefault();
     setResponse('');
-    const enteredQuery = event.target.elements.query.value;
-    const searchResults = await Axios.post('/api/user/searchUsers', {
-      query: enteredQuery,
-      username: currentUser.username,
-    });
-    setSearchResults(searchResults.data);
+    try {
+      const enteredQuery = event.target.elements.query.value;
+      const searchResults = await Axios.post('/api/user/searchUsers', {
+        query: enteredQuery,
+        username: currentUser.username,
+      });
+      setSearchResults(searchResults.data);
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   // get pending friend requests; called on load
