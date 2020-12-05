@@ -41,11 +41,11 @@ const FriendsBody = () => {
     event.preventDefault();
     setResponse('');
     const enteredQuery = event.target.elements.query.value;
-    const gettingResults = await Axios.post('/api/user/searchUsers', {
+    const searchResults = await Axios.post('/api/user/searchUsers', {
       query: enteredQuery,
       username: currentUser.username,
     });
-    setSearchResults(gettingResults.data);
+    setSearchResults(searchResults.data);
   };
 
   // get pending friend requests; called on load
@@ -62,10 +62,14 @@ const FriendsBody = () => {
 
   // gets friends list; called on load
   const getFriends = async () => {
-    const friends = await Axios.post('api/user/friends', {
-      username: currentUser.username,
-    });
-    setFriends(friends.data);
+    try {
+      const friends = await Axios.post('api/user/friends', {
+        username: currentUser.username,
+      });
+      setFriends(friends.data);
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   useEffect(() => {
@@ -137,22 +141,20 @@ const FriendsBody = () => {
               Go
             </Button>
           </div>
-          {response !== '' ? <Form.Text>{response}</Form.Text> : null}
+          {response !== '' && <Form.Text>{response}</Form.Text>}
         </Form>
         <div style={popupBodyStyle}>
-          {searchResults.map((f) => {
-            return (
-              <PopupUser key={f.userId} username={f.username}>
-                <PersonAddIcon
-                  style={iconStyle}
-                  onClick={() => {
-                    getPendingRequests();
-                    sendFriendRequest(f.userId);
-                  }}
-                />
-              </PopupUser>
-            );
-          })}
+          {searchResults.map((f) => (
+            <PopupUser key={f.userId} username={f.username}>
+              <PersonAddIcon
+                style={iconStyle}
+                onClick={() => {
+                  getPendingRequests();
+                  sendFriendRequest(f.userId);
+                }}
+              />
+            </PopupUser>
+          ))}
         </div>
       </Popover.Content>
     </Popover>
@@ -192,7 +194,7 @@ const FriendsBody = () => {
 
   return (
     <div className="d-flex flex-column mb-5">
-      <Row className="dd-flex justify-content-between mb-4 ">
+      <Row className="d-flex justify-content-between mb-4 ">
         <Col>
           <h2 className="m-0 p-0">Friends</h2>
         </Col>
@@ -238,16 +240,14 @@ const FriendsBody = () => {
           </div>
         </Col>
       </Row>
-      {friends.map((f) => {
-        return (
-          <FriendItem
-            key={f.userId}
-            userId={f.userId}
-            username={f.username}
-            updateFriends={getFriends}
-          />
-        );
-      })}
+      {friends.map((f) => (
+        <FriendItem
+          key={f.userId}
+          userId={f.userId}
+          username={f.username}
+          updateFriends={getFriends}
+        />
+      ))}
     </div>
   );
 };

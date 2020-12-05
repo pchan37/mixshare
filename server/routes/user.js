@@ -13,10 +13,10 @@ router.post('/searchUsers', async (req, res) => {
     try {
       var regexQuery = new RegExp('.*(' + query + ').*');
 
-      const findingUsers = await Account.find({
+      const searchResults = await Account.find({
         username: { $regex: regexQuery, $ne: req.body.username },
       });
-      res.send(findingUsers);
+      res.send(searchResults);
     } catch (err) {
       console.log('Encountered error when searching');
       return response.ServerError(err);
@@ -77,20 +77,19 @@ router.post('/sendFriendRequest', async (req, res) => {
 router.post('/getPendingRequests', async (req, res) => {
   try {
     const username = req.body.username;
-    console.log(username);
 
     // get userId
-    const gettingAccount = await Account.findOne({
+    const selfAccount = await Account.findOne({
       username: username,
     });
 
-    const userId = gettingAccount.userId;
+    const userId = selfAccount.userId;
 
-    const gettingUser = await User.findOne({
+    const selfUser = await User.findOne({
       userId: userId,
     });
 
-    const friendRequests = gettingUser.pendingFriendRequests;
+    const friendRequests = selfUser.pendingFriendRequests;
     var requestUsers = [];
 
     for await (const id of friendRequests) {
@@ -113,16 +112,16 @@ router.post('/friends', async (req, res) => {
 
   try {
     // get userId
-    const gettingAccount = await Account.findOne({
+    const selfAccount = await Account.findOne({
       username: selfUsername,
     });
-    const selfId = gettingAccount.userId;
+    const selfId = selfAccount.userId;
 
-    const gettingUser = await User.findOne({
+    const selfUser = await User.findOne({
       userId: selfId,
     });
 
-    const friends = gettingUser.friends;
+    const friends = selfUser.friends;
     var friendArray = [];
 
     for await (const id of friends) {
@@ -147,10 +146,10 @@ router.post('/removeRequest', async (req, res) => {
 
   try {
     // get userId
-    const gettingAccount = await Account.findOne({
+    const selfAccount = await Account.findOne({
       username: selfUsername,
     });
-    const selfId = gettingAccount.userId;
+    const selfId = selfAccount.userId;
 
     // remove request from currUser's pending friend requests
     await User.findOneAndUpdate(
@@ -203,14 +202,11 @@ router.post('/removeFriend', async (req, res) => {
     targetId = req.body.unfriend;
 
     // get userId
-    const gettingSelf = await Account.findOne({
+    const selfAccount = await Account.findOne({
       username: selfUsername,
     });
 
-    const selfId = gettingSelf.userId;
-
-    console.log(selfId);
-    console.log(targetId);
+    const selfId = selfAccount.userId;
 
     await User.findOneAndUpdate(
       { userId: selfId },
