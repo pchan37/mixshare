@@ -13,7 +13,6 @@ const UserSchema = new Schema({
       gifterUserId: {
         type: String,
         required: true,
-        unique: false,
       },
       message: {
         type: String,
@@ -32,7 +31,6 @@ const UserSchema = new Schema({
       gifterUserId: {
         type: String,
         required: true,
-        unique: false,
       },
       message: {
         type: String,
@@ -49,7 +47,6 @@ const UserSchema = new Schema({
   friends: [
     {
       type: String,
-      unique: true,
       sparse: true,
     },
   ],
@@ -57,7 +54,6 @@ const UserSchema = new Schema({
   pendingFriendRequests: [
     {
       type: String,
-      unique: true,
       sparse: true,
     },
   ],

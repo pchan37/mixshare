@@ -77,6 +77,7 @@ router.post('/sendFriendRequest', async (req, res) => {
 router.post('/getPendingRequests', async (req, res) => {
   try {
     const username = req.body.username;
+    console.log(username);
 
     // get userId
     const gettingAccount = await Account.findOne({
@@ -140,6 +141,7 @@ router.post('/friends', async (req, res) => {
 
 // POST /removeRequest: removes selected pending friend request from current user's list of pending friend requests
 router.post('/removeRequest', async (req, res) => {
+  console.log('removing request');
   const selfUsername = req.body.selfUsername; // username
   const targetId = req.body.targetId;
 
@@ -164,6 +166,7 @@ router.post('/removeRequest', async (req, res) => {
 
 // POST /addUser: adds current user and new friend to each other's friend field arrays
 router.post('/addUser', async (req, res) => {
+  console.log('adding user');
   try {
     const selfUsername = req.body.selfUsername;
     const targetId = req.body.targetId;
@@ -194,6 +197,7 @@ router.post('/addUser', async (req, res) => {
 
 // POST /removeFriend: removes selected friend from friends list
 router.post('/removeFriend', async (req, res) => {
+  console.log('removing friend');
   try {
     selfUsername = req.body.currUsername;
     targetId = req.body.unfriend;
