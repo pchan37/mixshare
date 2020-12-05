@@ -11,7 +11,7 @@ import {
 
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 
-import { AccountDetails, DeleteAccountPopup } from './';
+import { AccountDetails, DeletePopup } from './';
 
 const ChangeProfilePicPopup = (
   <Popover id="popover-basic">
@@ -49,7 +49,9 @@ const AccountBody = () => {
         </OverlayTrigger>
       </Row>
       <Row style={{ paddingLeft: 30, paddingTop: 200 }}>
-        <DeleteAccountPopup />
+        <DeletePopup bodytext="Are you sure you want to delete your account?">
+          <Button variant="danger">Delete Account</Button>
+        </DeletePopup>
       </Row>
     </Container>
   );
