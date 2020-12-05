@@ -128,7 +128,7 @@ router.post('/friends', async (req, res) => {
     res.send(friendArray);
   } catch (err) {
     console.error(err);
-    return response.ServerError(err);
+    return response.ServerError(res);
   }
 });
 
@@ -147,14 +147,14 @@ router.post('/removeRequest', async (req, res) => {
     console.log(currUserId, userToAccept);
 
     // remove request from currUser's pending friend requests
-    const updatedRequests = await User.findOneAndUpdate(
+    await User.findOneAndUpdate(
       { userId: currUserId },
       { $pull: { pendingFriendRequests: userToAccept } }
     );
     return response.OK(res, 'Request Removed!');
   } catch (err) {
     console.error(err);
-    return response.ServerError(err);
+    return response.ServerError(res);
   }
 });
 
@@ -184,7 +184,7 @@ router.post('/addUser', async (req, res) => {
     return response.OK(res, 'Friend Added Successfully');
   } catch (err) {
     console.error(err);
-    return response.ServerError(err);
+    return response.ServerError(res);
   }
 });
 
@@ -192,33 +192,31 @@ router.post('/addUser', async (req, res) => {
 router.post('/removeFriend', async (req, res) => {
   try {
     selfUsername = req.body.currUsername;
-    otherUsername = req.body.unfriend;
+    targetId = req.body.unfriend;
 
     // get userId
     const gettingSelf = await Account.findOne({
       username: selfUsername,
     });
 
-    const gettingOther = await Account.findOne({
-      username: otherUsername,
-    });
+    const selfId = gettingSelf.userId;
 
-    const selfUserId = gettingSelf.userId;
-    const otherUserId = gettingOther.userId;
+    console.log(selfId);
+    console.log(targetId);
 
     await User.findOneAndUpdate(
-      { userId: selfUserId },
-      { $pull: { friends: otherUserId } }
+      { userId: selfId },
+      { $pull: { friends: targetId } }
     );
 
     await User.findOneAndUpdate(
-      { userId: otherUserId },
-      { $pull: { friends: selfUserId } }
+      { userId: targetId },
+      { $pull: { friends: selfId } }
     );
     return response.OK(res, 'User removed succesfully');
   } catch (err) {
     console.error(err);
-    return response.ServerError(err);
+    return response.ServerError(res);
   }
 });
 

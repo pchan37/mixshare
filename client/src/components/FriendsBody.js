@@ -238,6 +238,7 @@ const FriendsBody = () => {
         return (
           <FriendItem
             key={f.userId}
+            userId={f.userId}
             username={f.username}
             updateFriends={getFriends}
           />

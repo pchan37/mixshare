@@ -14,7 +14,7 @@ const FriendItem = (props) => {
     if (value) {
       try {
         await Axios.post('api/user/removeFriend', {
-          unfriend: props.username,
+          unfriend: props.userId,
           currUsername: currentUser.username,
         });
         props.updateFriends();
