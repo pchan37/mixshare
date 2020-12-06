@@ -12,7 +12,9 @@ import {
 
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 
-import { AccountDetails, DeleteAccountPopup } from './';
+import { AccountDetails, DeletePopup } from './';
+
+import { UserContext } from '../contexts';
 
 const ChangeProfilePicPopup = (
   <Popover id="popover-basic">
@@ -26,20 +28,23 @@ const ChangeProfilePicPopup = (
   </Popover>
 );
 
-const getModalResponse = async (del, user) => {
-  if (del) {
-    try {
-      console.log('Deleting Account');
-      const deletingAccount = await Axios.post('/api/account/deleteAccount', {
-        username: user,
-      });
-    } catch (err) {
-      console.log(err.response);
-    }
-  }
-};
-
 const AccountBody = () => {
+  const { currentUser, setCurrentUser } = useContext(UserContext);
+
+  const getModalResponse = async (value) => {
+    if (value) {
+      try {
+        console.log('Deleting Account');
+        await Axios.post('/api/account/deleteAccount', {
+          username: currentUser.username,
+        });
+        setCurrentUser(null);
+      } catch (err) {
+        console.log(err.response);
+      }
+    }
+  };
+
   return (
     <Container class="px-0">
       <Row>
@@ -63,7 +68,11 @@ const AccountBody = () => {
         </OverlayTrigger>
       </Row>
       <Row style={{ paddingLeft: 30, paddingTop: 200 }}>
-        <DeleteAccountPopup parentCallback={getModalResponse} />
+        <DeletePopup
+          bodytext="Are you sure you want to delete your account?"
+          getResponse={getModalResponse}>
+          <Button variant="danger">Delete Account</Button>
+        </DeletePopup>
       </Row>
     </Container>
   );

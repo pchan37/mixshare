@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 const bcrypt = require('bcrypt');
-const { Account } = require('../database/models');
+const { Account, Playlist, User } = require('../database/models');
 const response = require('../lib').Response;
 
 router.post('/changeUsername', async (req, res) => {
@@ -71,8 +71,20 @@ router.post('/changePassword', async (req, res) => {
 router.post('/deleteAccount', async (req, res) => {
   const username = req.body.username; // to be replaced with uuid
 
+  // get userId
+  const selfAccount = await Account.findOne({
+    username: username,
+  });
+
+  const selfId = selfAccount.userId;
+
   try {
     await Account.deleteOne({ username: username });
+    await User.deleteOne({ userId: selfId });
+    await Playlist.updateMany(
+      { ownerUsername: username },
+      { $set: { ownerUsername: 'Deleted User' } }
+    );
     return response.OK(res, 'Account Deleted');
   } catch (err) {
     console.error(err);

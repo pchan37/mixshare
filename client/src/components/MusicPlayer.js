@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
 import { Image } from 'react-bootstrap';
+import YouTube from 'react-youtube';
 
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
+import PauseCircleOutlineIcon from '@material-ui/icons/PauseCircleOutline';
 import PlayCircleOutlineOutlinedIcon from '@material-ui/icons/PlayCircleOutlineOutlined';
 import SkipPreviousIcon from '@material-ui/icons/SkipPrevious';
 import SkipNextIcon from '@material-ui/icons/SkipNext';
@@ -15,8 +17,16 @@ import MenuIcon from '@material-ui/icons/Menu';
 import FullscreenIcon from '@material-ui/icons/Fullscreen';
 import FullscreenExitIcon from '@material-ui/icons/FullscreenExit';
 
+import { CurrentlyPlayingContext } from '../contexts';
+
 const normalIconStyle = {
   color: '#979696',
+  fontSize: 40,
+  cursor: 'pointer',
+};
+
+const normalIconStyleActive = {
+  color: '#6efae5',
   fontSize: 40,
   cursor: 'pointer',
 };
@@ -32,6 +42,16 @@ const FixedMusicPlayer = styled.div`
 `;
 
 const MusicPlayer = ({ expandedState, height, setExpandedState, width }) => {
+  const { currentlyPlaying, setCurrentlyPlaying } = useContext(
+    CurrentlyPlayingContext
+  );
+  const [player, setPlayer] = useState(null);
+  const [playing, setPlaying] = useState(false);
+  const [loop, setLoop] = useState(currentlyPlaying.opts.playerVars.loop);
+
+  // copy of state object maintained for ease of updating individual fields
+  const playingContextCopy = { ...currentlyPlaying };
+
   const FullscreenButton = (
     <FullscreenIcon
       onClick={() => setExpandedState(!expandedState)}
@@ -47,11 +67,26 @@ const MusicPlayer = ({ expandedState, height, setExpandedState, width }) => {
   );
 
   const NormalVideo = (
-    <Image
-      fluid
-      style={{ height }}
-      src="https://wp-en.oberlo.com/wp-content/uploads/2019/04/image13-1-1024x576.png"
-    />
+    <div className="h-100">
+      <YouTube
+        videoId={currentlyPlaying.song}
+        id="player"
+        opts={currentlyPlaying.opts}
+        onReady={(e) => {
+          setPlayer(e.target);
+          setPlaying(true);
+        }}
+        onEnd={() => {
+          if (!loop) {
+            playingContextCopy.song = '';
+            playingContextCopy.opts.playerVars.loop = 0;
+            setCurrentlyPlaying(playingContextCopy);
+          } else {
+            setCurrentlyPlaying(playingContextCopy);
+          }
+        }}
+      />
+    </div>
   );
 
   const ExpandedVideo = (
@@ -61,6 +96,48 @@ const MusicPlayer = ({ expandedState, height, setExpandedState, width }) => {
         src="https://wp-en.oberlo.com/wp-content/uploads/2019/04/image13-1-1024x576.png"
       />
     </div>
+  );
+
+  const PlayButton = (
+    <PlayCircleOutlineOutlinedIcon
+      style={largeIconStyle}
+      onClick={() => {
+        player.playVideo();
+        setPlaying(true);
+      }}
+    />
+  );
+
+  const PauseButton = (
+    <PauseCircleOutlineIcon
+      style={largeIconStyle}
+      onClick={() => {
+        player.pauseVideo();
+        setPlaying(false);
+      }}
+    />
+  );
+
+  const LoopButtonInactive = (
+    <RepeatOneIcon
+      style={normalIconStyle}
+      onClick={() => {
+        setLoop(1);
+        playingContextCopy.opts.playerVars.loop = 1;
+        playingContextCopy.opts.playerVars.playlist = currentlyPlaying.song;
+      }}
+    />
+  );
+
+  const LoopButtonActive = (
+    <RepeatOneIcon
+      style={normalIconStyleActive}
+      onClick={() => {
+        setLoop(0);
+        playingContextCopy.opts.playerVars.loop = 0;
+        playingContextCopy.opts.playerVars.playlist = '';
+      }}
+    />
   );
 
   return (
@@ -76,7 +153,7 @@ const MusicPlayer = ({ expandedState, height, setExpandedState, width }) => {
               className="d-flex justify-content-center"
               style={{ gap: '2rem', flex: '5' }}>
               <SkipPreviousIcon style={largeIconStyle} />
-              <PlayCircleOutlineOutlinedIcon style={largeIconStyle} />
+              {playing ? PauseButton : PlayButton}
               <SkipNextIcon style={largeIconStyle} />
             </div>
             <div
@@ -84,7 +161,7 @@ const MusicPlayer = ({ expandedState, height, setExpandedState, width }) => {
               style={{ gap: '1rem' }}>
               <ShuffleIcon style={normalIconStyle} />
               <RepeatIcon style={normalIconStyle} />
-              <RepeatOneIcon style={normalIconStyle} />
+              {loop === 1 ? LoopButtonActive : LoopButtonInactive}
             </div>
             <div
               className="d-flex justify-content-center flex-grow-1 flex-shrink-1"
