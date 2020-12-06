@@ -2,6 +2,9 @@ const samplePlaylists = require('../placeholders/samplePlaylists');
 const express = require('express');
 const router = express.Router();
 
+const { Playlist } = require('../database/models');
+
+const response = require('../lib').Response;
 const Youtube = require('youtube-api');
 const API_KEY = 'AIzaSyCqRkLe3nqTjE7yHIeqMn6jprdkEQPTec8';
 
@@ -25,13 +28,22 @@ router.post('/songs', async (req, res) => {
   results.then((r) => res.send(r.data.items));
 });
 
-router.post('/playlists', async (req, res) => {
-  var matchedPlaylists = [];
-  samplePlaylists.playlists.filter(function (playlist) {
-    if (playlist.name.toLowerCase().includes(req.body.query.toLowerCase()))
-      matchedPlaylists.push(playlist);
-  });
-  res.send(matchedPlaylists);
+router.get('/playlists', async (req, res) => {
+  const searchQuery = req.query.query;
+  try {
+    if (searchQuery !== '') {
+      var regexQuery = new RegExp('.*(' + searchQuery + ').*');
+      const searchResults = await Playlist.find({
+        playlistName: regexQuery,
+      });
+      res.send(searchResults);
+    } else {
+      res.send([]);
+    }
+  } catch (err) {
+    console.error(err);
+    return response.ServerError(res);
+  }
 });
 
 router.get('/topSongs', async (req, res) => {

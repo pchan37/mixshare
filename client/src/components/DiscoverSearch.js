@@ -19,7 +19,10 @@ const DiscoverSearch = (props) => {
         <Tab eventKey="playlistsSearch" title="Playlists" className="p-3">
           {props.playlistResults.map((p) => {
             return (
-              <SearchResultItem key={p.id} name={p.name} artist={p.owner}>
+              <SearchResultItem
+                key={p.playlistId}
+                name={p.playlistName}
+                artist={p.ownerUsername}>
                 <MyPlaylistsPopup>
                   <Button variant="flat">
                     <AddIcon style={{ color: '#979696' }} />
