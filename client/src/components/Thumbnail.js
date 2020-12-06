@@ -13,7 +13,10 @@ const Thumbnail = (props) => {
   const currentlyPlayingCopy = { ...currentlyPlaying };
 
   return (
-    <div className="d-flex flex-column mr-4">
+    <div
+      className="d-flex flex-column mr-4 `menu-item ${
+        props.selected ? 'active' : ''
+      }`">
       <Image
         fluid
         style={{ maxWidth: '19vw', cursor: 'pointer' }}
