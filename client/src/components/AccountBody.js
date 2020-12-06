@@ -34,13 +34,12 @@ const AccountBody = () => {
   const getModalResponse = async (value) => {
     if (value) {
       try {
-        console.log('Deleting Account');
         await Axios.post('/api/account/deleteAccount', {
           username: currentUser.username,
         });
         setCurrentUser(null);
       } catch (err) {
-        console.log(err.response);
+        console.error(err);
       }
     }
   };

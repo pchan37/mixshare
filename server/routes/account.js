@@ -26,10 +26,12 @@ router.post('/changeUsername', async (req, res) => {
       return response.UserError(res, 400, `Username already taken!`);
     }
 
-    Account.updateOne(
+    await Account.updateOne(
       { username: currentUsername },
       { $set: { username: newUsername } }
-    ).then(() => res.send(newUsername));
+    );
+
+    res.send(newUsername);
   } catch (err) {
     console.log(`Encountered error when changing name: ${err.message}`);
     return response.ServerError(res);
