@@ -85,7 +85,8 @@ const SideMenu = ({ width }) => {
               placement="top-start"
               delay={{ show: 250, hide: 400 }}
               overlay={ProfilePopup}
-              trigger="click">
+              trigger="click"
+              rootClose>
               <LargerNavLink>
                 <AccountCircleIcon className="mr-3" style={{ fontSize: 50 }} />
                 {currentUser.username}

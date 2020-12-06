@@ -2,23 +2,22 @@ const { Schema } = require('mongoose');
 const connection = require('../../config/database');
 
 const SongSchema = new Schema({
-  title: {
+  songId: {
     type: String,
     required: true,
     unique: true,
+  },
+  title: {
+    type: String,
+    required: true,
   },
   artist: {
     type: String,
     required: true,
   },
-  thumbnailURL: {
+  thumbnail: {
     type: String,
     required: true,
-  },
-  songId: {
-    type: String,
-    required: true,
-    unique: true,
   },
 });
 

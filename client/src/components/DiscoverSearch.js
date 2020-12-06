@@ -3,6 +3,14 @@ import { Button, Tabs, Tab } from 'react-bootstrap';
 import { FriendListPopup, MyPlaylistsPopup, SearchResultItem } from '.';
 import AddIcon from '@material-ui/icons/Add';
 
+// TODO: move to another file
+// decodes HTML characters from youtube search results
+function decodeHtml(text) {
+  var txt = document.createElement('textarea');
+  txt.innerHTML = text;
+  return txt.value;
+}
+
 const DiscoverSearch = (props) => {
   return (
     <div>
@@ -25,11 +33,11 @@ const DiscoverSearch = (props) => {
         </Tab>
         <Tab eventKey="songsSearch" title="Songs" className="p-3">
           {props.songResults.map((p) => {
-            console.log(p);
             return (
               <SearchResultItem
                 key={p.id.videoId}
-                name={p.snippet.title}
+                youtubeID={p.id.videoId}
+                name={decodeHtml(p.snippet.title)}
                 artist={p.snippet.channelTitle}
                 thumbnail={p.snippet.thumbnails.medium.url}>
                 <MyPlaylistsPopup>

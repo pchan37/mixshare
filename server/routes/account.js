@@ -60,4 +60,6 @@ router.post('/changePassword', async (req, res) => {
   }
 });
 
+router.post('/removeFriend', async (req, res) => {});
+
 module.exports = router;
