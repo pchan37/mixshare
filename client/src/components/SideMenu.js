@@ -9,7 +9,7 @@ import styled from 'styled-components';
 
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 
-import Logo from '../assets/images/logo.png';
+import Logo from '../assets/images/logo-new.png';
 
 import { UserContext } from '../contexts';
 

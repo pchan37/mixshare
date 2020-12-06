@@ -1,16 +1,27 @@
+@import url('https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Open+Sans+Condensed:wght@300&display=swap');
 /* make the customizations */
 $theme-colors: (
-  'primary': #6efae5,
+  'primary': #d400e5,
+  'secondary': #15eeff,
 );
+
+$brand-primary: #d400e5;
 
 /* Everything is commented out for now, because you can't read some of the text on a dark background yet */
 /* General styles */
-/*$body-bg: #171c17;
+$body-bg: #171c17;
 $text-color: #e6e1e4;
-$headings-color: #e6e1e4; */
+$headings-color: #e6e1e4;
+$font-family-base: 'Do Hyeon', sans-serif;
+
+$link-hover-color: $brand-primary;
+
+$component-active-bg: $brand-primary;
 
 /* Button styles */
 /*$btn-primary-border: #6efae5;*/
+
+/* Tabs */
 
 /* import bootstrap to set changes */
 @import '~bootstrap/scss/bootstrap';
