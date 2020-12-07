@@ -3,6 +3,7 @@ const express = require('express');
 const router = express.Router();
 
 const Youtube = require('youtube-api');
+const He = require('he');
 const API_KEY = 'AIzaSyCqRkLe3nqTjE7yHIeqMn6jprdkEQPTec8';
 
 Youtube.authenticate({
@@ -15,14 +16,20 @@ router.post('/songs', async (req, res) => {
   q = req.body.query;
 
   console.log('Youtube');
-  var results = Youtube.search.list({
+  var results = await Youtube.search.list({
     part: 'snippet',
     maxResults: 10,
     q: q,
     type: 'video',
     videoCategoryId: 10,
   });
-  results.then((r) => res.send(r.data.items));
+
+  for (song of results.data.items) {
+    const decodedString = He.decode(song.snippet.title);
+    song.snippet.title = decodedString;
+    console.log(song.snippet.title);
+  }
+  res.send(results.data.items);
 });
 
 router.post('/playlists', async (req, res) => {
