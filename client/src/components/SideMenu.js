@@ -15,6 +15,7 @@ import { UserContext } from '../contexts';
 
 const LargerNavLink = styled(Nav.Link)`
   font-size: 25px;
+  color: white;
 `;
 
 const SideMenuContainer = styled.div`
