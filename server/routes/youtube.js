@@ -1,8 +1,12 @@
 const samplePlaylists = require('../placeholders/samplePlaylists');
 const express = require('express');
+
+const He = require('he');
+const Youtube = require('youtube-api');
+const response = require('../lib').Response;
+
 const router = express.Router();
 
-const Youtube = require('youtube-api');
 const API_KEY = 'AIzaSyCqRkLe3nqTjE7yHIeqMn6jprdkEQPTec8';
 
 Youtube.authenticate({
@@ -14,15 +18,23 @@ Youtube.authenticate({
 router.post('/songs', async (req, res) => {
   q = req.body.query;
 
-  console.log('Youtube');
-  var results = Youtube.search.list({
-    part: 'snippet',
-    maxResults: 10,
-    q: q,
-    type: 'video',
-    videoCategoryId: 10,
-  });
-  results.then((r) => res.send(r.data.items));
+  try {
+    const results = await Youtube.search.list({
+      part: 'snippet',
+      maxResults: 10,
+      q: q,
+      type: 'video',
+      videoCategoryId: 10,
+    });
+
+    for (song of results.data.items) {
+      song.snippet.title = He.decode(song.snippet.title);
+    }
+
+    res.send(results.data.items);
+  } catch (err) {
+    return response.ServerError(res);
+  }
 });
 
 router.post('/playlists', async (req, res) => {
@@ -35,13 +47,20 @@ router.post('/playlists', async (req, res) => {
 });
 
 router.get('/topSongs', async (req, res) => {
-  const results = await Youtube.videos.list({
-    part: ['snippet,contentDetails,statistics'],
-    chart: 'mostPopular',
-    regionCode: 'US',
-    videoCategoryId: 10,
-  });
-  res.send(results.data.items);
+  try {
+    const results = await Youtube.videos.list({
+      part: ['snippet,contentDetails,statistics'],
+      chart: 'mostPopular',
+      regionCode: 'US',
+      videoCategoryId: 10,
+    });
+    for (song of results.data.items) {
+      song.snippet.title = He.decode(song.snippet.title);
+    }
+    res.send(results.data.items);
+  } catch (err) {
+    return response.ServerError(res);
+  }
 });
 
 module.exports = router;
