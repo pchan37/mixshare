@@ -40,7 +40,7 @@ const DiscoverSearch = (props) => {
                 name={decodeHtml(p.snippet.title)}
                 artist={p.snippet.channelTitle}
                 thumbnail={p.snippet.thumbnails.medium.url}>
-                <MyPlaylistsPopup>
+                <MyPlaylistsPopup song={p}>
                   <Button variant="flat">
                     <AddIcon style={{ color: '#979696' }} />
                   </Button>
