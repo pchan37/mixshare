@@ -1,8 +1,8 @@
 const samplePlaylists = require('../placeholders/samplePlaylists');
 const express = require('express');
 
-const Youtube = require('youtube-api');
 const He = require('he');
+const Youtube = require('youtube-api');
 const response = require('../lib').Response;
 
 const router = express.Router();
