@@ -1,10 +1,12 @@
 const samplePlaylists = require('../placeholders/samplePlaylists');
 const express = require('express');
-const router = express.Router();
 
 const Youtube = require('youtube-api');
 const He = require('he');
 const response = require('../lib').Response;
+
+const router = express.Router();
+
 const API_KEY = 'AIzaSyCqRkLe3nqTjE7yHIeqMn6jprdkEQPTec8';
 
 Youtube.authenticate({
@@ -17,7 +19,7 @@ router.post('/songs', async (req, res) => {
   q = req.body.query;
 
   try {
-    var results = await Youtube.search.list({
+    const results = await Youtube.search.list({
       part: 'snippet',
       maxResults: 10,
       q: q,
