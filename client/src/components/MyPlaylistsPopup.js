@@ -8,10 +8,6 @@ import { Add } from '@material-ui/icons';
 import SimplePlaylist from './SimplePlaylist';
 import { UserContext } from '../contexts';
 
-// const NewPlaylist = () => {
-
-// };
-
 const PlaylistsPopup = (song) => {
   const { currentUser } = useContext(UserContext);
   const [listOfPlaylists, updateListOfPlaylists] = useState([]);
