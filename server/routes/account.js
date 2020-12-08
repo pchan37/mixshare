@@ -14,16 +14,16 @@ router.post('/changeUsername', async (req, res) => {
   }
 
   if (currentUsername === newUsername) {
-    console.log(`Already your current username`);
-    return response.UserError(res, 400, `Already your current username`);
+    console.log('Already your current username');
+    return response.UserError(res, 400, 'Already your current username');
   }
 
   try {
     const checkName = await Account.findOne({ username: newUsername });
 
     if (checkName !== null && checkName !== undefined) {
-      console.log(`Username already taken!`);
-      return response.UserError(res, 400, `Username already taken!`);
+      console.log('Username already taken!');
+      return response.UserError(res, 400, 'Username already taken!');
     }
 
     await Account.updateOne(

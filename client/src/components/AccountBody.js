@@ -1,14 +1,6 @@
 import React, { useContext } from 'react';
 import Axios from 'axios';
-import {
-  Button,
-  Col,
-  Container,
-  Form,
-  OverlayTrigger,
-  Popover,
-  Row,
-} from 'react-bootstrap';
+import { Button, Col, Container, Row } from 'react-bootstrap';
 
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 
@@ -25,7 +17,6 @@ const AccountBody = () => {
         const friends = await Axios.post('api/user/friends', {
           username: currentUser.username,
         });
-        console.log(friends.data);
         for await (const x of friends.data) {
           await Axios.post('api/user/removeFriend', {
             currUsername: currentUser.username,
