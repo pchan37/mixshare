@@ -74,14 +74,12 @@ router.post('/deleteAccount', async (req, res) => {
   const username = req.body.username; // to be replaced with uuid
 
   // get userId
-  const selfAccount = await Account.findOne({
-    username: username,
-  });
+  const selfAccount = await Account.findOne({ username });
 
   const selfId = selfAccount.userId;
 
   try {
-    await Account.deleteOne({ username: username });
+    await Account.deleteOne({ username });
     await User.deleteOne({ userId: selfId });
     await Playlist.updateMany(
       { ownerUsername: username },

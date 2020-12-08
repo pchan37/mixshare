@@ -34,6 +34,16 @@ const AccountBody = () => {
   const getModalResponse = async (value) => {
     if (value) {
       try {
+        const friends = await Axios.post('api/user/friends', {
+          username: currentUser.username,
+        });
+        console.log(friends.data);
+        for await (const x of friends.data) {
+          await Axios.post('api/user/removeFriend', {
+            currUsername: currentUser.username,
+            unfriend: x.userId,
+          });
+        }
         await Axios.post('/api/account/deleteAccount', {
           username: currentUser.username,
         });
@@ -68,7 +78,7 @@ const AccountBody = () => {
       </Row>
       <Row style={{ paddingLeft: 30, paddingTop: 200 }}>
         <DeletePopup
-          bodytext="Are you sure you want to delete your account?"
+          bodytext="Are you sure you want to delete your account? (Your playlists will not be automatically deleted.)"
           getResponse={getModalResponse}>
           <Button variant="danger">Delete Account</Button>
         </DeletePopup>

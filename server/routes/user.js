@@ -128,7 +128,7 @@ router.post('/friends', async (req, res) => {
       const user = await Account.findOne({
         userId: id,
       });
-      friendArray.push(user);
+      if (user !== null) friendArray.push(user);
     }
 
     res.send(friendArray);
