@@ -1,15 +1,10 @@
 import React from 'react';
 import { Button, Tabs, Tab } from 'react-bootstrap';
-import { FriendListPopup, MyPlaylistsPopup, SearchResultItem } from '.';
-import AddIcon from '@material-ui/icons/Add';
 
-// TODO: move to another file
-// decodes HTML characters from youtube search results
-function decodeHtml(text) {
-  var txt = document.createElement('textarea');
-  txt.innerHTML = text;
-  return txt.value;
-}
+import { FriendListPopup, MyPlaylistsPopup, SearchResultItem } from '.';
+
+import AddIcon from '@material-ui/icons/Add';
+import CallSplitIcon from '@material-ui/icons/CallSplit';
 
 const DiscoverSearch = (props) => {
   return (
@@ -19,12 +14,14 @@ const DiscoverSearch = (props) => {
         <Tab eventKey="playlistsSearch" title="Playlists" className="p-3">
           {props.playlistResults.map((p) => {
             return (
-              <SearchResultItem key={p.id} name={p.name} artist={p.owner}>
-                <MyPlaylistsPopup>
-                  <Button variant="flat">
-                    <AddIcon style={{ color: '#979696' }} />
-                  </Button>
-                </MyPlaylistsPopup>
+              <SearchResultItem
+                key={p.playlistId}
+                name={p.playlistName}
+                artist={p.ownerUsername}
+                thumbnail={p.thumbnail}>
+                <Button variant="flat">
+                  <CallSplitIcon style={{ color: '#979696' }} />
+                </Button>
 
                 <FriendListPopup />
               </SearchResultItem>
@@ -37,10 +34,10 @@ const DiscoverSearch = (props) => {
               <SearchResultItem
                 key={s.id.videoId}
                 youtubeID={s.id.videoId}
-                name={decodeHtml(s.snippet.title)}
+                name={s.snippet.title}
                 artist={s.snippet.channelTitle}
                 thumbnail={s.snippet.thumbnails.medium.url}>
-                <MyPlaylistsPopup song={s}>
+                <MyPlaylistsPopup>
                   <Button variant="flat">
                     <AddIcon style={{ color: '#979696' }} />
                   </Button>

@@ -4,6 +4,7 @@ const router = express.Router();
 const { v4: uuid } = require('uuid');
 
 const { Playlist, Song } = require('../database/models');
+const response = require('../lib').Response;
 
 // POST /newPlaylist: Create a new playlist
 router.post('/newPlaylist', async (req, res) => {
@@ -59,13 +60,31 @@ router.post('/deletePlaylist', async (req, res) => {
   }
 });
 
+// POST /checkForSong: check if a song already exists in a playlist
+router.post('/checkForSong', async (req, res) => {
+  const playlistId = req.body.playlistId;
+  const songId = req.body.song.id.videoId;
+  try {
+    const playlist = await Playlist.findOne({ playlistId });
+    const songExists = playlist.songs.includes(songId);
+    res.send(songExists);
+  } catch (err) {
+    console.error(err);
+    return response.UserError(
+      res,
+      400,
+      'This song already exists in your playlist.'
+    );
+  }
+});
+
 // POST /addSong: add a song to playlist
 router.post('/addSong', async (req, res) => {
   const playlistId = req.body.playlistId;
   const songId = req.body.song.id.videoId;
   try {
     await Playlist.findOneAndUpdate(
-      { playlistId: playlistId },
+      { playlistId },
       { $addToSet: { songs: songId } }
     );
 
