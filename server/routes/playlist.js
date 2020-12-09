@@ -4,6 +4,7 @@ const router = express.Router();
 const { v4: uuid } = require('uuid');
 
 const { Playlist, Song } = require('../database/models');
+const response = require('../lib').Response;
 
 // POST /newPlaylist: Create a new playlist
 router.post('/newPlaylist', async (req, res) => {
@@ -69,6 +70,11 @@ router.post('/checkForSong', async (req, res) => {
     res.send(songExists);
   } catch (err) {
     console.error(err);
+    return response.UserError(
+      res,
+      400,
+      'This song already exists in your playlist.'
+    );
   }
 });
 

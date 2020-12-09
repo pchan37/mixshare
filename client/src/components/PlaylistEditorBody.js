@@ -132,11 +132,14 @@ const PlaylistEditorBody = () => {
 
   const addSongToPlaylist = async (song) => {
     try {
-      const songExists = await Axios.post('/api/playlist/checkForSong', {
-        playlistId: currentEditPlaylist.id,
-        song,
-      });
-      if (songExists.data !== true) {
+      const { data: songExists } = await Axios.post(
+        '/api/playlist/checkForSong',
+        {
+          playlistId: currentEditPlaylist.id,
+          song,
+        }
+      );
+      if (songExists === false) {
         const songRes = await Axios.post('/api/playlist/addSong', {
           playlistId: currentEditPlaylist.id,
           song,
@@ -146,7 +149,7 @@ const PlaylistEditorBody = () => {
         updatePlaylist(playlistCopy);
         await retrieveSongs(playlistCopy);
       } else {
-        console.log('This song already exists in your playlist!');
+        console.error('This song already exists in your playlist!');
       }
     } catch (err) {
       console.error(err);
