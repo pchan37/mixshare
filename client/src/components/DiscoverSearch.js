@@ -29,14 +29,14 @@ const DiscoverSearch = (props) => {
           })}
         </Tab>
         <Tab eventKey="songsSearch" title="Songs" className="p-3">
-          {props.songResults.map((p) => {
+          {props.songResults.map((s) => {
             return (
               <SearchResultItem
-                key={p.id.videoId}
-                youtubeID={p.id.videoId}
-                name={p.snippet.title}
-                artist={p.snippet.channelTitle}
-                thumbnail={p.snippet.thumbnails.medium.url}>
+                key={s.id.videoId}
+                youtubeID={s.id.videoId}
+                name={s.snippet.title}
+                artist={s.snippet.channelTitle}
+                thumbnail={s.snippet.thumbnails.medium.url}>
                 <MyPlaylistsPopup>
                   <Button variant="flat">
                     <AddIcon style={{ color: '#979696' }} />
