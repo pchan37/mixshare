@@ -3,6 +3,7 @@ import Axios from 'axios';
 import { Button, Tabs, Tab } from 'react-bootstrap';
 import { FriendListPopup, MyPlaylistsPopup, SearchResultItem } from '.';
 import AddIcon from '@material-ui/icons/Add';
+import CallSplitIcon from '@material-ui/icons/CallSplit';
 
 const DiscoverSearch = (props) => {
   return (
@@ -17,11 +18,9 @@ const DiscoverSearch = (props) => {
                 name={p.playlistName}
                 artist={p.ownerUsername}
                 thumbnail={p.thumbnail}>
-                <MyPlaylistsPopup>
-                  <Button variant="flat">
-                    <AddIcon style={{ color: '#979696' }} />
-                  </Button>
-                </MyPlaylistsPopup>
+                <Button variant="flat">
+                  <CallSplitIcon style={{ color: '#979696' }} />
+                </Button>
 
                 <FriendListPopup />
               </SearchResultItem>
