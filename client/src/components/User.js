@@ -8,7 +8,7 @@ const User = (props) => {
   return (
     <div>
       <Row>
-        <Col xs="4">
+        <Col xs="5">
           <AccountCircle
             className="mr-3"
             style={{ color: '#979696', fontSize: 50 }}
@@ -17,8 +17,7 @@ const User = (props) => {
         </Col>
         <Col
           xs="3"
-          className="d-flex"
-          style={{ justifyContent: 'space-evenly' }}>
+          className="d-flex align-items-center justify-content-around">
           <Button variant="flat" style={{ color: '#979696', height: '40px' }}>
             View Profile
           </Button>

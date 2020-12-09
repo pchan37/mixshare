@@ -5,7 +5,7 @@ import AccountBody from './AccountBody';
 import AccountDetails from './AccountDetails';
 import ChangePasswordPopup from './ChangePasswordPopup';
 import ChangeUsernamePopup from './ChangeUsernamePopup';
-import DeleteAccountPopup from './DeleteAccountPopup';
+import DeletePopup from './DeletePopup';
 import DiscoverBody from './DiscoverBody';
 import DiscoverHome from './DiscoverHome';
 import DiscoverSearch from './DiscoverSearch';
@@ -21,6 +21,7 @@ import NewPlaylistPopup from './NewPlaylistPopup';
 import MyPlaylistsPopup from './MyPlaylistsPopup';
 import PlaylistEditItem from './PlaylistEditItem';
 import PlaylistEditorBody from './PlaylistEditorBody';
+import PopupUser from './PopupUser';
 import SearchResultBody from './SearchResultBody';
 import ProfileClickPopup from './ProfileClickPopup';
 import PlaylistItem from './PlaylistItem';
@@ -45,7 +46,7 @@ export {
   AvatarNameSmall,
   ChangePasswordPopup,
   ChangeUsernamePopup,
-  DeleteAccountPopup,
+  DeletePopup,
   DiscoverBody,
   DiscoverHome,
   DiscoverSearch,
@@ -61,6 +62,7 @@ export {
   NewPlaylistPopup,
   PlaylistEditItem,
   PlaylistEditorBody,
+  PopupUser,
   SearchResultBody,
   ProfileClickPopup,
   PlaylistItem,
