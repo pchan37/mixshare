@@ -1,7 +1,10 @@
 import React from 'react';
 import { Button, Tabs, Tab } from 'react-bootstrap';
+
 import { FriendListPopup, MyPlaylistsPopup, SearchResultItem } from '.';
+
 import AddIcon from '@material-ui/icons/Add';
+import CallSplitIcon from '@material-ui/icons/CallSplit';
 
 const DiscoverSearch = (props) => {
   return (
@@ -11,12 +14,14 @@ const DiscoverSearch = (props) => {
         <Tab eventKey="playlistsSearch" title="Playlists" className="p-3">
           {props.playlistResults.map((p) => {
             return (
-              <SearchResultItem key={p.id} name={p.name} artist={p.owner}>
-                <MyPlaylistsPopup>
-                  <Button variant="flat">
-                    <AddIcon style={{ color: '#979696' }} />
-                  </Button>
-                </MyPlaylistsPopup>
+              <SearchResultItem
+                key={p.playlistId}
+                name={p.playlistName}
+                artist={p.ownerUsername}
+                thumbnail={p.thumbnail}>
+                <Button variant="flat">
+                  <CallSplitIcon style={{ color: '#979696' }} />
+                </Button>
 
                 <FriendListPopup />
               </SearchResultItem>

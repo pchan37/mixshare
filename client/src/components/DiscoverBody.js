@@ -49,12 +49,13 @@ function DiscoverBody() {
   const getPlaylistResults = async (query) => {
     console.log(query);
     try {
-      const playlistsRes = await Axios.post('/api/youtube/playlists', {
-        query: query,
+      const playlistsRes = await Axios.get('/api/youtube/playlists', {
+        params: { query },
       });
+      console.log(playlistsRes.data);
       updatePlaylistResults(playlistsRes.data);
-    } catch {
-      console.log('error');
+    } catch (err) {
+      console.error(err);
     }
   };
 
