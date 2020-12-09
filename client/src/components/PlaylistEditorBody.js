@@ -23,17 +23,6 @@ import SettingsIcon from '@material-ui/icons/Settings';
 import { PlaylistEditItem } from './';
 import { CurrentEditPlaylistContext } from '../contexts';
 
-const HelpTooltip = (
-  <Popover>
-    <Popover.Content className="mr-2">
-      <p>
-        Helpful Tip: Click and drag songs to rearrange the order of your
-        playlist!
-      </p>
-    </Popover.Content>
-  </Popover>
-);
-
 const SettingsPopup = () => {
   const [mixtapeChecked, setMixtapeChecked] = useState(false);
   const [publicChecked, setPublicChecked] = useState(true);
@@ -143,14 +132,25 @@ const PlaylistEditorBody = () => {
 
   const addSongToPlaylist = async (song) => {
     try {
-      const songRes = await Axios.post('/api/playlist/addSong', {
-        playlistId: currentEditPlaylist.id,
-        song,
-      });
-      const playlistCopy = playlist.slice(); // copy is made to push an element into it to update state
-      playlistCopy.push(songRes.data);
-      updatePlaylist(playlistCopy);
-      await retrieveSongs(playlistCopy);
+      const { data: songExists } = await Axios.post(
+        '/api/playlist/checkForSong',
+        {
+          playlistId: currentEditPlaylist.id,
+          song,
+        }
+      );
+      if (songExists === false) {
+        const songRes = await Axios.post('/api/playlist/addSong', {
+          playlistId: currentEditPlaylist.id,
+          song,
+        });
+        const playlistCopy = playlist.slice(); // copy is made to push an element into it to update state
+        playlistCopy.push(songRes.data);
+        updatePlaylist(playlistCopy);
+        await retrieveSongs(playlistCopy);
+      } else {
+        console.error('This song already exists in your playlist!');
+      }
     } catch (err) {
       console.error(err);
     }
@@ -226,16 +226,6 @@ const PlaylistEditorBody = () => {
           </Button>
         </div>
 
-        <OverlayTrigger
-          placement="left"
-          delay={{ show: 250 }}
-          overlay={HelpTooltip}
-          trigger="click"
-          rootClose>
-          <Button variant="flat">
-            <HelpOutlineIcon style={{ color: '#979696' }} />
-          </Button>
-        </OverlayTrigger>
         <OverlayTrigger
           placement="bottom-end"
           delay={{ show: 250 }}
