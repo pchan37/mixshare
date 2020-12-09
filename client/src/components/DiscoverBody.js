@@ -50,7 +50,7 @@ function DiscoverBody() {
     console.log(query);
     try {
       const playlistsRes = await Axios.get('/api/youtube/playlists', {
-        params: { query: query },
+        params: { query },
       });
       console.log(playlistsRes.data);
       updatePlaylistResults(playlistsRes.data);

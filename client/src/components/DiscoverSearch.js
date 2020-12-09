@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
-import Axios from 'axios';
+import React from 'react';
 import { Button, Tabs, Tab } from 'react-bootstrap';
+
 import { FriendListPopup, MyPlaylistsPopup, SearchResultItem } from '.';
+
 import AddIcon from '@material-ui/icons/Add';
 import CallSplitIcon from '@material-ui/icons/CallSplit';
 

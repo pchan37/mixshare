@@ -42,12 +42,12 @@ router.get('/playlists', async (req, res) => {
   const searchQuery = req.query.query;
   try {
     if (searchQuery !== '') {
-      var regexQuery = new RegExp('.*(' + searchQuery + ').*');
+      var regexQuery = new RegExp(`.*(${searchQuery}).*`);
       const searchResults = await Playlist.find({
         playlistName: regexQuery,
       }).lean();
 
-      for await (const playlist of searchResults) {
+      for (const playlist of searchResults) {
         if (playlist.songs.length !== 0) {
           const firstSong = await Song.findOne({
             songId: playlist.songs[0],
