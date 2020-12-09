@@ -21,7 +21,6 @@ function DeletePopup(props) {
       <div onClick={handleShow}>{props.children}</div>
 
       <Modal
-        {...props}
         aria-labelledby="contained-modal-title-vcenter"
         centered
         show={show}
