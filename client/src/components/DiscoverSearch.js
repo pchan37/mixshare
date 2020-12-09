@@ -25,10 +25,10 @@ const DiscoverSearch = (props) => {
         </Tab>
         <Tab eventKey="songsSearch" title="Songs" className="p-3">
           {props.songResults.map((p) => {
-            console.log(p);
             return (
               <SearchResultItem
                 key={p.id.videoId}
+                youtubeID={p.id.videoId}
                 name={p.snippet.title}
                 artist={p.snippet.channelTitle}
                 thumbnail={p.snippet.thumbnails.medium.url}>

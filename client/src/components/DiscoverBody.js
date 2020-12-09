@@ -1,16 +1,15 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Axios from 'axios';
 
 import { Button, Container, Form } from 'react-bootstrap';
 
-import { DiscoverHome, DiscoverSearch, Thumbnail } from './';
+import { DiscoverHome, DiscoverSearch } from './';
 import data from '../placeholders/data';
 
 import SearchIcon from '@material-ui/icons/Search';
 
 const ChooseDisplay = (props) => {
-  console.log(props);
-  if (!(props.query === '')) {
+  if (props.query !== '') {
     return (
       <DiscoverSearch
         query={props.query}
@@ -19,7 +18,7 @@ const ChooseDisplay = (props) => {
       />
     );
   } else {
-    return <DiscoverHome songs={data.songs} playlists={data.playlists} />;
+    return <DiscoverHome songs={props.topSongs} playlists={data.playlists} />;
   }
 };
 
@@ -27,11 +26,20 @@ function DiscoverBody() {
   const [query, updateQuery] = useState('');
   const [playlistResults, updatePlaylistResults] = useState([]);
   const [songResults, updateSongResults] = useState([]);
+  const [topSongs, updateTopSongs] = useState([]);
+
+  useEffect(() => {
+    async function getTopSongs() {
+      const gettingSongs = await Axios.get('/api/youtube/topSongs');
+      updateTopSongs(gettingSongs.data);
+    }
+    getTopSongs();
+  }, []);
 
   const updateQueryAndReturn = (event) => {
     event.preventDefault();
     var enteredQuery = event.target.elements.query.value;
-    if (!(enteredQuery === '')) {
+    if (enteredQuery !== '') {
       getPlaylistResults(enteredQuery);
       getSongResults(enteredQuery);
     }
@@ -80,6 +88,7 @@ function DiscoverBody() {
         query={query}
         songResults={songResults}
         playlistResults={playlistResults}
+        topSongs={topSongs}
       />
     </div>
   );

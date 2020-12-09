@@ -6,7 +6,11 @@ import Axios from 'axios';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-import { UserContext } from './contexts';
+import {
+  CurrentEditPlaylistContext,
+  CurrentlyPlayingContext,
+  UserContext,
+} from './contexts';
 import {
   AccountSettingsPage,
   DiscoverPage,
@@ -52,6 +56,21 @@ async function isNotProtected(to, _from, next) {
 
 function App() {
   const [currentUser, setCurrentUser] = useState(null);
+  const [currentlyPlaying, setCurrentlyPlaying] = useState({
+    song: '',
+    playlist: '',
+    opts: {
+      height: '100px',
+      width: 'auto',
+      playerVars: {
+        controls: 0,
+        autoplay: 1,
+        loop: 0,
+        playlist: '',
+      },
+    },
+  });
+  const [currentEditPlaylist, setCurrentEditPlaylist] = useState(null);
 
   useEffect(() => {
     const fetchUsername = async () => {
@@ -67,68 +86,74 @@ function App() {
   }, []);
 
   return (
-    <UserContext.Provider value={{ currentUser, setCurrentUser }}>
-      <Router>
-        <GuardProvider
-          guards={[isProtected, isNotProtected]}
-          loading={() => <h1>Loading...</h1>}
-          error={() => <h1>Not Found</h1>}>
-          <Switch>
-            <GuardedRoute exact path="/" component={HomePage} />
-            <GuardedRoute
-              exact
-              path="/account"
-              component={AccountSettingsPage}
-              meta={{ auth: true }}
-            />
-            <GuardedRoute
-              exact
-              path="/discover"
-              component={DiscoverPage}
-              meta={{ auth: true }}
-            />
-            <GuardedRoute
-              exact
-              path="/playlists"
-              component={MyPlaylistsPage}
-              meta={{ auth: true }}
-            />
-            <GuardedRoute
-              exact
-              path="/profile"
-              component={ProfilePage}
-              meta={{ auth: true }}
-            />
-            <GuardedRoute
-              exact
-              path="/searchResults"
-              component={SearchResultsPage}
-              meta={{ auth: true }}
-            />
-            <GuardedRoute
-              exact
-              path="/edit"
-              component={PlaylistEditorPage}
-              meta={{ auth: true }}
-            />
-            <GuardedRoute
-              exact
-              path="/friends"
-              component={FriendsPage}
-              meta={{ auth: true }}
-            />
-            <GuardedRoute
-              exact
-              path="/gifts"
-              component={GiftsPage}
-              meta={{ auth: true }}
-            />
-            <GuardedRoute path="/404" component={NotFoundPage} />
-            <Redirect to="/404" />
-          </Switch>
-        </GuardProvider>
-      </Router>
-    </UserContext.Provider>
+    <CurrentEditPlaylistContext.Provider
+      value={{ currentEditPlaylist, setCurrentEditPlaylist }}>
+      <CurrentlyPlayingContext.Provider
+        value={{ currentlyPlaying, setCurrentlyPlaying }}>
+        <UserContext.Provider value={{ currentUser, setCurrentUser }}>
+          <Router>
+            <GuardProvider
+              guards={[isProtected, isNotProtected]}
+              loading={() => <h1>Loading...</h1>}
+              error={() => <h1>Not Found</h1>}>
+              <Switch>
+                <GuardedRoute exact path="/" component={HomePage} />
+                <GuardedRoute
+                  exact
+                  path="/account"
+                  component={AccountSettingsPage}
+                  meta={{ auth: true }}
+                />
+                <GuardedRoute
+                  exact
+                  path="/discover"
+                  component={DiscoverPage}
+                  meta={{ auth: true }}
+                />
+                <GuardedRoute
+                  exact
+                  path="/playlists"
+                  component={MyPlaylistsPage}
+                  meta={{ auth: true }}
+                />
+                <GuardedRoute
+                  exact
+                  path="/profile"
+                  component={ProfilePage}
+                  meta={{ auth: true }}
+                />
+                <GuardedRoute
+                  exact
+                  path="/searchResults"
+                  component={SearchResultsPage}
+                  meta={{ auth: true }}
+                />
+                <GuardedRoute
+                  exact
+                  path="/edit"
+                  component={PlaylistEditorPage}
+                  meta={{ auth: true }}
+                />
+                <GuardedRoute
+                  exact
+                  path="/friends"
+                  component={FriendsPage}
+                  meta={{ auth: true }}
+                />
+                <GuardedRoute
+                  exact
+                  path="/gifts"
+                  component={GiftsPage}
+                  meta={{ auth: true }}
+                />
+                <GuardedRoute path="/404" component={NotFoundPage} />
+                <Redirect to="/404" />
+              </Switch>
+            </GuardProvider>
+          </Router>
+        </UserContext.Provider>
+      </CurrentlyPlayingContext.Provider>
+    </CurrentEditPlaylistContext.Provider>
   );
 }
 

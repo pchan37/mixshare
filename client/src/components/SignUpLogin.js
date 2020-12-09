@@ -48,6 +48,7 @@ const SignUpLogin = () => {
       setCurrentUser(res.data);
       history.push(state?.referrer || '/discover');
     } catch (err) {
+      console.error(err);
       setLoginStatus(err.response.data);
     }
   };

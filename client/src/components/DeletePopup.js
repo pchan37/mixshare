@@ -1,21 +1,26 @@
 import React, { useState } from 'react';
 
-import { Button, Popover, Modal } from 'react-bootstrap';
+import { Button, Modal } from 'react-bootstrap';
 
-function DeleteAccountPopup(props) {
+function DeletePopup(props) {
   const [show, setShow] = useState(false);
 
-  const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+  const handleClose = () => {
+    setShow(false);
+    props.getResponse(false);
+  };
+  const handleDelete = () => {
+    setShow(false);
+    props.getResponse(true);
+  };
 
   return (
     <>
-      <Button variant="danger" onClick={handleShow}>
-        Delete Account
-      </Button>
+      <div onClick={handleShow}>{props.children}</div>
 
       <Modal
-        {...props}
         aria-labelledby="contained-modal-title-vcenter"
         centered
         show={show}
@@ -27,11 +32,9 @@ function DeleteAccountPopup(props) {
             Confirm Deletion
           </Modal.Title>
         </Modal.Header>
-        <Modal.Body>
-          <p>Are you sure you want to delete your account?</p>
-        </Modal.Body>
+        <Modal.Body>{props.bodytext}</Modal.Body>
         <Modal.Footer>
-          <Button variant="danger" onClick={handleClose}>
+          <Button variant="danger" onClick={handleDelete}>
             Yes
           </Button>
           <Button onClick={handleClose}>No</Button>
@@ -41,4 +44,4 @@ function DeleteAccountPopup(props) {
   );
 }
 
-export default DeleteAccountPopup;
+export default DeletePopup;
