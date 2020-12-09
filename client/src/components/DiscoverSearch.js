@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
+import Axios from 'axios';
 import { Button, Tabs, Tab } from 'react-bootstrap';
 import { FriendListPopup, MyPlaylistsPopup, SearchResultItem } from '.';
 import AddIcon from '@material-ui/icons/Add';
@@ -14,7 +15,8 @@ const DiscoverSearch = (props) => {
               <SearchResultItem
                 key={p.playlistId}
                 name={p.playlistName}
-                artist={p.ownerUsername}>
+                artist={p.ownerUsername}
+                thumbnail={p.thumbnail}>
                 <MyPlaylistsPopup>
                   <Button variant="flat">
                     <AddIcon style={{ color: '#979696' }} />

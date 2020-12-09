@@ -3,7 +3,7 @@ const express = require('express');
 const He = require('he');
 const Youtube = require('youtube-api');
 
-const { Playlist } = require('../database/models');
+const { Playlist, Song } = require('../database/models');
 const response = require('../lib').Response;
 
 const router = express.Router();
@@ -45,7 +45,17 @@ router.get('/playlists', async (req, res) => {
       var regexQuery = new RegExp('.*(' + searchQuery + ').*');
       const searchResults = await Playlist.find({
         playlistName: regexQuery,
-      });
+      }).lean();
+
+      for await (const playlist of searchResults) {
+        if (playlist.songs.length !== 0) {
+          const firstSong = await Song.findOne({
+            songId: playlist.songs[0],
+          });
+          playlist['thumbnail'] = firstSong.thumbnail;
+        }
+      }
+
       res.send(searchResults);
     } else {
       res.send([]);
