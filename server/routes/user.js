@@ -96,7 +96,15 @@ router.post('/getPendingRequests', async (req, res) => {
       const user = await Account.findOne({
         userId: id,
       });
-      requestUsers.push(user);
+      // removes pending friend request from deleted users
+      if (user === null) {
+        await User.findOneAndUpdate(
+          { userId },
+          { $pull: { pendingFriendRequests: id } }
+        );
+      } else {
+        requestUsers.push(user);
+      }
     }
 
     res.send(requestUsers);
