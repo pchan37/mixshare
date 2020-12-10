@@ -79,7 +79,7 @@ router.get('/topSongs', async (req, res) => {
     }
     res.send(results.data.items);
   } catch (err) {
-    return response.ServerError(res, 500, 'Could not get top song results');
+    return response.ServerError(res);
   }
 });
 

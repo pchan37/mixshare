@@ -95,8 +95,9 @@ router.post('/getPendingRequests', async (req, res) => {
       const user = await Account.findOne({
         userId: id,
       });
-      if (user !== null) requestUsers.push(user);
-      else {
+      if (user !== null) {
+        requestUsers.push(user);
+      } else {
         // user has been deleted, remove their pending friend request
         await User.findOneAndUpdate(
           { userId },
