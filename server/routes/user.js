@@ -6,7 +6,6 @@ const response = require('../lib').Response;
 
 // POST /searchUsers: sends back to client a list of users matching the query
 router.post('/searchUsers', async (req, res) => {
-  console.log('Searching for Users');
   const query = req.body.query;
 
   if (query !== '') {
@@ -96,7 +95,15 @@ router.post('/getPendingRequests', async (req, res) => {
       const user = await Account.findOne({
         userId: id,
       });
-      requestUsers.push(user);
+      if (user !== null) {
+        requestUsers.push(user);
+      } else {
+        // user has been deleted, remove their pending friend request
+        await User.findOneAndUpdate(
+          { userId },
+          { $pull: { pendingFriendRequests: id } }
+        );
+      }
     }
 
     res.send(requestUsers);
@@ -175,6 +182,11 @@ router.post('/addUser', async (req, res) => {
       username: selfUsername,
     });
     const selfId = selfAccount.userId;
+
+    // catch duplicate bug that happens with double-clicking the accept button
+    const selfUser = await User.findOne({ userId: selfId });
+    if (selfUser.friends.includes(targetId))
+      return response.UserError(res, 'Already friends with this user');
 
     // add to each other's friends lists
     await User.findOneAndUpdate(
