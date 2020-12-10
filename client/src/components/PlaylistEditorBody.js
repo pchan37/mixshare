@@ -21,7 +21,7 @@ import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
 import SettingsIcon from '@material-ui/icons/Settings';
 
 import { PlaylistEditItem } from './';
-import { CurrentEditPlaylistContext } from '../contexts';
+import { CurrentEditPlaylistContext, UserContext } from '../contexts';
 
 const SettingsPopup = () => {
   const [mixtapeChecked, setMixtapeChecked] = useState(false);
@@ -61,11 +61,13 @@ const SettingsPopup = () => {
 };
 
 const PlaylistEditorBody = () => {
+  const { currentUser } = useContext(UserContext);
   const { currentEditPlaylist } = useContext(CurrentEditPlaylistContext);
   const [playlist, updatePlaylist] = useState(currentEditPlaylist.songs); // list of songIds
   const [listOfSongs, updateListOfSongs] = useState([]); // list of Song objects
   const [songResults, updateSongResults] = useState([]);
   const [playlistName, updatePlaylistName] = useState('');
+  const [friends, setFriends] = useState([]);
 
   const handleSongDelete = async (updatedPlaylist) => {
     updatePlaylist(updatedPlaylist);
@@ -182,8 +184,20 @@ const PlaylistEditorBody = () => {
     }
   };
 
+  const getFriends = async () => {
+    try {
+      const friends = await Axios.post('api/user/friends', {
+        username: currentUser.username,
+      });
+      setFriends(friends.data);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   useEffect(() => {
     retrieveSongs(playlist);
+    getFriends();
   }, [playlist]);
 
   return (
@@ -239,7 +253,13 @@ const PlaylistEditorBody = () => {
       </div>
 
       {listOfSongs.map((s) => {
-        return <PlaylistEditItem song={s} handleDelete={handleSongDelete} />;
+        return (
+          <PlaylistEditItem
+            friends={friends}
+            song={s}
+            handleDelete={handleSongDelete}
+          />
+        );
       })}
     </Container>
   );

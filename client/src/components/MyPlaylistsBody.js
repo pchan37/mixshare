@@ -12,6 +12,7 @@ const MyPlaylistsBody = () => {
   const { currentUser } = useContext(UserContext);
   const { setCurrentEditPlaylist } = useContext(CurrentEditPlaylistContext);
   const [listOfPlaylists, updateListOfPlaylists] = useState([]);
+  const [friends, setFriends] = useState([]);
 
   const getPlaylist = async () => {
     try {
@@ -24,9 +25,21 @@ const MyPlaylistsBody = () => {
     }
   };
 
+  const getFriends = async () => {
+    try {
+      const friends = await Axios.post('api/user/friends', {
+        username: currentUser.username,
+      });
+      setFriends(friends.data);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   useEffect(() => {
     getPlaylist();
     setCurrentEditPlaylist(null);
+    getFriends();
   }, []);
 
   const NewPlaylistPopup = (props) => {
@@ -131,7 +144,7 @@ const MyPlaylistsBody = () => {
                 <Edit style={{ color: '#979696' }} />
               </NavLink>
             </Button>
-            <FriendListPopup />
+            <FriendListPopup friends={props.friends} itemId={props.id} />
             <Button variant="flat" onClick={() => deletePlaylist(props)}>
               <DeleteOutline style={{ color: '#979696' }} />
             </Button>
@@ -151,7 +164,8 @@ const MyPlaylistsBody = () => {
               id={p.playlistId}
               name={p.playlistName}
               owner={p.ownerUsername}
-              songs={p.songs}></PlaylistItem>
+              songs={p.songs}
+              friends={friends}></PlaylistItem>
           );
         })}
       </>

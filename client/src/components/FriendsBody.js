@@ -111,7 +111,7 @@ const FriendsBody = () => {
         targetId: userId,
       });
 
-      setResponse(addUser.response);
+      //setResponse(addUser.response);
       await getFriends();
     } catch (err) {
       setResponse(err.response);
