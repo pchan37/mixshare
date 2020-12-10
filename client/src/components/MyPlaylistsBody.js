@@ -6,7 +6,11 @@ import { NavLink } from 'react-router-dom';
 import { Add, DeleteOutline, Edit } from '@material-ui/icons';
 
 import FriendListPopup from './FriendListPopup';
-import { CurrentEditPlaylistContext, UserContext } from '../contexts';
+import {
+  CurrentEditPlaylistContext,
+  CurrentlyPlayingContext,
+  UserContext,
+} from '../contexts';
 
 const MyPlaylistsBody = () => {
   const { currentUser } = useContext(UserContext);
@@ -79,6 +83,9 @@ const MyPlaylistsBody = () => {
   };
 
   const PlaylistItem = (props) => {
+    const { currentlyPlaying, setCurrentlyPlaying } = useContext(
+      CurrentlyPlayingContext
+    );
     const [listOfSongs, updateListOfSongs] = useState([]);
     const DEFAULT_THUMBNAIL =
       'https://wp-en.oberlo.com/wp-content/uploads/2019/04/image13-1-1024x576.png';
@@ -110,8 +117,18 @@ const MyPlaylistsBody = () => {
           <div className="d-flex flex-row flex-grow-1">
             <Image
               fluid
-              style={{ maxWidth: '20vw' }}
+              style={{ maxWidth: '20vw', cursor: 'pointer' }}
               src={thumbnail !== '' ? thumbnail : DEFAULT_THUMBNAIL}
+              onClick={() => {
+                setCurrentlyPlaying((prevState) => ({
+                  ...prevState,
+                  song: props.songs[0],
+                  playlist: props.id,
+                  // TODO: reset loop
+                }));
+                console.log(props.id);
+                console.log(currentlyPlaying);
+              }}
             />
             <div className="ml-4">
               {listOfSongs.map((s) => {

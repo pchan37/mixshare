@@ -1,4 +1,5 @@
 import React, { useContext, useState } from 'react';
+import Axios from 'axios';
 import { Image } from 'react-bootstrap';
 import YouTube from 'react-youtube';
 
@@ -48,6 +49,15 @@ const MusicPlayer = ({ expandedState, height, setExpandedState, width }) => {
   const [player, setPlayer] = useState(null);
   const [playing, setPlaying] = useState(false);
   const [loop, setLoop] = useState(currentlyPlaying.opts.playerVars.loop);
+  const [playlistSongs, setPlaylistSongs] = useState([]);
+
+  const getPlaylist = async () => {
+    const playlistItem = await Axios.post('/api/playlist/getPlaylistById', {
+      playlistId: currentlyPlaying.playlist,
+    });
+    setPlaylistSongs(playlistItem.data);
+    return playlistItem.data;
+  };
 
   // copy of state object maintained for ease of updating individual fields
   const playingContextCopy = { ...currentlyPlaying };
@@ -77,6 +87,10 @@ const MusicPlayer = ({ expandedState, height, setExpandedState, width }) => {
           setPlaying(true);
         }}
         onEnd={() => {
+          // our playlist id length
+          if (currentlyPlaying.playlist.length === 36) {
+            getPlaylist();
+          }
           if (!loop) {
             playingContextCopy.song = '';
             playingContextCopy.opts.playerVars.loop = 0;
