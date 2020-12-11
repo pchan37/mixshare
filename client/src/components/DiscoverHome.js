@@ -30,7 +30,8 @@ const DiscoverHome = (props) => {
                 key={p.id}
                 name={p.playlistName}
                 artist={p.ownerUsername}
-                thumbnail={p.thumbnail}></Thumbnail>
+                thumbnail={p.thumbnail}
+              />
             );
           })}
         </div>

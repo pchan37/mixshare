@@ -12,8 +12,15 @@ const ChooseDisplay = (props) => {
   const [topPlaylists, updateTopPlaylists] = useState([]);
 
   const getTopPlaylists = async () => {
-    const playlistsRes = await Axios.post('/api/playlist/getTopPlaylists', {});
-    updateTopPlaylists(playlistsRes.data);
+    try {
+      const playlistsRes = await Axios.post(
+        '/api/playlist/getTopPlaylists',
+        {}
+      );
+      updateTopPlaylists(playlistsRes.data);
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   useEffect(() => {
