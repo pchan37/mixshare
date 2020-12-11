@@ -23,7 +23,25 @@ import { PlaylistEditItem } from './';
 import { CurrentEditPlaylistContext } from '../contexts';
 
 const SettingsPopup = () => {
-  const [mixtapeChecked, setMixtapeChecked] = useState(false);
+  const { currentEditPlaylist } = useContext(CurrentEditPlaylistContext);
+  const [mixtapeChecked, setMixtapeChecked] = useState(
+    currentEditPlaylist.mixtapeMode
+  );
+
+  const changeMixtapeMode = async () => {
+    try {
+      const updatedMode = await Axios.post('/api/playlist/changeMixtapeMode', {
+        playlistId: currentEditPlaylist.id,
+      });
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const handleMixtapeClick = () => {
+    setMixtapeChecked(!mixtapeChecked);
+    changeMixtapeMode();
+  };
 
   return (
     <Popover>
@@ -34,7 +52,7 @@ const SettingsPopup = () => {
             justifyContent: 'space-between',
             cursor: 'pointer',
           }}
-          onClick={() => setMixtapeChecked(!mixtapeChecked)}>
+          onClick={() => handleMixtapeClick()}>
           <Col xs="2" className="mr-2">
             {mixtapeChecked && (
               <CheckIcon style={{ color: '#979696', fontSize: 20 }} />
