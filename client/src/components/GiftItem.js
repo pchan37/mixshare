@@ -1,9 +1,13 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Button, Image } from 'react-bootstrap';
 import { Delete } from '@material-ui/icons';
 import { DeletePopup } from './';
 
+import { CurrentlyPlayingContext } from '../contexts';
+
 const GiftItem = (props) => {
+  const { setCurrentlyPlaying } = useContext(CurrentlyPlayingContext);
+
   async function getResponse(value) {
     if (value) {
       props.removeGift();
@@ -25,7 +29,42 @@ const GiftItem = (props) => {
           </div>
         </div>
         <div className="d-flex flex-row align-items-center">
-          <Image fluid style={{ maxWidth: '10vw' }} src={props.thumbnail} />
+          <Image
+            fluid
+            style={{ maxWidth: '10vw', cursor: 'pointer' }}
+            src={props.thumbnail}
+            onClick={() => {
+              console.log(props.songId);
+              if (props.playlistId !== null && props.playlistId !== undefined) {
+                setCurrentlyPlaying((prevState) => ({
+                  ...prevState,
+                  song: props.songId,
+                  playlist: props.playlistId,
+                  opts: {
+                    ...prevState.opts,
+                    playerVars: {
+                      ...prevState.opts.playerVars,
+                      loop: 0,
+                      playlist: '',
+                    },
+                  },
+                }));
+              } else {
+                setCurrentlyPlaying((prevState) => ({
+                  ...prevState,
+                  song: props.songId,
+                  opts: {
+                    ...prevState.opts,
+                    playerVars: {
+                      ...prevState.opts.playerVars,
+                      loop: 0,
+                      playlist: '',
+                    },
+                  },
+                }));
+              }
+            }}
+          />
           {props.children}
           <DeletePopup
             bodytext="Are you sure you want to delete this gift?"
