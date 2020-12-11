@@ -37,8 +37,6 @@ function App() {
     repeat: false,
     shuffle: false,
     opts: {
-      height: '100%',
-      width: 'auto',
       playerVars: {
         controls: 1,
         autoplay: 1,
