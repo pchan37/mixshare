@@ -73,10 +73,9 @@ router.post('/changeMixtapeMode', async (req, res) => {
   const playlistId = req.body.playlistId;
   try {
     const playlist = await Playlist.findOne({ playlistId });
-    const newMode = !playlist.mixtapeMode;
     const updatedMode = await Playlist.findOneAndUpdate(
       { playlistId },
-      { mixtapeMode: newMode },
+      { mixtapeMode: !playlist.mixtapeMode },
       { new: true }
     );
     res.send(updatedMode);
