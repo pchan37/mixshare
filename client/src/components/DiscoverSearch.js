@@ -41,7 +41,10 @@ const DiscoverSearch = (props) => {
                   <CallSplitIcon style={{ color: '#979696' }} />
                 </Button>
 
-                <FriendListPopup />
+                <FriendListPopup
+                  friends={props.friends}
+                  itemId={p.playlistId}
+                />
               </SearchResultItem>
             );
           })}
@@ -61,7 +64,11 @@ const DiscoverSearch = (props) => {
                   </Button>
                 </MyPlaylistsPopup>
 
-                <FriendListPopup />
+                <FriendListPopup
+                  friends={props.friends}
+                  itemId={s.id.videoId}
+                  song={s}
+                />
               </SearchResultItem>
             );
           })}
