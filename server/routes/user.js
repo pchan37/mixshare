@@ -4,6 +4,20 @@ const router = express.Router();
 const { Account, User } = require('../database/models');
 const response = require('../lib').Response;
 
+// POST /getUserId: get userId using username
+router.post('/getUserId', async (req, res) => {
+  const username = req.body.username;
+  try {
+    const userAccount = await Account.findOne({
+      username,
+    });
+    res.send(userAccount.userId);
+  } catch (err) {
+    console.error(err);
+    response.UserError(res, 400, 'Username is not associated with a userId');
+  }
+});
+
 // POST /searchUsers: sends back to client a list of users matching the query
 router.post('/searchUsers', async (req, res) => {
   const query = req.body.query;
@@ -95,8 +109,9 @@ router.post('/getPendingRequests', async (req, res) => {
       const user = await Account.findOne({
         userId: id,
       });
-      if (user !== null) requestUsers.push(user);
-      else {
+      if (user !== null) {
+        requestUsers.push(user);
+      } else {
         // user has been deleted, remove their pending friend request
         await User.findOneAndUpdate(
           { userId },
@@ -112,7 +127,7 @@ router.post('/getPendingRequests', async (req, res) => {
   }
 });
 
-// POST /friends: gets list of friends of logged-in user
+// POST /friends: gets list of friends (Account objects) of logged-in user
 router.post('/friends', async (req, res) => {
   const selfUsername = req.body.username;
 
@@ -138,6 +153,20 @@ router.post('/friends', async (req, res) => {
     }
 
     res.send(friendArray);
+  } catch (err) {
+    console.error(err);
+    return response.ServerError(res);
+  }
+});
+
+// POST /friendsUserIds: gets list of friends (userIds) of user
+router.post('/friendsUserIds', async (req, res) => {
+  const username = req.body.username;
+
+  try {
+    const selfAccount = await Account.findOne({ username });
+    const selfUser = await User.findOne({ userId: selfAccount.userId });
+    res.send(selfUser.friends);
   } catch (err) {
     console.error(err);
     return response.ServerError(res);

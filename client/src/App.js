@@ -13,6 +13,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import {
   CurrentEditPlaylistContext,
   CurrentlyPlayingContext,
+  ProfileContext,
   UserContext,
 } from './contexts';
 import {
@@ -36,7 +37,7 @@ function App() {
     repeat: false,
     shuffle: false,
     opts: {
-      height: '100px',
+      height: '100%',
       width: 'auto',
       playerVars: {
         controls: 1,
@@ -47,6 +48,7 @@ function App() {
     },
   });
   const [currentEditPlaylist, setCurrentEditPlaylist] = useState(null);
+  const [currentProfile, setCurrentProfile] = useState('');
 
   useEffect(() => {
     const fetchUsername = async () => {
@@ -83,45 +85,51 @@ function App() {
   };
 
   return (
-    <CurrentEditPlaylistContext.Provider
-      value={{ currentEditPlaylist, setCurrentEditPlaylist }}>
-      <CurrentlyPlayingContext.Provider
-        value={{ currentlyPlaying, setCurrentlyPlaying }}>
-        <UserContext.Provider value={{ currentUser, setCurrentUser }}>
-          <Router>
-            <Switch>
-              <Route exact path="/" component={HomePage} />
-              <ProtectedRoute
-                exact
-                path="/account"
-                component={AccountSettingsPage}
-              />
-              <ProtectedRoute exact path="/discover" component={DiscoverPage} />
-              <ProtectedRoute
-                exact
-                path="/playlists"
-                component={MyPlaylistsPage}
-              />
-              <ProtectedRoute exact path="/profile" component={ProfilePage} />
-              <ProtectedRoute
-                exact
-                path="/searchResults"
-                component={SearchResultsPage}
-              />
-              <ProtectedRoute
-                exact
-                path="/edit"
-                component={PlaylistEditorPage}
-              />
-              <ProtectedRoute exact path="/friends" component={FriendsPage} />
-              <ProtectedRoute exact path="/gifts" component={GiftsPage} />
-              <Route path="/404" component={NotFoundPage} />
-              <Redirect to="/404" />
-            </Switch>
-          </Router>
-        </UserContext.Provider>
-      </CurrentlyPlayingContext.Provider>
-    </CurrentEditPlaylistContext.Provider>
+    <ProfileContext.Provider value={{ currentProfile, setCurrentProfile }}>
+      <CurrentEditPlaylistContext.Provider
+        value={{ currentEditPlaylist, setCurrentEditPlaylist }}>
+        <CurrentlyPlayingContext.Provider
+          value={{ currentlyPlaying, setCurrentlyPlaying }}>
+          <UserContext.Provider value={{ currentUser, setCurrentUser }}>
+            <Router>
+              <Switch>
+                <Route exact path="/" component={HomePage} />
+                <ProtectedRoute
+                  exact
+                  path="/account"
+                  component={AccountSettingsPage}
+                />
+                <ProtectedRoute
+                  exact
+                  path="/discover"
+                  component={DiscoverPage}
+                />
+                <ProtectedRoute
+                  exact
+                  path="/playlists"
+                  component={MyPlaylistsPage}
+                />
+                <ProtectedRoute exact path="/profile" component={ProfilePage} />
+                <ProtectedRoute
+                  exact
+                  path="/searchResults"
+                  component={SearchResultsPage}
+                />
+                <ProtectedRoute
+                  exact
+                  path="/edit"
+                  component={PlaylistEditorPage}
+                />
+                <ProtectedRoute exact path="/friends" component={FriendsPage} />
+                <ProtectedRoute exact path="/gifts" component={GiftsPage} />
+                <Route path="/404" component={NotFoundPage} />
+                <Redirect to="/404" />
+              </Switch>
+            </Router>
+          </UserContext.Provider>
+        </CurrentlyPlayingContext.Provider>
+      </CurrentEditPlaylistContext.Provider>
+    </ProfileContext.Provider>
   );
 }
 

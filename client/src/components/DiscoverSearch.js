@@ -1,12 +1,30 @@
-import React from 'react';
-import { Button, Tabs, Tab } from 'react-bootstrap';
+import React, { useContext } from 'react';
+import { Button, Tab, Tabs } from 'react-bootstrap';
+
+import Axios from 'axios';
 
 import { FriendListPopup, MyPlaylistsPopup, SearchResultItem } from '.';
 
 import AddIcon from '@material-ui/icons/Add';
 import CallSplitIcon from '@material-ui/icons/CallSplit';
 
+import { UserContext } from '../contexts';
+
 const DiscoverSearch = (props) => {
+  const { currentUser } = useContext(UserContext);
+
+  const forkPlaylist = async (playlist) => {
+    try {
+      const forkRes = await Axios.post('/api/playlist/forkPlaylist', {
+        username: currentUser.username,
+        playlist,
+      });
+      console.log(forkRes);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   return (
     <div>
       <h5>Search results for: {props.query}</h5>
@@ -21,11 +39,14 @@ const DiscoverSearch = (props) => {
                 artist={p.ownerUsername}
                 songs={p.songs}
                 thumbnail={p.thumbnail}>
-                <Button variant="flat">
+                <Button variant="flat" onClick={() => forkPlaylist(p)}>
                   <CallSplitIcon style={{ color: '#979696' }} />
                 </Button>
 
-                <FriendListPopup />
+                <FriendListPopup
+                  friends={props.friends}
+                  itemId={p.playlistId}
+                />
               </SearchResultItem>
             );
           })}
@@ -45,7 +66,11 @@ const DiscoverSearch = (props) => {
                   </Button>
                 </MyPlaylistsPopup>
 
-                <FriendListPopup />
+                <FriendListPopup
+                  friends={props.friends}
+                  itemId={s.id.videoId}
+                  song={s}
+                />
               </SearchResultItem>
             );
           })}

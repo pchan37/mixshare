@@ -13,7 +13,6 @@ router.post('/getSongs', async (req, res) => {
       if (song === null) break;
       songs.push(song);
     }
-    console.log(songs);
     res.send(songs);
   } catch (err) {
     console.error(err);

@@ -35,6 +35,7 @@ import SimpleUser from './SimpleUser';
 import SongList from './SongList';
 import Thumbnail from './Thumbnail';
 import User from './User';
+import UserFeedbackModal from './UserFeedbackModal';
 import ProfileBody from './ProfileBody';
 
 import MusicPlayer from './MusicPlayer';
@@ -80,6 +81,7 @@ export {
   SongList,
   Thumbnail,
   User,
+  UserFeedbackModal,
   ProfileBody,
   MusicPlayer,
 };
