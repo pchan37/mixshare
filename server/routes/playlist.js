@@ -47,6 +47,27 @@ router.post('/getPlaylistById', async (req, res) => {
   }
 });
 
+// POST /forkPlaylist: create a copy of a playlist
+router.post('/forkPlaylist', async (req, res) => {
+  const username = req.body.username;
+  const playlist = req.body.playlist;
+  const playlistId = uuid();
+  try {
+    const newPlaylist = await Playlist.create({
+      playlistId,
+      ownerUsername: username,
+      playlistName: playlist.playlistName,
+      mixtapeMode: playlist.mixtapeMode,
+      views: 0,
+      songs: playlist.songs,
+    });
+    res.send(newPlaylist);
+  } catch (err) {
+    console.error(err);
+    return response.ServerError(res);
+  }
+});
+
 // POST /deletePlaylist: delete a playlist
 router.post('/deletePlaylist', async (req, res) => {
   const playlistId = req.body.playlistId;

@@ -25,7 +25,6 @@ import { CurrentEditPlaylistContext } from '../contexts';
 
 const SettingsPopup = () => {
   const [mixtapeChecked, setMixtapeChecked] = useState(false);
-  const [publicChecked, setPublicChecked] = useState(true);
 
   return (
     <Popover>
@@ -43,17 +42,6 @@ const SettingsPopup = () => {
             )}
           </Col>
           <Col>Mixtape Mode</Col>
-        </Row>
-        <Row
-          className="d-flex flex-row"
-          style={{ justifyContent: 'space-between', cursor: 'pointer' }}
-          onClick={() => setPublicChecked(!publicChecked)}>
-          <Col xs="2" className="mr-2">
-            {publicChecked && (
-              <CheckIcon style={{ color: '#979696', fontSize: 20 }} />
-            )}
-          </Col>
-          <Col>Public</Col>
         </Row>
       </Popover.Content>
     </Popover>

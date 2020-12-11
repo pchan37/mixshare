@@ -19,10 +19,6 @@ const PlaylistSchema = new Schema({
     type: Boolean,
     required: true,
   },
-  private: {
-    type: Boolean,
-    required: true,
-  },
   views: {
     type: Number,
     required: true,
