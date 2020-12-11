@@ -76,12 +76,15 @@ const GiftBody = () => {
       <Tabs className="mb-3">
         <Tab eventKey="gifts" title="Playlists" className="p-2">
           {playlistsGifts.map((p) => {
+            const playlistExists =
+              p.playlistItem.playlistId !== null &&
+              p.playlistItem.playlistId !== undefined;
             return (
               <GiftItem
                 key={p.id}
                 removeGift={() => removeGiftItem(p.giftId)}
-                playlistId={p.playlistItem.playlistId}
-                songId={p.playlistItem.songs[0]}
+                playlistId={playlistExists && p.playlistItem.playlistId}
+                songId={playlistExists && p.playlistItem.songs[0]}
                 name={p.playlistItem.playlistName}
                 artist={p.playlistItem.ownerUsername}
                 gifter={p.gifterUsername}
