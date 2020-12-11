@@ -76,6 +76,10 @@ const MusicPlayer = ({ expandedState, height, setExpandedState, width }) => {
           setPlayer(e.target);
           setPlaying(true);
         }}
+        onStateChange={(e) => {
+          if (e.data == YouTube.PlayerState.PLAYING) setPlaying(true);
+          else if (e.data == YouTube.PlayerState.PAUSED) setPlaying(false);
+        }}
         onEnd={() => {
           if (!loop) {
             playingContextCopy.song = '';
@@ -103,7 +107,6 @@ const MusicPlayer = ({ expandedState, height, setExpandedState, width }) => {
       style={largeIconStyle}
       onClick={() => {
         player.playVideo();
-        setPlaying(true);
       }}
     />
   );
@@ -113,7 +116,6 @@ const MusicPlayer = ({ expandedState, height, setExpandedState, width }) => {
       style={largeIconStyle}
       onClick={() => {
         player.pauseVideo();
-        setPlaying(false);
       }}
     />
   );
