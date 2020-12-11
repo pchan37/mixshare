@@ -1,15 +1,20 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 
-import { Row, Button, Col } from 'react-bootstrap';
-import { AccountCircle } from '@material-ui/icons';
+import { Row, Col, Nav } from 'react-bootstrap';
+import { LinkContainer } from 'react-router-bootstrap';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+
+import { ProfileContext } from '../contexts';
 
 const User = (props) => {
+  const { setCurrentProfile } = useContext(ProfileContext);
+
   return (
     <div>
       <Row>
         <Col xs="5">
-          <AccountCircle
+          <AccountCircleIcon
             className="mr-3"
             style={{ color: '#979696', fontSize: 50 }}
           />
@@ -18,9 +23,11 @@ const User = (props) => {
         <Col
           xs="3"
           className="d-flex align-items-center justify-content-around">
-          <Button variant="flat" style={{ color: '#979696', height: '40px' }}>
-            View Profile
-          </Button>
+          <LinkContainer className="p-0 pt-1" to="/profile">
+            <Nav.Link onSelect={() => setCurrentProfile(props.username)}>
+              View Profile
+            </Nav.Link>
+          </LinkContainer>
           {props.children}
         </Col>
       </Row>

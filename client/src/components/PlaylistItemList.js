@@ -1,16 +1,36 @@
-import React from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import Axios from 'axios';
 
 import { PlaylistItem } from '.';
-
-import data from '../placeholders/data';
+import { ProfileContext } from '../contexts';
 
 const PlaylistItemList = () => {
-  return data.playlists.map((p) => {
+  const { currentProfile } = useContext(ProfileContext);
+  const [listOfPlaylists, updateListOfPlaylists] = useState([]);
+
+  const getPlaylist = async () => {
+    try {
+      const playlistRes = await Axios.post('/api/playlist/getPlaylist', {
+        username: currentProfile,
+      });
+      updateListOfPlaylists(playlistRes.data);
+      console.log(playlistRes.data);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  useEffect(() => {
+    getPlaylist();
+  }, []);
+
+  return listOfPlaylists.map((p) => {
     return (
       <PlaylistItem
-        key={p.id}
-        name={p.name}
-        owner={p.owner}
+        key={p.playlistId}
+        id={p.playlistId}
+        name={p.playlistName}
+        owner={p.ownerUsername}
         songs={p.songs}></PlaylistItem>
     );
   });
