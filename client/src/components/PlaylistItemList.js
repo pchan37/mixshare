@@ -29,8 +29,9 @@ const PlaylistItemList = () => {
       <PlaylistItem
         key={p.playlistId}
         id={p.playlistId}
-        name={p.playlistName}
+        playlistName={p.playlistName}
         owner={p.ownerUsername}
+        mixtapeMode={p.mixtapeMode}
         songs={p.songs}></PlaylistItem>
     );
   });

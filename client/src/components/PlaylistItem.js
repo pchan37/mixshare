@@ -29,10 +29,22 @@ const PlaylistItem = (props) => {
     getSongs();
   }, []);
 
+  const forkPlaylist = async (playlist) => {
+    try {
+      const forkRes = await Axios.post('/api/playlist/forkPlaylist', {
+        username: currentUser.username,
+        playlist,
+      });
+      console.log(forkRes);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   return (
     <div className="d-flex flex-column border-bottom pb-2 mb-2">
       <div className="d-flex flex-row">
-        <h4>{props.name}</h4>
+        <h4>{props.playlistName}</h4>
       </div>
       <div className="d-flex flex-row">
         <div className="d-flex flex-row flex-grow-1">
@@ -51,7 +63,8 @@ const PlaylistItem = (props) => {
         <div className="d-flex flex-row">
           <Button
             variant="flat"
-            disabled={currentProfile === currentUser.username ? true : false}>
+            disabled={currentProfile === currentUser.username ? true : false}
+            onClick={() => forkPlaylist(props)}>
             <CallSplitIcon style={{ color: '#979696' }} />
           </Button>
         </div>

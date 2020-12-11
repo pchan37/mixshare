@@ -38,15 +38,7 @@ const HorizontalThumbnail = (props) => {
       <div className="ml-3 align-self-top">
         <p>
           {props.name} <br />
-          by
-          <LinkContainer
-            className="p-0 pl-1"
-            style={{ float: 'right' }}
-            to="/profile">
-            <Nav.Link onSelect={() => setCurrentProfile(props.artist)}>
-              {props.artist}
-            </Nav.Link>
-          </LinkContainer>
+          by {props.artist}
         </p>
       </div>
     </div>
