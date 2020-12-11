@@ -43,10 +43,7 @@ const PlaylistsPopup = (song) => {
   return (
     <Popover>
       <Popover.Content className="mr-2">
-        <Button variant="flat">
-          <Add style={{ color: '#979696', fontSize: 20 }} />
-          new playlist
-        </Button>
+        <h6 style={{ textAlign: 'center' }}>My Playlists</h6>
         {listOfPlaylists.map((p) => {
           return (
             <SimplePlaylist key={p.id} name={p.playlistName}>
