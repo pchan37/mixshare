@@ -5,7 +5,6 @@ import { Button } from 'react-bootstrap';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 
-import UserFeedbackModal from './UserFeedbackModal';
 import { ProfileContext, UserContext } from '../contexts';
 
 const ProfileDetails = () => {

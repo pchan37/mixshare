@@ -9,6 +9,8 @@ const SearchResultItem = (props) => {
         name={props.name}
         artist={props.artist}
         thumbnail={props.thumbnail}
+        playlistId={props.playlistId}
+        songs={props.songs}
       />
 
       <div

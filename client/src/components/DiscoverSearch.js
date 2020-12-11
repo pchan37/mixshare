@@ -34,8 +34,10 @@ const DiscoverSearch = (props) => {
             return (
               <SearchResultItem
                 key={p.playlistId}
+                playlistId={p.playlistId}
                 name={p.playlistName}
                 artist={p.ownerUsername}
+                songs={p.songs}
                 thumbnail={p.thumbnail}>
                 <Button variant="flat" onClick={() => forkPlaylist(p)}>
                   <CallSplitIcon style={{ color: '#979696' }} />

@@ -10,8 +10,6 @@ const HorizontalThumbnail = (props) => {
   );
   const { setCurrentProfile } = useContext(ProfileContext);
 
-  const currentlyPlayingCopy = { ...currentlyPlaying };
-
   const defaultThumbnail =
     'https://wp-en.oberlo.com/wp-content/uploads/2019/04/image13-1-1024x576.png';
 
@@ -20,10 +18,36 @@ const HorizontalThumbnail = (props) => {
       <div style={{ maxWidth: '15vw' }}>
         <Image
           onClick={() => {
-            currentlyPlayingCopy.song = props.youtubeID;
-            currentlyPlayingCopy.opts.playerVars.loop = 0;
-            currentlyPlayingCopy.opts.playerVars.playlist = '';
-            setCurrentlyPlaying(currentlyPlayingCopy);
+            if (props.playlistId !== null && props.playlistId !== undefined) {
+              if (props.songs.length !== 0) {
+                setCurrentlyPlaying((prevState) => ({
+                  ...prevState,
+                  song: props.songs[0],
+                  playlist: props.playlistId,
+                  opts: {
+                    ...prevState.opts,
+                    playerVars: {
+                      ...prevState.opts.playerVars,
+                      loop: 0,
+                      playlist: '',
+                    },
+                  },
+                }));
+              }
+            } else {
+              setCurrentlyPlaying((prevState) => ({
+                ...prevState,
+                song: props.youtubeID,
+                opts: {
+                  ...prevState.opts,
+                  playerVars: {
+                    ...prevState.opts.playerVars,
+                    loop: 0,
+                    playlist: '',
+                  },
+                },
+              }));
+            }
           }}
           style={{ cursor: 'pointer' }}
           fluid

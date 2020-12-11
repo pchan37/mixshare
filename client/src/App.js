@@ -34,11 +34,11 @@ function App() {
   const [currentlyPlaying, setCurrentlyPlaying] = useState({
     song: '',
     playlist: '',
+    repeat: false,
+    shuffle: false,
     opts: {
-      height: '100%',
-      width: 'auto',
       playerVars: {
-        controls: 0,
+        controls: 1,
         autoplay: 1,
         loop: 0,
         playlist: '',
