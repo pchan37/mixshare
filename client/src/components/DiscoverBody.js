@@ -10,6 +10,24 @@ import SearchIcon from '@material-ui/icons/Search';
 import { UserContext } from '../contexts';
 
 const ChooseDisplay = (props) => {
+  const [topPlaylists, updateTopPlaylists] = useState([]);
+
+  const getTopPlaylists = async () => {
+    try {
+      const playlistsRes = await Axios.post(
+        '/api/playlist/getTopPlaylists',
+        {}
+      );
+      updateTopPlaylists(playlistsRes.data);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  useEffect(() => {
+    getTopPlaylists();
+  }, []);
+
   if (props.query !== '') {
     return (
       <DiscoverSearch
@@ -20,7 +38,7 @@ const ChooseDisplay = (props) => {
       />
     );
   } else {
-    return <DiscoverHome songs={props.topSongs} playlists={data.playlists} />;
+    return <DiscoverHome songs={props.topSongs} playlists={topPlaylists} />;
   }
 };
 

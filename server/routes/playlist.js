@@ -16,7 +16,7 @@ router.post('/newPlaylist', async (req, res) => {
       playlistName: req.body.playlistName,
       mixtapeMode: false,
       private: false,
-      views: 0,
+      views: 10,
       songs: [],
     });
     res.send(newPlaylist);
@@ -95,6 +95,27 @@ router.post('/deletePlaylist', async (req, res) => {
     res.send(updatedPlaylist);
   } catch (err) {
     console.error(err);
+  }
+});
+
+// POST /getTopPlaylists: gets top 5 playlists
+router.post('/getTopPlaylists', async (req, res) => {
+  var listOfPlaylists = [];
+  try {
+    const playlists = await Playlist.find().sort({ views: -1 }).lean();
+    for (const playlist of playlists) {
+      if (playlist.songs.length !== 0) {
+        const firstSong = await Song.findOne({
+          songId: playlist.songs[0],
+        });
+        playlist['thumbnail'] = firstSong.thumbnail;
+        listOfPlaylists.push(playlist);
+      }
+    }
+    res.send(listOfPlaylists.slice(0, 5));
+  } catch (err) {
+    console.error(err);
+    return response.ServerError(res);
   }
 });
 

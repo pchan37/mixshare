@@ -53,6 +53,18 @@ const GiftBody = () => {
     }
   };
 
+  const forkPlaylist = async (playlist) => {
+    try {
+      const forkRes = await Axios.post('/api/playlist/forkPlaylist', {
+        username: currentUser.username,
+        playlist,
+      });
+      console.log(forkRes);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   useEffect(() => {
     getPlaylistGifts();
     getSongRecs();
@@ -85,7 +97,9 @@ const GiftBody = () => {
                 gifter={p.gifterUsername}
                 message={p.message}
                 thumbnail={p.thumbnail}>
-                <Button variant="flat">
+                <Button
+                  variant="flat"
+                  onClick={() => forkPlaylist(p.playlistItem)}>
                   <CallSplitIcon style={{ color: '#979696' }} />
                 </Button>
               </GiftItem>
