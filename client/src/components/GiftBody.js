@@ -88,10 +88,15 @@ const GiftBody = () => {
       <Tabs className="mb-3">
         <Tab eventKey="gifts" title="Playlists" className="p-2">
           {playlistsGifts.map((p) => {
+            const playlistExists =
+              p.playlistItem.playlistId !== null &&
+              p.playlistItem.playlistId !== undefined;
             return (
               <GiftItem
                 key={p.id}
                 removeGift={() => removeGiftItem(p.giftId)}
+                playlistId={playlistExists && p.playlistItem.playlistId}
+                songId={playlistExists && p.playlistItem.songs[0]}
                 name={p.playlistItem.playlistName}
                 artist={p.playlistItem.ownerUsername}
                 gifter={p.gifterUsername}
@@ -112,6 +117,7 @@ const GiftBody = () => {
               <GiftItem
                 key={s.id}
                 removeGift={() => removeGiftItem(s.giftId)}
+                songId={s.songItem.songId}
                 name={s.songItem.title}
                 artist={s.songItem.artist}
                 gifter={s.gifterUsername}

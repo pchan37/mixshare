@@ -66,7 +66,6 @@ router.get('/playlists', async (req, res) => {
 });
 
 router.get('/topSongs', async (req, res) => {
-  console.log('getting top songs');
   try {
     const results = await Youtube.videos.list({
       part: ['snippet,contentDetails,statistics'],
