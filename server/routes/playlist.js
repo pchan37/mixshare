@@ -76,7 +76,7 @@ router.post('/changeMixtapeMode', async (req, res) => {
     const updatedMode = await Playlist.findOneAndUpdate(
       { playlistId },
       { mixtapeMode: !playlist.mixtapeMode },
-      { new: true }
+      { new: true } // setting new:true returns document after update so you can check if update changed
     );
     res.send(updatedMode);
   } catch (err) {
