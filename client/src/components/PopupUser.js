@@ -1,10 +1,15 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 
-import { Row, Col } from 'react-bootstrap';
+import { Row, Col, Nav } from 'react-bootstrap';
+import { LinkContainer } from 'react-router-bootstrap';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 
+import { ProfileContext } from '../contexts';
+
 const PopupUser = (props) => {
+  const { setCurrentProfile } = useContext(ProfileContext);
+
   return (
     <div>
       <Row className="d-flex flex-row" style={{ alignItems: 'center' }}>
@@ -13,7 +18,11 @@ const PopupUser = (props) => {
             className="mr-2"
             style={{ color: '#979696', fontSize: 30 }}
           />
-          {props.username}
+          <LinkContainer className="p-0 pt-1" to="/profile">
+            <Nav.Link onSelect={() => setCurrentProfile(props.username)}>
+              {props.username}
+            </Nav.Link>
+          </LinkContainer>
         </Col>
         <Col className="d-flex flex-row justify-content-center">
           {props.children}

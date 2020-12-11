@@ -17,7 +17,6 @@ import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import CheckIcon from '@material-ui/icons/Check';
 import SearchIcon from '@material-ui/icons/Search';
 import EditIcon from '@material-ui/icons/Edit';
-import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
 import SettingsIcon from '@material-ui/icons/Settings';
 
 import { PlaylistEditItem } from './';

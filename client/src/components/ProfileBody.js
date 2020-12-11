@@ -1,18 +1,18 @@
 import React from 'react';
 
-import { Container, Row } from 'react-bootstrap';
+import { Row } from 'react-bootstrap';
 import { ProfileDetails, PlaylistItemList } from './';
 
 const ProfileBody = () => {
   return (
-    <Container>
+    <div className="d-flex flex-column">
       <Row>
         <ProfileDetails />
       </Row>
-      <Row>
+      <Row className="d-flex flex-column">
         <PlaylistItemList />
       </Row>
-    </Container>
+    </div>
   );
 };
 

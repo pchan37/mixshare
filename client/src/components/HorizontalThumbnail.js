@@ -1,12 +1,14 @@
 import React, { useContext } from 'react';
-import { Image } from 'react-bootstrap';
+import { Image, Nav } from 'react-bootstrap';
+import { LinkContainer } from 'react-router-bootstrap';
 
-import { CurrentlyPlayingContext } from '../contexts';
+import { CurrentlyPlayingContext, ProfileContext } from '../contexts';
 
 const HorizontalThumbnail = (props) => {
   const { currentlyPlaying, setCurrentlyPlaying } = useContext(
     CurrentlyPlayingContext
   );
+  const { setCurrentProfile } = useContext(ProfileContext);
 
   const currentlyPlayingCopy = { ...currentlyPlaying };
 
@@ -36,7 +38,15 @@ const HorizontalThumbnail = (props) => {
       <div className="ml-3 align-self-top">
         <p>
           {props.name} <br />
-          by {props.artist}
+          by
+          <LinkContainer
+            className="p-0 pl-1"
+            style={{ float: 'right' }}
+            to="/profile">
+            <Nav.Link onSelect={() => setCurrentProfile(props.artist)}>
+              {props.artist}
+            </Nav.Link>
+          </LinkContainer>
         </p>
       </div>
     </div>
