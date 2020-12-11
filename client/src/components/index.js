@@ -16,6 +16,7 @@ import FriendsBody from './FriendsBody';
 import GiftBody from './GiftBody';
 import GiftItem from './GiftItem';
 import HorizontalThumbnail from './HorizontalThumbnail';
+import ModalAlert from './ModalAlert';
 import MyPlaylistsBody from './MyPlaylistsBody';
 import NewPlaylistPopup from './NewPlaylistPopup';
 import MyPlaylistsPopup from './MyPlaylistsPopup';
@@ -58,6 +59,7 @@ export {
   GiftBody,
   GiftItem,
   HorizontalThumbnail,
+  ModalAlert,
   MyPlaylistsBody,
   MyPlaylistsPopup,
   NewPlaylistPopup,

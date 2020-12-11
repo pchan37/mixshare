@@ -93,10 +93,10 @@ const FriendsBody = () => {
         targetId: userId,
         selfUsername: currentUser.username,
       });
-      setResponse(sendRequest.data.statusMessage);
+      setResponse(sendRequest);
     } catch (err) {
-      console.error(err);
-      setResponse(err.response.data.statusMessage);
+      console.log(err.response);
+      setResponse(err.response);
     }
   };
 
@@ -111,12 +111,15 @@ const FriendsBody = () => {
       });
       await getPendingRequests();
 
-      await Axios.post('/api/user/addUser', {
+      const addUser = await Axios.post('/api/user/addUser', {
         selfUsername: currentUser.username,
         targetId: userId,
       });
+
+      //setResponse(addUser.response);
       await getFriends();
     } catch (err) {
+      setResponse(err.response);
       console.error(err);
     }
   };
@@ -150,7 +153,9 @@ const FriendsBody = () => {
               Go
             </Button>
           </div>
-          {response !== '' && <Form.Text>{response}</Form.Text>}
+          {response !== '' && (
+            <Form.Text>{response.data.statusMessage}</Form.Text>
+          )}
         </Form>
         <div style={popupBodyStyle}>
           {searchResults.map((f) => (

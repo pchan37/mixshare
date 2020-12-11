@@ -24,7 +24,7 @@ const PopupUser = (props) => {
             </Nav.Link>
           </LinkContainer>
         </Col>
-        <Col className="d-flex flex-row justify-content-center">
+        <Col className="d-flex flex-row justify-content-end">
           {props.children}
         </Col>
       </Row>
