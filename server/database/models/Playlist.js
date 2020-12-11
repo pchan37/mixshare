@@ -17,10 +17,7 @@ const PlaylistSchema = new Schema({
   },
   mixtapeMode: {
     type: Boolean,
-    required: true,
-  },
-  private: {
-    type: Boolean,
+    default: false,
     required: true,
   },
   views: {

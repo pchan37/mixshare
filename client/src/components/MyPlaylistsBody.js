@@ -166,6 +166,7 @@ const MyPlaylistsBody = () => {
               owner={p.ownerUsername}
               songs={p.songs}
               friends={friends}></PlaylistItem>
+              mixtapeMode={p.mixtapeMode} />
           );
         })}
       </>

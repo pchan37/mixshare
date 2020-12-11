@@ -17,15 +17,31 @@ import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import CheckIcon from '@material-ui/icons/Check';
 import SearchIcon from '@material-ui/icons/Search';
 import EditIcon from '@material-ui/icons/Edit';
-import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
 import SettingsIcon from '@material-ui/icons/Settings';
 
 import { PlaylistEditItem } from './';
 import { CurrentEditPlaylistContext, UserContext } from '../contexts';
 
 const SettingsPopup = () => {
-  const [mixtapeChecked, setMixtapeChecked] = useState(false);
-  const [publicChecked, setPublicChecked] = useState(true);
+  const { currentEditPlaylist } = useContext(CurrentEditPlaylistContext);
+  const [mixtapeChecked, setMixtapeChecked] = useState(
+    currentEditPlaylist.mixtapeMode
+  );
+
+  const changeMixtapeMode = async () => {
+    try {
+      const updatedMode = await Axios.post('/api/playlist/changeMixtapeMode', {
+        playlistId: currentEditPlaylist.id,
+      });
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const handleMixtapeClick = () => {
+    setMixtapeChecked(!mixtapeChecked);
+    changeMixtapeMode();
+  };
 
   return (
     <Popover>
@@ -36,24 +52,13 @@ const SettingsPopup = () => {
             justifyContent: 'space-between',
             cursor: 'pointer',
           }}
-          onClick={() => setMixtapeChecked(!mixtapeChecked)}>
+          onClick={() => handleMixtapeClick()}>
           <Col xs="2" className="mr-2">
             {mixtapeChecked && (
               <CheckIcon style={{ color: '#979696', fontSize: 20 }} />
             )}
           </Col>
           <Col>Mixtape Mode</Col>
-        </Row>
-        <Row
-          className="d-flex flex-row"
-          style={{ justifyContent: 'space-between', cursor: 'pointer' }}
-          onClick={() => setPublicChecked(!publicChecked)}>
-          <Col xs="2" className="mr-2">
-            {publicChecked && (
-              <CheckIcon style={{ color: '#979696', fontSize: 20 }} />
-            )}
-          </Col>
-          <Col>Public</Col>
         </Row>
       </Popover.Content>
     </Popover>

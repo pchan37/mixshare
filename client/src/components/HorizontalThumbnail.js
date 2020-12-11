@@ -1,12 +1,14 @@
 import React, { useContext } from 'react';
-import { Image } from 'react-bootstrap';
+import { Image, Nav } from 'react-bootstrap';
+import { LinkContainer } from 'react-router-bootstrap';
 
-import { CurrentlyPlayingContext } from '../contexts';
+import { CurrentlyPlayingContext, ProfileContext } from '../contexts';
 
 const HorizontalThumbnail = (props) => {
   const { currentlyPlaying, setCurrentlyPlaying } = useContext(
     CurrentlyPlayingContext
   );
+  const { setCurrentProfile } = useContext(ProfileContext);
 
   const currentlyPlayingCopy = { ...currentlyPlaying };
 
