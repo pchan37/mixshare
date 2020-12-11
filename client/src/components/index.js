@@ -16,7 +16,6 @@ import FriendsBody from './FriendsBody';
 import GiftBody from './GiftBody';
 import GiftItem from './GiftItem';
 import HorizontalThumbnail from './HorizontalThumbnail';
-import ModalAlert from './ModalAlert';
 import MyPlaylistsBody from './MyPlaylistsBody';
 import NewPlaylistPopup from './NewPlaylistPopup';
 import MyPlaylistsPopup from './MyPlaylistsPopup';
@@ -34,7 +33,6 @@ import SimpleUser from './SimpleUser';
 import SongList from './SongList';
 import Thumbnail from './Thumbnail';
 import User from './User';
-import UserFeedbackModal from './UserFeedbackModal';
 import ProfileBody from './ProfileBody';
 
 import MusicPlayer from './MusicPlayer';
@@ -59,7 +57,6 @@ export {
   GiftBody,
   GiftItem,
   HorizontalThumbnail,
-  ModalAlert,
   MyPlaylistsBody,
   MyPlaylistsPopup,
   NewPlaylistPopup,
@@ -79,7 +76,6 @@ export {
   SongList,
   Thumbnail,
   User,
-  UserFeedbackModal,
   ProfileBody,
   MusicPlayer,
 };
