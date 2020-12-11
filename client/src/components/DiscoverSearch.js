@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
+import { Button, Tab, Tabs } from 'react-bootstrap';
+
 import Axios from 'axios';
-import { Button, Tabs, Tab } from 'react-bootstrap';
 
 import { FriendListPopup, MyPlaylistsPopup, SearchResultItem } from '.';
 

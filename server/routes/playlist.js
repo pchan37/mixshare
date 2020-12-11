@@ -58,13 +58,13 @@ router.post('/forkPlaylist', async (req, res) => {
       ownerUsername: username,
       playlistName: playlist.playlistName,
       mixtapeMode: playlist.mixtapeMode,
-      private: false,
       views: 0,
       songs: playlist.songs,
     });
     res.send(newPlaylist);
   } catch (err) {
     console.error(err);
+    return response.ServerError(res);
   }
 });
 
