@@ -117,8 +117,6 @@ router.post('/getPendingRequests', async (req, res) => {
           { userId },
           { $pull: { pendingFriendRequests: id } }
         );
-      } else {
-        requestUsers.push(user);
       }
     }
 
