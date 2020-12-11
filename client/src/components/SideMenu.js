@@ -11,7 +11,7 @@ import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 
 import Logo from '../assets/images/logo.png';
 
-import { UserContext } from '../contexts';
+import { ProfileContext, UserContext } from '../contexts';
 
 const LargerNavLink = styled(Nav.Link)`
   font-size: 25px;
@@ -24,6 +24,7 @@ const SideMenuContainer = styled.div`
 
 const SideMenu = ({ width }) => {
   const { currentUser } = useContext(UserContext);
+  const { setCurrentProfile } = useContext(ProfileContext);
   const history = useHistory();
 
   const logoutHandler = () => {
@@ -38,7 +39,10 @@ const SideMenu = ({ width }) => {
         <Navbar className="p-0">
           <Nav className="flex-column">
             <LinkContainer to="/profile">
-              <Nav.Link>Profile</Nav.Link>
+              <Nav.Link
+                onSelect={() => setCurrentProfile(currentUser.username)}>
+                Profile
+              </Nav.Link>
             </LinkContainer>
             <LinkContainer to="/account" className="border-bottom">
               <Nav.Link>Manage Account</Nav.Link>
@@ -85,7 +89,8 @@ const SideMenu = ({ width }) => {
               placement="top-start"
               delay={{ show: 250, hide: 400 }}
               overlay={ProfilePopup}
-              trigger="click">
+              trigger="click"
+              rootClose>
               <LargerNavLink>
                 <AccountCircleIcon className="mr-3" style={{ fontSize: 50 }} />
                 {currentUser.username}

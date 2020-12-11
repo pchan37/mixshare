@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Axios from 'axios';
 
 import { Button, Container, Form } from 'react-bootstrap';
@@ -7,6 +7,7 @@ import { DiscoverHome, DiscoverSearch } from './';
 import data from '../placeholders/data';
 
 import SearchIcon from '@material-ui/icons/Search';
+import { UserContext } from '../contexts';
 
 const ChooseDisplay = (props) => {
   if (props.query !== '') {
@@ -15,6 +16,7 @@ const ChooseDisplay = (props) => {
         query={props.query}
         songResults={props.songResults}
         playlistResults={props.playlistResults}
+        friends={props.friends}
       />
     );
   } else {
@@ -23,17 +25,32 @@ const ChooseDisplay = (props) => {
 };
 
 function DiscoverBody() {
+  const { currentUser } = useContext(UserContext);
   const [query, updateQuery] = useState('');
   const [playlistResults, updatePlaylistResults] = useState([]);
   const [songResults, updateSongResults] = useState([]);
   const [topSongs, updateTopSongs] = useState([]);
+  const [friends, setFriends] = useState([]);
+
+  const getFriends = async () => {
+    try {
+      const friends = await Axios.post('api/user/friends', {
+        username: currentUser.username,
+      });
+      setFriends(friends.data);
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   useEffect(() => {
     async function getTopSongs() {
+      console.log('getting Top Songs');
       const gettingSongs = await Axios.get('/api/youtube/topSongs');
       updateTopSongs(gettingSongs.data);
     }
     getTopSongs();
+    getFriends();
   }, []);
 
   const updateQueryAndReturn = (event) => {
@@ -49,12 +66,12 @@ function DiscoverBody() {
   const getPlaylistResults = async (query) => {
     console.log(query);
     try {
-      const playlistsRes = await Axios.post('/api/youtube/playlists', {
-        query: query,
+      const playlistsRes = await Axios.get('/api/youtube/playlists', {
+        params: { query },
       });
       updatePlaylistResults(playlistsRes.data);
-    } catch {
-      console.log('error');
+    } catch (err) {
+      console.error(err);
     }
   };
 
@@ -89,6 +106,7 @@ function DiscoverBody() {
         songResults={songResults}
         playlistResults={playlistResults}
         topSongs={topSongs}
+        friends={friends}
       />
     </div>
   );

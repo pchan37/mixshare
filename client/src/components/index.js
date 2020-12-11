@@ -5,7 +5,7 @@ import AccountBody from './AccountBody';
 import AccountDetails from './AccountDetails';
 import ChangePasswordPopup from './ChangePasswordPopup';
 import ChangeUsernamePopup from './ChangeUsernamePopup';
-import DeleteAccountPopup from './DeleteAccountPopup';
+import DeletePopup from './DeletePopup';
 import DiscoverBody from './DiscoverBody';
 import DiscoverHome from './DiscoverHome';
 import DiscoverSearch from './DiscoverSearch';
@@ -16,11 +16,13 @@ import FriendsBody from './FriendsBody';
 import GiftBody from './GiftBody';
 import GiftItem from './GiftItem';
 import HorizontalThumbnail from './HorizontalThumbnail';
+import ModalAlert from './ModalAlert';
 import MyPlaylistsBody from './MyPlaylistsBody';
 import NewPlaylistPopup from './NewPlaylistPopup';
 import MyPlaylistsPopup from './MyPlaylistsPopup';
 import PlaylistEditItem from './PlaylistEditItem';
 import PlaylistEditorBody from './PlaylistEditorBody';
+import PopupUser from './PopupUser';
 import SearchResultBody from './SearchResultBody';
 import ProfileClickPopup from './ProfileClickPopup';
 import PlaylistItem from './PlaylistItem';
@@ -32,6 +34,7 @@ import SimpleUser from './SimpleUser';
 import SongList from './SongList';
 import Thumbnail from './Thumbnail';
 import User from './User';
+import UserFeedbackModal from './UserFeedbackModal';
 import ProfileBody from './ProfileBody';
 
 import MusicPlayer from './MusicPlayer';
@@ -45,7 +48,7 @@ export {
   AvatarNameSmall,
   ChangePasswordPopup,
   ChangeUsernamePopup,
-  DeleteAccountPopup,
+  DeletePopup,
   DiscoverBody,
   DiscoverHome,
   DiscoverSearch,
@@ -56,11 +59,13 @@ export {
   GiftBody,
   GiftItem,
   HorizontalThumbnail,
+  ModalAlert,
   MyPlaylistsBody,
   MyPlaylistsPopup,
   NewPlaylistPopup,
   PlaylistEditItem,
   PlaylistEditorBody,
+  PopupUser,
   SearchResultBody,
   ProfileClickPopup,
   PlaylistItem,
@@ -74,6 +79,7 @@ export {
   SongList,
   Thumbnail,
   User,
+  UserFeedbackModal,
   ProfileBody,
   MusicPlayer,
 };
