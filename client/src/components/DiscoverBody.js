@@ -9,6 +9,17 @@ import data from '../placeholders/data';
 import SearchIcon from '@material-ui/icons/Search';
 
 const ChooseDisplay = (props) => {
+  const [topPlaylists, updateTopPlaylists] = useState([]);
+
+  const getTopPlaylists = async () => {
+    const playlistsRes = await Axios.post('/api/playlist/getTopPlaylists', {});
+    updateTopPlaylists(playlistsRes.data);
+  };
+
+  useEffect(() => {
+    getTopPlaylists();
+  }, []);
+
   if (props.query !== '') {
     return (
       <DiscoverSearch
@@ -18,7 +29,7 @@ const ChooseDisplay = (props) => {
       />
     );
   } else {
-    return <DiscoverHome songs={props.topSongs} playlists={data.playlists} />;
+    return <DiscoverHome songs={props.topSongs} playlists={topPlaylists} />;
   }
 };
 
