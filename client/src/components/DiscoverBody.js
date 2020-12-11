@@ -30,6 +30,7 @@ function DiscoverBody() {
 
   useEffect(() => {
     async function getTopSongs() {
+      console.log('getting Top Songs');
       const gettingSongs = await Axios.get('/api/youtube/topSongs');
       updateTopSongs(gettingSongs.data);
     }

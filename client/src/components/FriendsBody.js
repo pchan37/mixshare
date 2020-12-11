@@ -46,6 +46,11 @@ const FriendsBody = () => {
         query: enteredQuery,
         username: currentUser.username,
       });
+      if (enteredQuery === '') {
+        setResponse('Please enter a search query');
+      } else if (searchResults.data.length === 0) {
+        setResponse(`No results found for ${enteredQuery}`);
+      }
       setSearchResults(searchResults.data);
     } catch (err) {
       console.error(err);
