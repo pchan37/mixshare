@@ -68,6 +68,24 @@ router.post('/forkPlaylist', async (req, res) => {
   }
 });
 
+// POST /changeMixtapeMode: change Mixtape Mode field
+router.post('/changeMixtapeMode', async (req, res) => {
+  const playlistId = req.body.playlistId;
+  try {
+    const playlist = await Playlist.findOne({ playlistId });
+    const newMode = !playlist.mixtapeMode;
+    const updatedMode = await Playlist.findOneAndUpdate(
+      { playlistId },
+      { mixtapeMode: newMode },
+      { new: true }
+    );
+    res.send(updatedMode);
+  } catch (err) {
+    console.error(err);
+    return response.ServerError(res);
+  }
+});
+
 // POST /deletePlaylist: delete a playlist
 router.post('/deletePlaylist', async (req, res) => {
   const playlistId = req.body.playlistId;
