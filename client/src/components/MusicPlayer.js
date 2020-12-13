@@ -87,7 +87,6 @@ const MusicPlayer = ({ expandedState, height, setExpandedState, width }) => {
   };
 
   const setPrevAndNext = (playlistSongIds) => {
-    console.log("setting prev and next");
     const index = playlistSongIds.indexOf(currentlyPlaying.song);
 
     if (playlistSongIds.length === 1) {
@@ -113,7 +112,6 @@ const MusicPlayer = ({ expandedState, height, setExpandedState, width }) => {
   }
 
   const getSongs = async (playlistSongIds) => {
-    console.log("getting songs");
     const playlistSongs = await Axios.post('/api/song/getSongs', {
       songIds: playlistSongIds,
     });
@@ -342,7 +340,6 @@ const MusicPlayer = ({ expandedState, height, setExpandedState, width }) => {
                   playingContextCopy.shuffle = shuffle;
                   if (shuffle) playingContextCopy.shuffledList = [...playlist.songs];
                   playingContextCopy.song = prevSong;
-                  console.log(prevSong);
                   setCurrentlyPlaying(playingContextCopy);
                 }}
               />
@@ -354,7 +351,6 @@ const MusicPlayer = ({ expandedState, height, setExpandedState, width }) => {
                   playingContextCopy.shuffle = shuffle;
                   if (shuffle) playingContextCopy.shuffledList = [...playlist.songs];
                   playingContextCopy.song = nextSong;
-                  console.log(nextSong);
                   setCurrentlyPlaying(playingContextCopy);
                 }}
               />
