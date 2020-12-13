@@ -6,12 +6,17 @@ import { NavLink } from 'react-router-dom';
 import { Add, DeleteOutline, Edit } from '@material-ui/icons';
 
 import FriendListPopup from './FriendListPopup';
-import { CurrentEditPlaylistContext, UserContext } from '../contexts';
+import {
+  CurrentEditPlaylistContext,
+  CurrentlyPlayingContext,
+  UserContext,
+} from '../contexts';
 
 const MyPlaylistsBody = () => {
   const { currentUser } = useContext(UserContext);
   const { setCurrentEditPlaylist } = useContext(CurrentEditPlaylistContext);
   const [listOfPlaylists, updateListOfPlaylists] = useState([]);
+  const [friends, setFriends] = useState([]);
 
   const getPlaylist = async () => {
     try {
@@ -24,9 +29,21 @@ const MyPlaylistsBody = () => {
     }
   };
 
+  const getFriends = async () => {
+    try {
+      const friends = await Axios.post('api/user/friends', {
+        username: currentUser.username,
+      });
+      setFriends(friends.data);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   useEffect(() => {
     getPlaylist();
     setCurrentEditPlaylist(null);
+    getFriends();
   }, []);
 
   const NewPlaylistPopup = (props) => {
@@ -79,6 +96,9 @@ const MyPlaylistsBody = () => {
   };
 
   const PlaylistItem = (props) => {
+    const { currentlyPlaying, setCurrentlyPlaying } = useContext(
+      CurrentlyPlayingContext
+    );
     const [listOfSongs, updateListOfSongs] = useState([]);
     const DEFAULT_THUMBNAIL =
       'https://wp-en.oberlo.com/wp-content/uploads/2019/04/image13-1-1024x576.png';
@@ -110,8 +130,18 @@ const MyPlaylistsBody = () => {
           <div className="d-flex flex-row flex-grow-1">
             <Image
               fluid
-              style={{ maxWidth: '20vw' }}
+              style={{ maxWidth: '20vw', cursor: 'pointer' }}
               src={thumbnail !== '' ? thumbnail : DEFAULT_THUMBNAIL}
+              onClick={() => {
+                setCurrentlyPlaying((prevState) => ({
+                  ...prevState,
+                  song: props.songs[0],
+                  playlist: props.id,
+                  // TODO: reset loop
+                }));
+                console.log(props.id);
+                console.log(currentlyPlaying);
+              }}
             />
             <div className="ml-4">
               {listOfSongs.map((s) => {
@@ -131,7 +161,7 @@ const MyPlaylistsBody = () => {
                 <Edit style={{ color: '#979696' }} />
               </NavLink>
             </Button>
-            <FriendListPopup />
+            <FriendListPopup friends={props.friends} itemId={props.id} />
             <Button variant="flat" onClick={() => deletePlaylist(props)}>
               <DeleteOutline style={{ color: '#979696' }} />
             </Button>
@@ -151,7 +181,10 @@ const MyPlaylistsBody = () => {
               id={p.playlistId}
               name={p.playlistName}
               owner={p.ownerUsername}
-              songs={p.songs}></PlaylistItem>
+              songs={p.songs}
+              friends={friends}
+              mixtapeMode={p.mixtapeMode}
+            />
           );
         })}
       </>

@@ -11,7 +11,11 @@ import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 
 import Logo from '../assets/images/logo-new.png';
 
-import { UserContext } from '../contexts';
+import {
+  CurrentlyPlayingContext,
+  ProfileContext,
+  UserContext,
+} from '../contexts';
 
 const LargerNavLink = styled(Nav.Link)`
   font-size: 25px;
@@ -24,8 +28,27 @@ const SideMenuContainer = styled.div`
 `;
 
 const SideMenu = ({ width }) => {
+  const { setCurrentlyPlaying } = useContext(CurrentlyPlayingContext);
   const { currentUser } = useContext(UserContext);
+  const { setCurrentProfile } = useContext(ProfileContext);
   const history = useHistory();
+
+  const clearPlaying = () => {
+    setCurrentlyPlaying({
+      song: '',
+      playlist: '',
+      repeat: false,
+      shuffle: false,
+      opts: {
+        playerVars: {
+          controls: 1,
+          autoplay: 1,
+          loop: 0,
+          playlist: '',
+        },
+      },
+    });
+  };
 
   const logoutHandler = () => {
     Axios.post('/api/auth/logout').then(() => {
@@ -39,14 +62,22 @@ const SideMenu = ({ width }) => {
         <Navbar className="p-0">
           <Nav className="flex-column">
             <LinkContainer to="/profile">
-              <Nav.Link>Profile</Nav.Link>
+              <Nav.Link
+                onSelect={() => {
+                  setCurrentProfile(currentUser.username);
+                  clearPlaying();
+                }}>
+                Profile
+              </Nav.Link>
             </LinkContainer>
             <LinkContainer to="/account" className="border-bottom">
-              <Nav.Link>Manage Account</Nav.Link>
+              <Nav.Link onSelect={() => clearPlaying()}>
+                Manage Account
+              </Nav.Link>
             </LinkContainer>
 
             <LinkContainer to="#" onClick={logoutHandler}>
-              <Nav.Link>Logout</Nav.Link>
+              <Nav.Link onSelect={() => clearPlaying()}>Logout</Nav.Link>
             </LinkContainer>
           </Nav>
         </Navbar>
@@ -69,16 +100,22 @@ const SideMenu = ({ width }) => {
           </LinkContainer>
 
           <LinkContainer to="/discover" className="mt-5">
-            <LargerNavLink>Discover</LargerNavLink>
+            <LargerNavLink onSelect={() => clearPlaying()}>
+              Discover
+            </LargerNavLink>
           </LinkContainer>
           <LinkContainer to="/playlists">
-            <LargerNavLink>Playlists</LargerNavLink>
+            <LargerNavLink onSelect={() => clearPlaying()}>
+              Playlists
+            </LargerNavLink>
           </LinkContainer>
           <LinkContainer to="/friends">
-            <LargerNavLink>Friends</LargerNavLink>
+            <LargerNavLink onSelect={() => clearPlaying()}>
+              Friends
+            </LargerNavLink>
           </LinkContainer>
           <LinkContainer to="/gifts">
-            <LargerNavLink>Gifts</LargerNavLink>
+            <LargerNavLink onSelect={() => clearPlaying()}>Gifts</LargerNavLink>
           </LinkContainer>
 
           <div className="mt-auto">

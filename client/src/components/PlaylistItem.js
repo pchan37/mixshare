@@ -1,37 +1,72 @@
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import Axios from 'axios';
+
 import { Button, Image } from 'react-bootstrap';
-import { CallSplit, Edit } from '@material-ui/icons';
-import FriendListPopup from './FriendListPopup';
+import CallSplitIcon from '@material-ui/icons/CallSplit';
+import { ProfileContext, UserContext } from '../contexts';
 
 const PlaylistItem = (props) => {
+  const { currentProfile } = useContext(ProfileContext);
+  const { currentUser } = useContext(UserContext);
+  const [listOfSongs, updateListOfSongs] = useState([]);
+  const DEFAULT_THUMBNAIL =
+    'https://wp-en.oberlo.com/wp-content/uploads/2019/04/image13-1-1024x576.png';
+  const [thumbnail, updateThumbnail] = useState('');
+
+  const getSongs = async () => {
+    try {
+      const songRes = await Axios.post('/api/song/getSongs', {
+        songIds: props.songs.slice(0, 4),
+      });
+      updateListOfSongs(songRes.data);
+      if (songRes.data.length !== 0) updateThumbnail(songRes.data[0].thumbnail);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  useEffect(() => {
+    getSongs();
+  }, []);
+
+  const forkPlaylist = async (playlist) => {
+    try {
+      const forkRes = await Axios.post('/api/playlist/forkPlaylist', {
+        username: currentUser.username,
+        playlist,
+      });
+      console.log(forkRes);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   return (
     <div className="d-flex flex-column border-bottom pb-2 mb-2">
       <div className="d-flex flex-row">
-        <h4>{props.name}</h4>
+        <h4>{props.playlistName}</h4>
       </div>
       <div className="d-flex flex-row">
         <div className="d-flex flex-row flex-grow-1">
           <Image
             fluid
             style={{ maxWidth: '20vw' }}
-            src="https://wp-en.oberlo.com/wp-content/uploads/2019/04/image13-1-1024x576.png"
+            src={thumbnail !== '' ? thumbnail : DEFAULT_THUMBNAIL}
           />
           <div className="ml-4">
-            <p>{props.songs[0]}</p>
-            <p>{props.songs[1]}</p>
-            <p>{props.songs[2]}</p>
-            <p>{props.songs[3]}</p>
-            <p>And More...</p>
+            {listOfSongs.map((s) => {
+              return <p>{s.title}</p>;
+            })}
+            {props.songs.length > 4 && <p>And More...</p>}
           </div>
         </div>
         <div className="d-flex flex-row">
-          <Button variant="flat">
-            <Edit style={{ color: '#979696' }} />
+          <Button
+            variant="flat"
+            disabled={currentProfile === currentUser.username ? true : false}
+            onClick={() => forkPlaylist(props)}>
+            <CallSplitIcon style={{ color: '#979696' }} />
           </Button>
-          <Button variant="flat">
-            <CallSplit style={{ color: '#979696' }} />
-          </Button>
-          <FriendListPopup />
         </div>
       </div>
     </div>

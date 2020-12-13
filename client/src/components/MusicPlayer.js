@@ -1,4 +1,5 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import Axios from 'axios';
 import { Image } from 'react-bootstrap';
 import YouTube from 'react-youtube';
 
@@ -18,6 +19,8 @@ import FullscreenIcon from '@material-ui/icons/Fullscreen';
 import FullscreenExitIcon from '@material-ui/icons/FullscreenExit';
 
 import { CurrentlyPlayingContext } from '../contexts';
+
+import { PlaylistSongsPopup } from './';
 
 const normalIconStyle = {
   color: '#979696',
@@ -46,22 +49,89 @@ const MusicPlayer = ({ expandedState, height, setExpandedState, width }) => {
     CurrentlyPlayingContext
   );
   const [player, setPlayer] = useState(null);
+
   const [playing, setPlaying] = useState(false);
+  const [shuffle, setShuffle] = useState(currentlyPlaying.shuffle);
+  const [repeat, setRepeat] = useState(currentlyPlaying.repeat);
   const [loop, setLoop] = useState(currentlyPlaying.opts.playerVars.loop);
+  //const [shuffle, setShuffle] = useState(currentlyPla);
+
+  const [playlist, setPlaylist] = useState([]);
+  const [songs, setSongs] = useState([]);
+  const [nextSong, setNextSong] = useState('');
+  const [prevSong, setPrevSong] = useState('');
+
+  const getPlaylist = async () => {
+    const playlistItem = await Axios.post('/api/playlist/getPlaylistById', {
+      playlistId: currentlyPlaying.playlist,
+    });
+    setPlaylist(playlistItem.data);
+    const playlistSongIds = playlistItem.data.songs;
+
+    if (shuffle) {
+      for (let i = playlistSongIds.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * i);
+        const temp = playlistSongIds[i];
+        playlistSongIds[i] = playlistSongIds[j];
+        playlistSongIds[j] = temp;
+      }
+    }
+
+    const playlistSongs = await Axios.post('/api/song/getSongs', {
+      songIds: playlistSongIds,
+    });
+    setSongs(playlistSongs.data);
+
+    const index = playlistSongIds.indexOf(currentlyPlaying.song);
+
+    if (index !== -1 && playlistSongIds.length !== 1) {
+      if (index === 0) {
+        setNextSong(playlistSongIds[index + 1]);
+        if (repeat) {
+          setPrevSong(playlistSongIds[playlistSongIds.length - 1]);
+        }
+      } else if (index === playlistSongIds.length - 1) {
+        setPrevSong(playlistSongIds[index - 1]);
+        if (repeat) {
+          setNextSong(playlistSongIds[0]);
+        }
+      } else {
+        setPrevSong(playlistItem.data.songs[index - 1]);
+        setNextSong(playlistItem.data.songs[index + 1]);
+      }
+    }
+  };
+
+  useEffect(() => {
+    if (currentlyPlaying.song !== '') {
+      setExpandedState(true);
+    } else {
+      setExpandedState(false);
+    }
+    if (currentlyPlaying.playlist.length === 36) {
+      getPlaylist();
+    }
+  }, []);
 
   // copy of state object maintained for ease of updating individual fields
   const playingContextCopy = { ...currentlyPlaying };
 
   const FullscreenButton = (
     <FullscreenIcon
-      onClick={() => setExpandedState(!expandedState)}
+      onClick={() => {
+        setExpandedState(!expandedState);
+      }}
       style={normalIconStyle}
     />
   );
 
   const FullscreenExitButton = (
     <FullscreenExitIcon
-      onClick={() => setExpandedState(!expandedState)}
+      onClick={() => {
+        playingContextCopy.song = '';
+        setExpandedState(!expandedState);
+        setCurrentlyPlaying(playingContextCopy);
+      }}
       style={normalIconStyle}
     />
   );
@@ -73,27 +143,63 @@ const MusicPlayer = ({ expandedState, height, setExpandedState, width }) => {
         id="player"
         opts={currentlyPlaying.opts}
         onReady={(e) => {
+          setExpandedState(true);
           setPlayer(e.target);
           setPlaying(true);
         }}
+        onStateChange={(e) => {
+          if (e.data == YouTube.PlayerState.PLAYING) setPlaying(true);
+          else if (e.data == YouTube.PlayerState.PAUSED) setPlaying(false);
+        }}
         onEnd={() => {
+          playingContextCopy.repeat = repeat;
+          playingContextCopy.shuffle = shuffle;
           if (!loop) {
-            playingContextCopy.song = '';
-            playingContextCopy.opts.playerVars.loop = 0;
-            setCurrentlyPlaying(playingContextCopy);
-          } else {
-            setCurrentlyPlaying(playingContextCopy);
+            // our playlist id length
+            if (currentlyPlaying.playlist.length === 36) {
+              playingContextCopy.song = nextSong;
+            } else {
+              playingContextCopy.song = '';
+              playingContextCopy.opts.playerVars.loop = 0;
+            }
           }
+          setCurrentlyPlaying(playingContextCopy);
         }}
       />
     </div>
   );
 
   const ExpandedVideo = (
-    <div className="d-flex align-items-center justify-content-center">
-      <Image
-        fluid
-        src="https://wp-en.oberlo.com/wp-content/uploads/2019/04/image13-1-1024x576.png"
+    <div
+      style={{ height: '85vh' }}
+      className="d-flex flex-grow align-items-center justify-content-center">
+      <YouTube
+        videoId={currentlyPlaying.song}
+        id="player"
+        opts={currentlyPlaying.opts}
+        onReady={(e) => {
+          setPlayer(e.target);
+          setPlaying(true);
+          setExpandedState(true);
+        }}
+        onStateChange={(e) => {
+          if (e.data == YouTube.PlayerState.PLAYING) setPlaying(true);
+          else if (e.data == YouTube.PlayerState.PAUSED) setPlaying(false);
+        }}
+        onEnd={() => {
+          playingContextCopy.repeat = repeat;
+          playingContextCopy.shuffle = shuffle;
+          if (!loop) {
+            // our playlist id length
+            if (currentlyPlaying.playlist.length === 36) {
+              playingContextCopy.song = nextSong;
+            } else {
+              playingContextCopy.song = '';
+              playingContextCopy.opts.playerVars.loop = 0;
+            }
+          }
+          setCurrentlyPlaying(playingContextCopy);
+        }}
       />
     </div>
   );
@@ -103,7 +209,6 @@ const MusicPlayer = ({ expandedState, height, setExpandedState, width }) => {
       style={largeIconStyle}
       onClick={() => {
         player.playVideo();
-        setPlaying(true);
       }}
     />
   );
@@ -113,7 +218,6 @@ const MusicPlayer = ({ expandedState, height, setExpandedState, width }) => {
       style={largeIconStyle}
       onClick={() => {
         player.pauseVideo();
-        setPlaying(false);
       }}
     />
   );
@@ -140,35 +244,94 @@ const MusicPlayer = ({ expandedState, height, setExpandedState, width }) => {
     />
   );
 
+  const RepeatButtonInactive = (
+    <RepeatIcon
+      style={normalIconStyle}
+      onClick={() => {
+        if (currentlyPlaying.playlist !== '') {
+          setRepeat(!repeat);
+          const songsCopy = { ...songs };
+          if (prevSong === '') {
+            setPrevSong(songsCopy[songsCopy.length - 1]);
+          }
+          if (nextSong === '') {
+            setNextSong(songsCopy[0]);
+          }
+        }
+      }}
+    />
+  );
+
+  const RepeatButtonActive = (
+    <RepeatIcon
+      style={normalIconStyleActive}
+      onClick={() => {
+        setRepeat(!repeat);
+      }}
+    />
+  );
+
+  const ShuffleButtonInactive = (
+    <ShuffleIcon
+      style={normalIconStyle}
+      onClick={() => {
+        if (currentlyPlaying.playlist !== '' && !playlist.mixtapeMode) {
+          setShuffle(!shuffle);
+        }
+      }}
+    />
+  );
+
+  const ShuffleButtonActive = (
+    <ShuffleIcon
+      style={normalIconStyleActive}
+      onClick={() => {
+        setShuffle(!shuffle);
+      }}
+    />
+  );
+
   return (
     <>
       {expandedState && ExpandedVideo}
-
       <FixedMusicPlayer height={height} width={width}>
         <div className="d-flex align-items-center h-100">
-          {!expandedState && NormalVideo}
-
           <div className="d-flex align-items-center w-100" style={{ height }}>
             <div
               className="d-flex justify-content-center"
               style={{ gap: '2rem', flex: '5' }}>
-              <SkipPreviousIcon style={largeIconStyle} />
+              <SkipPreviousIcon
+                style={largeIconStyle}
+                onClick={() => {
+                  playingContextCopy.repeat = repeat;
+                  playingContextCopy.shuffle = shuffle;
+                  playingContextCopy.song = prevSong;
+                  setCurrentlyPlaying(playingContextCopy);
+                }}
+              />
               {playing ? PauseButton : PlayButton}
-              <SkipNextIcon style={largeIconStyle} />
+              <SkipNextIcon
+                style={largeIconStyle}
+                onClick={() => {
+                  playingContextCopy.repeat = repeat;
+                  playingContextCopy.shuffle = shuffle;
+                  playingContextCopy.song = nextSong;
+                  setCurrentlyPlaying(playingContextCopy);
+                }}
+              />
             </div>
             <div
               className="d-flex justify-content-center flex-grow-1 flex-shrink-1"
               style={{ gap: '1rem' }}>
-              <ShuffleIcon style={normalIconStyle} />
-              <RepeatIcon style={normalIconStyle} />
+              {shuffle ? ShuffleButtonActive : ShuffleButtonInactive}
+              {repeat ? RepeatButtonActive : RepeatButtonInactive}
               {loop === 1 ? LoopButtonActive : LoopButtonInactive}
             </div>
             <div
               className="d-flex justify-content-center flex-grow-1 flex-shrink-1"
               style={{ gap: '1rem' }}>
-              <VolumeUpIcon style={normalIconStyle} />
-              <MenuIcon style={normalIconStyle} />
-              {expandedState ? FullscreenExitButton : FullscreenButton}
+              <PlaylistSongsPopup songs={songs} style={normalIconStyle} />
+              {expandedState && FullscreenExitButton}
             </div>
           </div>
         </div>

@@ -17,26 +17,31 @@ import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import CheckIcon from '@material-ui/icons/Check';
 import SearchIcon from '@material-ui/icons/Search';
 import EditIcon from '@material-ui/icons/Edit';
-import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
 import SettingsIcon from '@material-ui/icons/Settings';
 
 import { PlaylistEditItem } from './';
-import { CurrentEditPlaylistContext } from '../contexts';
-
-const HelpTooltip = (
-  <Popover>
-    <Popover.Content className="mr-2">
-      <p>
-        Helpful Tip: Click and drag songs to rearrange the order of your
-        playlist!
-      </p>
-    </Popover.Content>
-  </Popover>
-);
+import { CurrentEditPlaylistContext, UserContext } from '../contexts';
 
 const SettingsPopup = () => {
-  const [mixtapeChecked, setMixtapeChecked] = useState(false);
-  const [publicChecked, setPublicChecked] = useState(true);
+  const { currentEditPlaylist } = useContext(CurrentEditPlaylistContext);
+  const [mixtapeChecked, setMixtapeChecked] = useState(
+    currentEditPlaylist.mixtapeMode
+  );
+
+  const changeMixtapeMode = async () => {
+    try {
+      const updatedMode = await Axios.post('/api/playlist/changeMixtapeMode', {
+        playlistId: currentEditPlaylist.id,
+      });
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const handleMixtapeClick = () => {
+    setMixtapeChecked(!mixtapeChecked);
+    changeMixtapeMode();
+  };
 
   return (
     <Popover>
@@ -47,7 +52,7 @@ const SettingsPopup = () => {
             justifyContent: 'space-between',
             cursor: 'pointer',
           }}
-          onClick={() => setMixtapeChecked(!mixtapeChecked)}>
+          onClick={() => handleMixtapeClick()}>
           <Col xs="2" className="mr-2">
             {mixtapeChecked && (
               <CheckIcon style={{ color: '#979696', fontSize: 20 }} />
@@ -55,28 +60,19 @@ const SettingsPopup = () => {
           </Col>
           <Col>Mixtape Mode</Col>
         </Row>
-        <Row
-          className="d-flex flex-row"
-          style={{ justifyContent: 'space-between', cursor: 'pointer' }}
-          onClick={() => setPublicChecked(!publicChecked)}>
-          <Col xs="2" className="mr-2">
-            {publicChecked && (
-              <CheckIcon style={{ color: '#979696', fontSize: 20 }} />
-            )}
-          </Col>
-          <Col>Public</Col>
-        </Row>
       </Popover.Content>
     </Popover>
   );
 };
 
 const PlaylistEditorBody = () => {
+  const { currentUser } = useContext(UserContext);
   const { currentEditPlaylist } = useContext(CurrentEditPlaylistContext);
   const [playlist, updatePlaylist] = useState(currentEditPlaylist.songs); // list of songIds
   const [listOfSongs, updateListOfSongs] = useState([]); // list of Song objects
   const [songResults, updateSongResults] = useState([]);
   const [playlistName, updatePlaylistName] = useState('');
+  const [friends, setFriends] = useState([]);
 
   const handleSongDelete = async (updatedPlaylist) => {
     updatePlaylist(updatedPlaylist);
@@ -143,14 +139,25 @@ const PlaylistEditorBody = () => {
 
   const addSongToPlaylist = async (song) => {
     try {
-      const songRes = await Axios.post('/api/playlist/addSong', {
-        playlistId: currentEditPlaylist.id,
-        song,
-      });
-      const playlistCopy = playlist.slice(); // copy is made to push an element into it to update state
-      playlistCopy.push(songRes.data);
-      updatePlaylist(playlistCopy);
-      await retrieveSongs(playlistCopy);
+      const { data: songExists } = await Axios.post(
+        '/api/playlist/checkForSong',
+        {
+          playlistId: currentEditPlaylist.id,
+          song,
+        }
+      );
+      if (songExists === false) {
+        const songRes = await Axios.post('/api/playlist/addSong', {
+          playlistId: currentEditPlaylist.id,
+          song,
+        });
+        const playlistCopy = playlist.slice(); // copy is made to push an element into it to update state
+        playlistCopy.push(songRes.data);
+        updatePlaylist(playlistCopy);
+        await retrieveSongs(playlistCopy);
+      } else {
+        console.error('This song already exists in your playlist!');
+      }
     } catch (err) {
       console.error(err);
     }
@@ -182,8 +189,20 @@ const PlaylistEditorBody = () => {
     }
   };
 
+  const getFriends = async () => {
+    try {
+      const friends = await Axios.post('api/user/friends', {
+        username: currentUser.username,
+      });
+      setFriends(friends.data);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   useEffect(() => {
     retrieveSongs(playlist);
+    getFriends();
   }, [playlist]);
 
   return (
@@ -227,16 +246,6 @@ const PlaylistEditorBody = () => {
         </div>
 
         <OverlayTrigger
-          placement="left"
-          delay={{ show: 250 }}
-          overlay={HelpTooltip}
-          trigger="click"
-          rootClose>
-          <Button variant="flat">
-            <HelpOutlineIcon style={{ color: '#979696' }} />
-          </Button>
-        </OverlayTrigger>
-        <OverlayTrigger
           placement="bottom-end"
           delay={{ show: 250 }}
           overlay={SettingsPopup()}
@@ -249,7 +258,13 @@ const PlaylistEditorBody = () => {
       </div>
 
       {listOfSongs.map((s) => {
-        return <PlaylistEditItem song={s} handleDelete={handleSongDelete} />;
+        return (
+          <PlaylistEditItem
+            friends={friends}
+            song={s}
+            handleDelete={handleSongDelete}
+          />
+        );
       })}
     </Container>
   );

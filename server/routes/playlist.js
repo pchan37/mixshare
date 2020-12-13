@@ -4,6 +4,7 @@ const router = express.Router();
 const { v4: uuid } = require('uuid');
 
 const { Playlist, Song } = require('../database/models');
+const response = require('../lib').Response;
 
 // POST /newPlaylist: Create a new playlist
 router.post('/newPlaylist', async (req, res) => {
@@ -15,7 +16,7 @@ router.post('/newPlaylist', async (req, res) => {
       playlistName: req.body.playlistName,
       mixtapeMode: false,
       private: false,
-      views: 0,
+      views: 10,
       songs: [],
     });
     res.send(newPlaylist);
@@ -46,6 +47,44 @@ router.post('/getPlaylistById', async (req, res) => {
   }
 });
 
+// POST /forkPlaylist: create a copy of a playlist
+router.post('/forkPlaylist', async (req, res) => {
+  const username = req.body.username;
+  const playlist = req.body.playlist;
+  const playlistId = uuid();
+  try {
+    const newPlaylist = await Playlist.create({
+      playlistId,
+      ownerUsername: username,
+      playlistName: playlist.playlistName,
+      mixtapeMode: playlist.mixtapeMode,
+      views: 0,
+      songs: playlist.songs,
+    });
+    res.send(newPlaylist);
+  } catch (err) {
+    console.error(err);
+    return response.ServerError(res);
+  }
+});
+
+// POST /changeMixtapeMode: change Mixtape Mode field
+router.post('/changeMixtapeMode', async (req, res) => {
+  const playlistId = req.body.playlistId;
+  try {
+    const playlist = await Playlist.findOne({ playlistId });
+    const updatedMode = await Playlist.findOneAndUpdate(
+      { playlistId },
+      { mixtapeMode: !playlist.mixtapeMode },
+      { new: true } // setting new:true returns document after update so you can check if update changed
+    );
+    res.send(updatedMode);
+  } catch (err) {
+    console.error(err);
+    return response.ServerError(res);
+  }
+});
+
 // POST /deletePlaylist: delete a playlist
 router.post('/deletePlaylist', async (req, res) => {
   const playlistId = req.body.playlistId;
@@ -59,13 +98,52 @@ router.post('/deletePlaylist', async (req, res) => {
   }
 });
 
+// POST /getTopPlaylists: gets top 5 playlists
+router.post('/getTopPlaylists', async (req, res) => {
+  var listOfPlaylists = [];
+  try {
+    const playlists = await Playlist.find().sort({ views: -1 }).lean();
+    for (const playlist of playlists) {
+      if (playlist.songs.length !== 0) {
+        const firstSong = await Song.findOne({
+          songId: playlist.songs[0],
+        });
+        playlist['thumbnail'] = firstSong.thumbnail;
+        listOfPlaylists.push(playlist);
+      }
+    }
+    res.send(listOfPlaylists.slice(0, 5));
+  } catch (err) {
+    console.error(err);
+    return response.ServerError(res);
+  }
+});
+
+// POST /checkForSong: check if a song already exists in a playlist
+router.post('/checkForSong', async (req, res) => {
+  const playlistId = req.body.playlistId;
+  const songId = req.body.song.id.videoId;
+  try {
+    const playlist = await Playlist.findOne({ playlistId });
+    const songExists = playlist.songs.includes(songId);
+    res.send(songExists);
+  } catch (err) {
+    console.error(err);
+    return response.UserError(
+      res,
+      400,
+      'This song already exists in your playlist.'
+    );
+  }
+});
+
 // POST /addSong: add a song to playlist
 router.post('/addSong', async (req, res) => {
   const playlistId = req.body.playlistId;
   const songId = req.body.song.id.videoId;
   try {
     await Playlist.findOneAndUpdate(
-      { playlistId: playlistId },
+      { playlistId },
       { $addToSet: { songs: songId } }
     );
 

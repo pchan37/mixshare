@@ -10,6 +10,10 @@ const UserSchema = new Schema({
 
   receivedGiftPlaylists: [
     {
+      giftId: {
+        type: String,
+        required: true,
+      },
       gifterUserId: {
         type: String,
         required: true,
@@ -19,7 +23,7 @@ const UserSchema = new Schema({
         required: true,
         default: '',
       },
-      playlistID: {
+      playlistId: {
         type: String,
         required: true,
       },
@@ -28,6 +32,10 @@ const UserSchema = new Schema({
 
   receivedSongRecommendations: [
     {
+      giftId: {
+        type: String,
+        required: true,
+      },
       gifterUserId: {
         type: String,
         required: true,
@@ -37,7 +45,7 @@ const UserSchema = new Schema({
         required: true,
         default: '',
       },
-      songID: {
+      songId: {
         type: String,
         required: true,
       },
