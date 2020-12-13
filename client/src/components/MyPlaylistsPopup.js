@@ -13,6 +13,7 @@ const PlaylistsPopup = (song) => {
   const [listOfPlaylists, updateListOfPlaylists] = useState([]);
 
   const addSongToPlaylist = async (playlistId, song) => {
+    console.log(song);
     try {
       const songRes = await Axios.post('/api/playlist/addSong', {
         playlistId,

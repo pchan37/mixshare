@@ -56,48 +56,69 @@ const MusicPlayer = ({ expandedState, height, setExpandedState, width }) => {
   const [loop, setLoop] = useState(currentlyPlaying.opts.playerVars.loop);
   //const [shuffle, setShuffle] = useState(currentlyPla);
 
-  const [playlist, setPlaylist] = useState([]);
+  const [playlist, setPlaylist] = useState(null);
   const [songs, setSongs] = useState([]);
   const [nextSong, setNextSong] = useState('');
   const [prevSong, setPrevSong] = useState('');
+
+  const inPlaylist = currentlyPlaying.playlist.length === 36;
 
   const getPlaylist = async () => {
     const playlistItem = await Axios.post('/api/playlist/getPlaylistById', {
       playlistId: currentlyPlaying.playlist,
     });
     setPlaylist(playlistItem.data);
-    const playlistSongIds = playlistItem.data.songs;
 
+    var playlistSongIds = [];
     if (shuffle) {
-      for (let i = playlistSongIds.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * i);
-        const temp = playlistSongIds[i];
-        playlistSongIds[i] = playlistSongIds[j];
-        playlistSongIds[j] = temp;
-      }
+      playlistSongIds = currentlyPlaying.shuffledPlaylist;
+      setPlaylist((prevState) => ({ ...prevState, songs: playlistSongIds }));
+    } else {
+      playlistSongIds = playlistItem.data.songs;
     }
 
     const playlistSongs = await Axios.post('/api/song/getSongs', {
       songIds: playlistSongIds,
     });
     setSongs(playlistSongs.data);
+  };
 
-    const index = playlistSongIds.indexOf(currentlyPlaying.song);
+  const setPrevAndNext = () => {
+    if (inPlaylist) {
+      const playlistSongIds = playlist.songs;
+      const index = playlistSongIds.indexOf(currentlyPlaying.song);
 
-    if (index !== -1 && playlistSongIds.length !== 1) {
-      if (index === 0) {
-        setNextSong(playlistSongIds[index + 1]);
-        if (repeat) {
-          setPrevSong(playlistSongIds[playlistSongIds.length - 1]);
-        }
-      } else if (index === playlistSongIds.length - 1) {
-        setPrevSong(playlistSongIds[index - 1]);
-        if (repeat) {
+      if (loop) {
+        setPrevSong(currentlyPlaying.song);
+        setNextSong(currentlyPlaying.song);
+        return;
+      }
+
+      if (index !== -1) {
+        if (playlistSongIds.length === 1 && repeat) {
+          setPrevSong(playlistSongIds[0]);
           setNextSong(playlistSongIds[0]);
+          return;
         }
+        if (index === 0) {
+          setNextSong(playlistSongIds[index + 1]);
+          if (repeat) {
+            setPrevSong(playlistSongIds[playlistSongIds.length - 1]);
+          }
+          return;
+        }
+        if (index === playlistSongIds.length - 1) {
+          setPrevSong(playlistSongIds[index - 1]);
+          if (repeat) {
+            setNextSong(playlistSongIds[0]);
+          }
+          return;
+        }
+        setPrevSong(playlistSongIds[index - 1]);
+        setNextSong(playlistSongIds[index + 1]);
       } else {
-        setPrevSong(playlistItem.data.songs[index - 1]);
-        setNextSong(playlistItem.data.songs[index + 1]);
+        setPrevSong('');
+        setNextSong('');
       }
     }
   };
@@ -108,8 +129,10 @@ const MusicPlayer = ({ expandedState, height, setExpandedState, width }) => {
     } else {
       setExpandedState(false);
     }
-    if (currentlyPlaying.playlist.length === 36) {
+    console.log(inPlaylist);
+    if (inPlaylist) {
       getPlaylist();
+      setPrevAndNext();
     }
   }, []);
 
@@ -189,14 +212,16 @@ const MusicPlayer = ({ expandedState, height, setExpandedState, width }) => {
         onEnd={() => {
           playingContextCopy.repeat = repeat;
           playingContextCopy.shuffle = shuffle;
-          if (!loop) {
-            // our playlist id length
-            if (currentlyPlaying.playlist.length === 36) {
-              playingContextCopy.song = nextSong;
-            } else {
-              playingContextCopy.song = '';
-              playingContextCopy.opts.playerVars.loop = 0;
-            }
+          if (shuffle) {
+            playingContextCopy.shuffledPlaylist = playlist.songs;
+          }
+          playingContextCopy.song = nextSong;
+          if (loop === 1) {
+            playingContextCopy.opts.playerVars.loop = 1;
+            playingContextCopy.opts.playerVars.playlist = currentlyPlaying.song;
+          } else {
+            playingContextCopy.opts.playerVars.loop = 0;
+            playingContextCopy.opts.playerVars.playlist = '';
           }
           setCurrentlyPlaying(playingContextCopy);
         }}
@@ -227,8 +252,8 @@ const MusicPlayer = ({ expandedState, height, setExpandedState, width }) => {
       style={normalIconStyle}
       onClick={() => {
         setLoop(1);
-        playingContextCopy.opts.playerVars.loop = 1;
-        playingContextCopy.opts.playerVars.playlist = currentlyPlaying.song;
+        setPrevSong(currentlyPlaying.song);
+        setNextSong(currentlyPlaying.song);
       }}
     />
   );
@@ -238,8 +263,7 @@ const MusicPlayer = ({ expandedState, height, setExpandedState, width }) => {
       style={normalIconStyleActive}
       onClick={() => {
         setLoop(0);
-        playingContextCopy.opts.playerVars.loop = 0;
-        playingContextCopy.opts.playerVars.playlist = '';
+        setPrevAndNext();
       }}
     />
   );
@@ -252,10 +276,10 @@ const MusicPlayer = ({ expandedState, height, setExpandedState, width }) => {
           setRepeat(!repeat);
           const songsCopy = { ...songs };
           if (prevSong === '') {
-            setPrevSong(songsCopy[songsCopy.length - 1]);
+            setPrevSong(songsCopy[songs.length - 1].songId);
           }
           if (nextSong === '') {
-            setNextSong(songsCopy[0]);
+            setNextSong(songsCopy[0].songId);
           }
         }
       }}
@@ -277,6 +301,15 @@ const MusicPlayer = ({ expandedState, height, setExpandedState, width }) => {
       onClick={() => {
         if (currentlyPlaying.playlist !== '' && !playlist.mixtapeMode) {
           setShuffle(!shuffle);
+          const shuffledSongs = [...playlist.songs];
+          for (let i = shuffledSongs.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * i);
+            const temp = shuffledSongs[i];
+            shuffledSongs[i] = shuffledSongs[j];
+            shuffledSongs[j] = temp;
+          }
+          setPlaylist((prevState) => ({ ...prevState, songs: shuffledSongs }));
+          setPrevAndNext();
         }
       }}
     />
@@ -287,6 +320,8 @@ const MusicPlayer = ({ expandedState, height, setExpandedState, width }) => {
       style={normalIconStyleActive}
       onClick={() => {
         setShuffle(!shuffle);
+        getPlaylist();
+        setPrevAndNext();
       }}
     />
   );

@@ -36,6 +36,7 @@ function App() {
     playlist: '',
     repeat: false,
     shuffle: false,
+    shuffledPlaylist: [],
     opts: {
       playerVars: {
         controls: 1,
