@@ -1,6 +1,8 @@
 import React, { useContext } from 'react';
 import { Image } from 'react-bootstrap';
 
+import Axios from 'axios';
+
 import { CurrentlyPlayingContext } from '../contexts';
 
 const defaultThumbnail =
@@ -10,6 +12,14 @@ const Thumbnail = (props) => {
   const { setCurrentlyPlaying } = useContext(
     CurrentlyPlayingContext
   );
+
+  const incrementView = async (playlistId) => {
+    try {
+      await Axios.post('/api/playlist/addView', { playlistId });
+    } catch (err) {
+      console.error(err)
+    }
+  }
 
   return (
     <div className="d-flex flex-column mr-4">
@@ -23,20 +33,23 @@ const Thumbnail = (props) => {
         }
         onClick={() => {
           if (props.playlistId !== null && props.playlistId !== undefined) {
-            setCurrentlyPlaying({
-              song: props.firstSong,
-              playlist: props.playlistId,
-              repeat: false,
-              shuffle: false,
-              opts: {
-                playerVars: {
-                  controls: 1,
-                  autoplay: 1,
-                  loop: 0,
-                  playlist: '',
+            if (props.songs.length !== 0) {
+              incrementView(props.playlistId);
+              setCurrentlyPlaying({
+                song: props.songs[0],
+                playlist: props.playlistId,
+                repeat: false,
+                shuffle: false,
+                opts: {
+                  playerVars: {
+                    controls: 1,
+                    autoplay: 1,
+                    loop: 0,
+                    playlist: '',
+                  },
                 },
-              },
-            })
+              })
+            }
           } else {
             setCurrentlyPlaying({
               song: props.youtubeID,

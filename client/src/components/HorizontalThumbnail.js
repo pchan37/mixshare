@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import Axios from 'axios';
 import { Image, Nav } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 
@@ -10,8 +11,16 @@ const HorizontalThumbnail = (props) => {
   );
   const { setCurrentProfile } = useContext(ProfileContext);
 
-  const defaultThumbnail =
+  const DEFAULT_THUMBNAIL =
     'https://wp-en.oberlo.com/wp-content/uploads/2019/04/image13-1-1024x576.png';
+
+  const incrementView = async (playlistId) => {
+    try {
+      await Axios.post('/api/playlist/addView', { playlistId });
+    } catch (err) {
+      console.error(err)
+    }
+  }
 
   return (
     <div style={{ minWidth: '50vw' }} className="d-flex flex-row">
@@ -20,6 +29,8 @@ const HorizontalThumbnail = (props) => {
           onClick={() => {
             if (props.playlistId !== null && props.playlistId !== undefined) {
               if (props.songs.length !== 0) {
+                console.log(props.playlistId);
+                incrementView(props.playlistId);
                 setCurrentlyPlaying((prevState) => ({
                   ...prevState,
                   song: props.songs[0],
@@ -54,7 +65,7 @@ const HorizontalThumbnail = (props) => {
           src={
             props.thumbnail !== undefined && props.thumbnail !== null
               ? props.thumbnail
-              : defaultThumbnail
+              : DEFAULT_THUMBNAIL
           }
         />
       </div>

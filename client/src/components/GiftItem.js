@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import Axios from 'axios';
 import { Button, Image } from 'react-bootstrap';
 import { Delete } from '@material-ui/icons';
 import { DeletePopup } from './';
@@ -13,6 +14,14 @@ const GiftItem = (props) => {
       props.removeGift();
     }
   }
+
+  const incrementView = async (playlistId) => {
+    try {
+      await Axios.post('/api/playlist/addView', { playlistId });
+    } catch (err) {
+      console.error(err)
+    }
+  };
 
   return (
     <>
@@ -36,6 +45,7 @@ const GiftItem = (props) => {
             onClick={() => {
               console.log(props.songId);
               if (props.playlistId !== null && props.playlistId !== undefined) {
+                incrementView(props.playlistId);
                 setCurrentlyPlaying((prevState) => ({
                   ...prevState,
                   song: props.songId,

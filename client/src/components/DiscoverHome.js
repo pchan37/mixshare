@@ -25,12 +25,11 @@ const DiscoverHome = (props) => {
         <h5>Top Playlists</h5>
         <div className="d-flex flex-row">
           {props.playlists.map((p) => {
-            console.log(p);
             return (
               <Thumbnail
                 key={p.id}
                 playlistId={p.playlistId}
-                firstSong={p.songs[0]}
+                songs={p.songs}
                 name={p.playlistName}
                 artist={p.ownerUsername}
                 thumbnail={p.thumbnail}
