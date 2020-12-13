@@ -148,8 +148,6 @@ const MyPlaylistsBody = () => {
                     }
                   }
                 }));
-                console.log(props.id);
-                console.log(currentlyPlaying);
               }}
             />
             <div className="ml-4">
