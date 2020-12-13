@@ -36,6 +36,7 @@ function App() {
     playlist: '',
     repeat: false,
     shuffle: false,
+    shuffledList: [],
     opts: {
       playerVars: {
         controls: 1,
@@ -68,15 +69,15 @@ function App() {
         render={({ location }) => {
           return currentUser?.username !== null &&
             currentUser?.username !== undefined ? (
-            <Component {...rest} />
-          ) : (
-            <Redirect
-              to={{
-                pathname: '/',
-                state: { from: location },
-              }}
-            />
-          );
+              <Component {...rest} />
+            ) : (
+              <Redirect
+                to={{
+                  pathname: '/',
+                  state: { from: location },
+                }}
+              />
+            );
         }}
       />
     );

@@ -137,7 +137,16 @@ const MyPlaylistsBody = () => {
                   ...prevState,
                   song: props.songs[0],
                   playlist: props.id,
-                  // TODO: reset loop
+                  shuffle: false,
+                  shuffledList: [],
+                  opts: {
+                    ...prevState.opts,
+                    playerVars: {
+                      ...prevState.opts.playerVars,
+                      loop: 0,
+                      playlist: ''
+                    }
+                  }
                 }));
                 console.log(props.id);
                 console.log(currentlyPlaying);
