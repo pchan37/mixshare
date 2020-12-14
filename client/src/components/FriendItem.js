@@ -6,7 +6,9 @@ import { UserContext } from '../contexts';
 
 import CardGiftcardIcon from '@material-ui/icons/CardGiftcard';
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
-import { DeletePopup, User } from './';
+import { DeletePopup, MyPlaylistsPopup, User } from './';
+
+const iconStyle = { color: '#979696', cursor: 'pointer', fontSize: 30 };
 
 const FriendItem = (props) => {
   const { currentUser } = useContext(UserContext);
@@ -27,13 +29,16 @@ const FriendItem = (props) => {
 
   return (
     <User username={props.username}>
-      <CardGiftcardIcon style={{ color: '#979696', fontSize: 30 }} />
+      <MyPlaylistsPopup
+        gift={true}
+        friend={props.userId}
+        friendname={props.username}>
+        <CardGiftcardIcon style={iconStyle} />
+      </MyPlaylistsPopup>
       <DeletePopup
         bodytext={`Remove ${props.username} from Friends?`}
         getResponse={getResponse}>
-        <DeleteOutlineIcon
-          style={{ color: '#979696', fontSize: 30, cursor: 'pointer' }}
-        />
+        <DeleteOutlineIcon style={iconStyle} />
       </DeletePopup>
     </User>
   );

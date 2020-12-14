@@ -3,7 +3,7 @@ import Axios from 'axios';
 
 import { Button, Form, Tabs, Tab } from 'react-bootstrap';
 
-import { GiftItem } from './';
+import { GiftItem, MyPlaylistsPopup } from './';
 
 import AddIcon from '@material-ui/icons/Add';
 import CallSplitIcon from '@material-ui/icons/CallSplit';
@@ -116,9 +116,11 @@ const GiftBody = () => {
                 gifter={s.gifterUsername}
                 message={s.message}
                 thumbnail={s.songItem.thumbnail}>
-                <Button variant="flat">
-                  <AddIcon style={{ color: '#979696' }} />
-                </Button>
+                <MyPlaylistsPopup gift={false} song={s.songItem}>
+                  <Button variant="flat">
+                    <AddIcon style={{ color: '#979696' }} />
+                  </Button>
+                </MyPlaylistsPopup>
               </GiftItem>
             );
           })}

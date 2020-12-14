@@ -140,7 +140,14 @@ router.post('/checkForSong', async (req, res) => {
 // POST /addSong: add a song to playlist
 router.post('/addSong', async (req, res) => {
   const playlistId = req.body.playlistId;
-  const songId = req.body.song.id.videoId;
+  const song = req.body.song;
+
+  if (song.id !== null && song.id !== undefined) {
+    songId = song.id.videoId;
+  } else {
+    songId = song.songId;
+  }
+
   try {
     await Playlist.findOneAndUpdate(
       { playlistId },
@@ -176,6 +183,20 @@ router.post('/deleteSong', async (req, res) => {
     res.send(updatedPlaylist.songs);
   } catch (err) {
     console.error(err);
+  }
+});
+
+router.post('/addView', async (req, res) => {
+  const playlistId = req.body.playlistId;
+  try {
+    await Playlist.findOneAndUpdate(
+      { playlistId: playlistId },
+      { $inc: { views: 1 } }
+    );
+    return response.OK(res, 'View count updated successfully');
+  } catch (err) {
+    console.error(err);
+    return response.ServerError(res);
   }
 });
 

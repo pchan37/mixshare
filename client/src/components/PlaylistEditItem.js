@@ -2,13 +2,9 @@ import React, { useState, useContext } from 'react';
 import Axios from 'axios';
 import PropsType from 'prop-types';
 
-import { Button, OverlayTrigger, Popover, Modal } from 'react-bootstrap';
-import CardGiftcardIcon from '@material-ui/icons/CardGiftcard';
+import { Button, Modal } from 'react-bootstrap';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { FriendListPopup, HorizontalThumbnail } from './';
-import SimpleUser from './SimpleUser';
-
-import data from '../placeholders/data';
 import { CurrentEditPlaylistContext } from '../contexts';
 
 function DeleteSongModal(props) {
