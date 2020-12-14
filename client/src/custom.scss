@@ -1,0 +1,42 @@
+@import url('https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Open+Sans+Condensed:wght@300&display=swap');
+
+$white: #e6e1e4;
+$dark: #303030;
+$theme-colors: (
+  'primary': #15eeff,
+  'secondary': #d400e5,
+  'light': #e6e1e4,
+  'dark': $dark,
+  'danger': #d400e5,
+);
+
+$brand-primary: #15eeff;
+$brand-secondary: #d400e5;
+
+$enable-gradients: true;
+
+/* General styles */
+$body-bg: #212121;
+$text-color: #e6e1e4;
+$headings-color: #e6e1e4;
+$font-family-base: 'Do Hyeon', sans-serif;
+
+/* link styles */
+$link-color: $white;
+$link-hover-color: $brand-primary;
+
+$component-active-bg: $brand-primary;
+
+$nav-tabs-border-color: $brand-primary;
+$nav-tabs-link-active-border-color: $brand-primary;
+$nav-tabs-link-active-color: $white;
+
+/* Popover Styles */
+$popover-bg: #424242;
+$popover-body-color: $white;
+
+/* Modal Style */
+$modal-content-bg: $dark;
+$modal-content-color: $white;
+
+@import '~bootstrap/scss/bootstrap';

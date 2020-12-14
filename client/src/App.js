@@ -4,7 +4,7 @@ import { GuardProvider, GuardedRoute } from 'react-router-guards';
 
 import Axios from 'axios';
 
-import 'bootstrap/dist/css/bootstrap.min.css';
+import './custom.scss';
 
 import {
   CurrentEditPlaylistContext,

@@ -34,10 +34,12 @@ function DeletePopup(props) {
         </Modal.Header>
         <Modal.Body>{props.bodytext}</Modal.Body>
         <Modal.Footer>
-          <Button variant="danger" onClick={handleDelete}>
+          <Button variant="outline-danger" onClick={handleDelete}>
             Yes
           </Button>
-          <Button onClick={handleClose}>No</Button>
+          <Button variant="outline-primary" onClick={handleClose}>
+            No
+          </Button>
         </Modal.Footer>
       </Modal>
     </>

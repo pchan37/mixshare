@@ -78,7 +78,7 @@ const getModalResponse = async (del, playlistId, songId) => {
 
 const PlaylistEditItem = (props) => {
   return (
-    <div className="d-flex flex-row mt-3">
+    <div className="d-flex flex-row bg-dark p-2 mt-3">
       <div className="d-flex flex-row flex-grow-1 ml-4">
         <HorizontalThumbnail
           name={props.song.title}
