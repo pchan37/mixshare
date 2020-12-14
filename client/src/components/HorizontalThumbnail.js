@@ -59,7 +59,7 @@ const HorizontalThumbnail = (props) => {
         />
       </div>
 
-      <div className="ml-3 align-self-top">
+      <div className="ml-3 text-light align-self-top">
         <p>
           {props.name} <br />
           by {props.artist}

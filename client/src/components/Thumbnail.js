@@ -15,10 +15,10 @@ const Thumbnail = (props) => {
   const currentlyPlayingCopy = { ...currentlyPlaying };
 
   return (
-    <div className="d-flex flex-column mr-4">
+    <div className="d-flex flex-column mr-3 bg-dark p-2">
       <Image
         fluid
-        style={{ maxWidth: '19vw', cursor: 'pointer' }}
+        style={{ maxWidth: '15vw', cursor: 'pointer' }}
         src={
           props.thumbnail !== undefined && props.thumbnail !== null
             ? props.thumbnail
@@ -31,7 +31,7 @@ const Thumbnail = (props) => {
           setCurrentlyPlaying(currentlyPlayingCopy);
         }}
       />
-      <p style={textStyle}>
+      <p className="mt-1" style={textStyle}>
         {props.name} <br /> {props.artist}
       </p>
     </div>

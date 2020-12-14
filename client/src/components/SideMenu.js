@@ -19,13 +19,16 @@ import {
 
 const LargerNavLink = styled(Nav.Link)`
   font-size: 25px;
-  color: white;
 `;
 
 const SideMenuContainer = styled.div`
   height: 100vh;
   width: ${(props) => props.width};
 `;
+
+const linkStyling = {
+  color: '#e6e1e4',
+};
 
 const SideMenu = ({ width }) => {
   const { setCurrentlyPlaying } = useContext(CurrentlyPlayingContext);
@@ -61,7 +64,7 @@ const SideMenu = ({ width }) => {
       <Popover.Content>
         <Navbar className="p-0">
           <Nav className="flex-column">
-            <LinkContainer to="/profile">
+            <LinkContainer className="text-light" to="/profile">
               <Nav.Link
                 onSelect={() => {
                   setCurrentProfile(currentUser.username);
@@ -70,13 +73,16 @@ const SideMenu = ({ width }) => {
                 Profile
               </Nav.Link>
             </LinkContainer>
-            <LinkContainer to="/account" className="border-bottom">
+            <LinkContainer to="/account" className="text-light border-bottom">
               <Nav.Link onSelect={() => clearPlaying()}>
                 Manage Account
               </Nav.Link>
             </LinkContainer>
 
-            <LinkContainer to="#" onClick={logoutHandler}>
+            <LinkContainer
+              to="#"
+              onClick={logoutHandler}
+              className="text-light">
               <Nav.Link onSelect={() => clearPlaying()}>Logout</Nav.Link>
             </LinkContainer>
           </Nav>
@@ -86,35 +92,33 @@ const SideMenu = ({ width }) => {
   );
 
   return (
-    <SideMenuContainer
-      className="d-flex flex-column border-right"
-      width={width}>
+    <SideMenuContainer className="d-flex flex-column bg-dark" width={width}>
       <Navbar
         className="flex-column flex-grow-1 flex-shrink-1"
         style={{ width }}>
         <Nav className="flex-column flex-grow-1 flex-shrink-1">
           <LinkContainer to="/">
-            <Navbar.Brand>
+            <Navbar.Brand className="mt-3">
               <Image src={Logo} alt="Mixshare" fluid />
             </Navbar.Brand>
           </LinkContainer>
 
-          <LinkContainer to="/discover" className="mt-5">
+          <LinkContainer style={linkStyling} to="/discover" className="mt-5">
             <LargerNavLink onSelect={() => clearPlaying()}>
               Discover
             </LargerNavLink>
           </LinkContainer>
-          <LinkContainer to="/playlists">
+          <LinkContainer style={linkStyling} to="/playlists">
             <LargerNavLink onSelect={() => clearPlaying()}>
               Playlists
             </LargerNavLink>
           </LinkContainer>
-          <LinkContainer to="/friends">
+          <LinkContainer style={linkStyling} to="/friends">
             <LargerNavLink onSelect={() => clearPlaying()}>
               Friends
             </LargerNavLink>
           </LinkContainer>
-          <LinkContainer to="/gifts">
+          <LinkContainer style={linkStyling} to="/gifts">
             <LargerNavLink onSelect={() => clearPlaying()}>Gifts</LargerNavLink>
           </LinkContainer>
 
@@ -126,8 +130,11 @@ const SideMenu = ({ width }) => {
               trigger="click"
               rootClose>
               <LargerNavLink>
-                <AccountCircleIcon className="mr-3" style={{ fontSize: 50 }} />
-                {currentUser.username}
+                <AccountCircleIcon
+                  className="mr-3"
+                  style={{ ...linkStyling, fontSize: 50 }}
+                />
+                <span style={linkStyling}>{currentUser.username}</span>
               </LargerNavLink>
             </OverlayTrigger>
           </div>

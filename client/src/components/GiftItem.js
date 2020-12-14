@@ -16,10 +16,10 @@ const GiftItem = (props) => {
 
   return (
     <>
-      <div className="d-flex flex-row border-bottom pb-2 mb-2">
+      <div className="d-flex flex-row bg-dark p-3 mb-2">
         <div className="d-flex flex-row flex-grow-1">
           <div className="d-flex flex-column">
-            <p>
+            <p className="text-light">
               <b>{props.gifter}</b> has sent you a gift: <b>{props.name}</b> by{' '}
               <b>{props.artist}</b>
             </p>

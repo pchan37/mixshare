@@ -223,7 +223,7 @@ const FriendsBody = () => {
             </Button>
           </OverlayTrigger>
           {pendingFriendRequests.length !== 0 && (
-            <ErrorOutlineIcon className="mb-3" style={{ color: '#979696' }} />
+            <ErrorOutlineIcon className="mb-3" style={{ color: '#d400e5' }} />
           )}
         </Col>
         <Col>
@@ -242,15 +242,6 @@ const FriendsBody = () => {
                 Add Friend
               </Button>
             </OverlayTrigger>
-          </div>
-        </Col>
-        <Col>
-          <div className="d-flex flex-row" style={{ alignItems: 'center' }}>
-            <span className="align-self-top mr-3">Sort by:</span>
-            <Form.Control as="select" className="w-50">
-              <option>Most Recent</option>
-              <option>Most Interacted With</option>
-            </Form.Control>
           </div>
         </Col>
       </Row>

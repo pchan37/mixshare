@@ -76,13 +76,6 @@ const GiftBody = () => {
         className="d-flex flex-row mb-3"
         style={{ justifyContent: 'space-between' }}>
         <h2>Gifts</h2>
-        <div className="d-flex flex-row" style={{ alignItems: 'center' }}>
-          <span className="align-self-top mr-3 col-lg-auto">Sort by:</span>
-          <Form.Control as="select">
-            <option>From Friends</option>
-            <option>From Anyone</option>
-          </Form.Control>
-        </div>
       </div>
 
       <Tabs className="mb-3">

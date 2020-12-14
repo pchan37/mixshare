@@ -40,7 +40,7 @@ const AccountBody = () => {
       </Row>
       <Row style={{ paddingTop: 20 }}>
         <Col xs={3}>
-          <AccountCircleIcon style={{ fontSize: 200 }} />
+          <AccountCircleIcon className="text-light" style={{ fontSize: 200 }} />
         </Col>
         <Col>
           <AccountDetails />

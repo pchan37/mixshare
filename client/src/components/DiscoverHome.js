@@ -21,7 +21,7 @@ const DiscoverHome = (props) => {
         </div>
       </div>
 
-      <div className="d-flex flex-column">
+      <div className="d-flex flex-column mt-4">
         <h5>Top Playlists</h5>
         <div className="d-flex flex-row">
           {props.playlists.map((p) => {

@@ -121,7 +121,7 @@ function AccountDetails() {
     <Container style={{ paddingTop: 70 }}>
       <Row>
         <Col>
-          <label>Username: {currentUser.username}</label>
+          <label className="text-light">Username: {currentUser.username}</label>
         </Col>
         <Col>
           <OverlayTrigger
@@ -130,7 +130,7 @@ function AccountDetails() {
             overlay={ChangeUsernamePopup}
             trigger="click"
             rootClose={true}>
-            <Button variant="light">
+            <Button variant="flat">
               <EditIcon style={{ color: '#979696' }} />
             </Button>
           </OverlayTrigger>
@@ -138,7 +138,7 @@ function AccountDetails() {
       </Row>
       <Row style={{ paddingTop: 10 }}>
         <Col>
-          <label>Password: ***************</label>
+          <label className="text-light">Password: ***************</label>
         </Col>
         <Col>
           <OverlayTrigger
@@ -146,7 +146,7 @@ function AccountDetails() {
             delay={{ show: 250, hide: 400 }}
             overlay={ChangePasswordPopup}
             trigger="click">
-            <Button variant="light">
+            <Button variant="flat">
               <EditIcon style={{ color: '#979696' }} />
             </Button>
           </OverlayTrigger>

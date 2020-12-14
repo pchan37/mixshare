@@ -29,7 +29,7 @@ const normalIconStyle = {
 };
 
 const normalIconStyleActive = {
-  color: '#6efae5',
+  color: '#15eeff',
   fontSize: 40,
   cursor: 'pointer',
 };
