@@ -28,6 +28,8 @@ const DiscoverHome = (props) => {
             return (
               <Thumbnail
                 key={p.id}
+                playlistId={p.playlistId}
+                songs={p.songs}
                 name={p.playlistName}
                 artist={p.ownerUsername}
                 thumbnail={p.thumbnail}

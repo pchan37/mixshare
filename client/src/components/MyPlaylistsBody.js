@@ -121,6 +121,14 @@ const MyPlaylistsBody = () => {
       getSongs();
     }, []);
 
+    const incrementView = async (playlistId) => {
+      try {
+        await Axios.post('/api/playlist/addView', { playlistId });
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
     return (
       <div className="d-flex flex-column border-bottom pb-2 mb-2">
         <div className="d-flex flex-row">
@@ -133,21 +141,22 @@ const MyPlaylistsBody = () => {
               style={{ maxWidth: '20vw', cursor: 'pointer' }}
               src={thumbnail !== '' ? thumbnail : DEFAULT_THUMBNAIL}
               onClick={() => {
-                setCurrentlyPlaying((prevState) => ({
-                  ...prevState,
-                  song: props.songs[0],
-                  playlist: props.id,
-                  shuffle: false,
-                  shuffledList: [],
-                  opts: {
-                    ...prevState.opts,
-                    playerVars: {
-                      ...prevState.opts.playerVars,
-                      loop: 0,
-                      playlist: '',
+                if (props.songs.length !== 0) {
+                  incrementView(props.id);
+                  setCurrentlyPlaying((prevState) => ({
+                    ...prevState,
+                    song: props.songs[0],
+                    playlist: props.id,
+                    opts: {
+                      ...prevState.opts,
+                      playerVars: {
+                        ...prevState.opts.playerVars,
+                        loop: 0,
+                        playlist: '',
+                      },
                     },
-                  },
-                }));
+                  }));
+                }
               }}
             />
             <div className="ml-4">
