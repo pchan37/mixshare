@@ -96,59 +96,64 @@ function App() {
           value={{ currentlyPlaying, setCurrentlyPlaying }}>
           <UserContext.Provider value={{ currentUser, setCurrentUser }}>
             <Router>
-              <Switch>
-                <GuardedRoute exact path="/" component={HomePage} />
-                <GuardedRoute
-                  exact
-                  path="/account"
-                  component={AccountSettingsPage}
-                  meta={{ auth: true }}
-                />
-                <GuardedRoute
-                  exact
-                  path="/discover"
-                  component={DiscoverPage}
-                  meta={{ auth: true }}
-                />
-                <GuardedRoute
-                  exact
-                  path="/playlists"
-                  component={MyPlaylistsPage}
-                  meta={{ auth: true }}
-                />
-                <GuardedRoute
-                  exact
-                  path="/profile"
-                  component={ProfilePage}
-                  meta={{ auth: true }}
-                />
-                <GuardedRoute
-                  exact
-                  path="/searchResults"
-                  component={SearchResultsPage}
-                  meta={{ auth: true }}
-                />
-                <GuardedRoute
-                  exact
-                  path="/edit"
-                  component={PlaylistEditorPage}
-                  meta={{ auth: true }}
-                />
-                <GuardedRoute
-                  exact
-                  path="/friends"
-                  component={FriendsPage}
-                  meta={{ auth: true }}
-                />
-                <GuardedRoute
-                  exact
-                  path="/gifts"
-                  component={GiftsPage}
-                  meta={{ auth: true }}
-                />
-                <GuardedRoute path="/404" component={NotFoundPage} />
-                <Redirect to="/404" />
-              </Switch>
+              <GuardProvider
+                guards={[isProtected, isNotProtected]}
+                loading={() => <h1>Loading...</h1>}
+                error={() => <h1>Not Found</h1>}>
+                <Switch>
+                  <GuardedRoute exact path="/" component={HomePage} />
+                  <GuardedRoute
+                    exact
+                    path="/account"
+                    component={AccountSettingsPage}
+                    meta={{ auth: true }}
+                  />
+                  <GuardedRoute
+                    exact
+                    path="/discover"
+                    component={DiscoverPage}
+                    meta={{ auth: true }}
+                  />
+                  <GuardedRoute
+                    exact
+                    path="/playlists"
+                    component={MyPlaylistsPage}
+                    meta={{ auth: true }}
+                  />
+                  <GuardedRoute
+                    exact
+                    path="/profile"
+                    component={ProfilePage}
+                    meta={{ auth: true }}
+                  />
+                  <GuardedRoute
+                    exact
+                    path="/searchResults"
+                    component={SearchResultsPage}
+                    meta={{ auth: true }}
+                  />
+                  <GuardedRoute
+                    exact
+                    path="/edit"
+                    component={PlaylistEditorPage}
+                    meta={{ auth: true }}
+                  />
+                  <GuardedRoute
+                    exact
+                    path="/friends"
+                    component={FriendsPage}
+                    meta={{ auth: true }}
+                  />
+                  <GuardedRoute
+                    exact
+                    path="/gifts"
+                    component={GiftsPage}
+                    meta={{ auth: true }}
+                  />
+                  <GuardedRoute path="/404" component={NotFoundPage} />
+                  <Redirect to="/404" />
+                </Switch>
+              </GuardProvider>
             </Router>
           </UserContext.Provider>
         </CurrentlyPlayingContext.Provider>
