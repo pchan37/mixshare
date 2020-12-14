@@ -1,13 +1,75 @@
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import Axios from 'axios';
 
 import { Button, Form, Tabs, Tab } from 'react-bootstrap';
 
-import { GiftItem } from './';
+import { GiftItem, MyPlaylistsPopup } from './';
 
-import data from '../placeholders/data';
-import { CardGiftcard, SaveAlt } from '@material-ui/icons';
+import AddIcon from '@material-ui/icons/Add';
+import CallSplitIcon from '@material-ui/icons/CallSplit';
+
+import { UserContext } from '../contexts';
 
 const GiftBody = () => {
+  const { currentUser } = useContext(UserContext);
+  const [playlistsGifts, setPlaylistGifts] = useState([]);
+  const [songRecs, setSongRecs] = useState([]);
+
+  const getPlaylistGifts = async () => {
+    try {
+      const playlists = await Axios.get('/api/gifts/playlistGifts', {
+        params: {
+          username: currentUser.username,
+        },
+      });
+      setPlaylistGifts(playlists.data);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const getSongRecs = async () => {
+    try {
+      const songs = await Axios.get('/api/gifts/songRecommendations', {
+        params: { username: currentUser.username },
+      });
+      setSongRecs(songs.data);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const removeGiftItem = async (giftId) => {
+    console.log(`removing gift Item ${giftId}`);
+    try {
+      await Axios.post('/api/gifts/removeGift', {
+        username: currentUser.username,
+        giftId,
+      });
+      getPlaylistGifts();
+      getSongRecs();
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const forkPlaylist = async (playlist) => {
+    try {
+      const forkRes = await Axios.post('/api/playlist/forkPlaylist', {
+        username: currentUser.username,
+        playlist,
+      });
+      console.log(forkRes);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  useEffect(() => {
+    getPlaylistGifts();
+    getSongRecs();
+  }, []);
+
   return (
     <div>
       <div
@@ -25,33 +87,47 @@ const GiftBody = () => {
 
       <Tabs className="mb-3">
         <Tab eventKey="gifts" title="Playlists" className="p-2">
-          {data.playlistRecommendations.map((p) => {
+          {playlistsGifts.map((p) => {
+            const playlistExists =
+              p.playlistItem.playlistId !== null &&
+              p.playlistItem.playlistId !== undefined;
             return (
               <GiftItem
                 key={p.id}
-                name={p.name}
-                artist={p.artist}
-                gifter={p.gifter}
-                message={p.message}>
-                <Button variant="flat">
-                  <SaveAlt style={{ color: '#979696' }} />
+                removeGift={() => removeGiftItem(p.giftId)}
+                playlistId={playlistExists && p.playlistItem.playlistId}
+                songId={playlistExists && p.playlistItem.songs[0]}
+                name={p.playlistItem.playlistName}
+                artist={p.playlistItem.ownerUsername}
+                gifter={p.gifterUsername}
+                message={p.message}
+                thumbnail={p.thumbnail}>
+                <Button
+                  variant="flat"
+                  onClick={() => forkPlaylist(p.playlistItem)}>
+                  <CallSplitIcon style={{ color: '#979696' }} />
                 </Button>
               </GiftItem>
             );
           })}
         </Tab>
         <Tab eventKey="songRecs" title="Song Recommendations" className="p-2">
-          {data.songRecommendations.map((s) => {
+          {songRecs.map((s) => {
             return (
               <GiftItem
                 key={s.id}
-                name={s.name}
-                artist={s.artist}
-                gifter={s.gifter}
-                message={s.message}>
-                <Button variant="flat">
-                  <CardGiftcard style={{ color: '#979696' }} />
-                </Button>
+                removeGift={() => removeGiftItem(s.giftId)}
+                songId={s.songItem.songId}
+                name={s.songItem.title}
+                artist={s.songItem.artist}
+                gifter={s.gifterUsername}
+                message={s.message}
+                thumbnail={s.songItem.thumbnail}>
+                <MyPlaylistsPopup gift={false} song={s.songItem}>
+                  <Button variant="flat">
+                    <AddIcon style={{ color: '#979696' }} />
+                  </Button>
+                </MyPlaylistsPopup>
               </GiftItem>
             );
           })}

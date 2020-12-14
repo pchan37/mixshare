@@ -26,6 +26,12 @@ router.post('/changeUsername', async (req, res) => {
       return response.UserError(res, 400, 'Username already taken!');
     }
 
+    // update username associated with playlists
+    await Playlist.updateMany(
+      { ownerUsername: currentUsername },
+      { $set: { ownerUsername: newUsername } }
+    );
+
     await Account.updateOne(
       { username: currentUsername },
       { $set: { username: newUsername } }

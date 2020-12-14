@@ -1,8 +1,9 @@
-const samplePlaylists = require('../placeholders/samplePlaylists');
 const express = require('express');
 
 const He = require('he');
 const Youtube = require('youtube-api');
+
+const { Playlist, Song } = require('../database/models');
 const response = require('../lib').Response;
 
 const router = express.Router();
@@ -37,13 +38,31 @@ router.post('/songs', async (req, res) => {
   }
 });
 
-router.post('/playlists', async (req, res) => {
-  var matchedPlaylists = [];
-  samplePlaylists.playlists.filter(function (playlist) {
-    if (playlist.name.toLowerCase().includes(req.body.query.toLowerCase()))
-      matchedPlaylists.push(playlist);
-  });
-  res.send(matchedPlaylists);
+router.get('/playlists', async (req, res) => {
+  const searchQuery = req.query.query;
+  try {
+    if (searchQuery !== '') {
+      const regexQuery = new RegExp(`.*(${searchQuery}).*`, 'i');
+      const searchResults = await Playlist.find({
+        playlistName: regexQuery,
+      }).lean();
+
+      for (const playlist of searchResults) {
+        if (playlist.songs.length !== 0) {
+          const firstSong = await Song.findOne({
+            songId: playlist.songs[0],
+          });
+          playlist['thumbnail'] = firstSong.thumbnail;
+        }
+      }
+      res.send(searchResults);
+    } else {
+      res.send([]);
+    }
+  } catch (err) {
+    console.error(err);
+    return response.ServerError(res);
+  }
 });
 
 router.get('/topSongs', async (req, res) => {
@@ -59,7 +78,7 @@ router.get('/topSongs', async (req, res) => {
     }
     res.send(results.data.items);
   } catch (err) {
-    return response.ServerError(res);
+    return response.ServerError(res, 500, 'Could not get top song results');
   }
 });
 

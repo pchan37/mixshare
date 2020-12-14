@@ -9,6 +9,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import {
   CurrentEditPlaylistContext,
   CurrentlyPlayingContext,
+  ProfileContext,
   UserContext,
 } from './contexts';
 import {
@@ -59,11 +60,12 @@ function App() {
   const [currentlyPlaying, setCurrentlyPlaying] = useState({
     song: '',
     playlist: '',
+    repeat: false,
+    shuffle: false,
+    shuffledList: [],
     opts: {
-      height: '100px',
-      width: 'auto',
       playerVars: {
-        controls: 0,
+        controls: 1,
         autoplay: 1,
         loop: 0,
         playlist: '',
@@ -71,6 +73,7 @@ function App() {
     },
   });
   const [currentEditPlaylist, setCurrentEditPlaylist] = useState(null);
+  const [currentProfile, setCurrentProfile] = useState('');
 
   useEffect(() => {
     const fetchUsername = async () => {
@@ -86,16 +89,13 @@ function App() {
   }, []);
 
   return (
-    <CurrentEditPlaylistContext.Provider
-      value={{ currentEditPlaylist, setCurrentEditPlaylist }}>
-      <CurrentlyPlayingContext.Provider
-        value={{ currentlyPlaying, setCurrentlyPlaying }}>
-        <UserContext.Provider value={{ currentUser, setCurrentUser }}>
-          <Router>
-            <GuardProvider
-              guards={[isProtected, isNotProtected]}
-              loading={() => <h1>Loading...</h1>}
-              error={() => <h1>Not Found</h1>}>
+    <ProfileContext.Provider value={{ currentProfile, setCurrentProfile }}>
+      <CurrentEditPlaylistContext.Provider
+        value={{ currentEditPlaylist, setCurrentEditPlaylist }}>
+        <CurrentlyPlayingContext.Provider
+          value={{ currentlyPlaying, setCurrentlyPlaying }}>
+          <UserContext.Provider value={{ currentUser, setCurrentUser }}>
+            <Router>
               <Switch>
                 <GuardedRoute exact path="/" component={HomePage} />
                 <GuardedRoute
@@ -149,11 +149,11 @@ function App() {
                 <GuardedRoute path="/404" component={NotFoundPage} />
                 <Redirect to="/404" />
               </Switch>
-            </GuardProvider>
-          </Router>
-        </UserContext.Provider>
-      </CurrentlyPlayingContext.Provider>
-    </CurrentEditPlaylistContext.Provider>
+            </Router>
+          </UserContext.Provider>
+        </CurrentlyPlayingContext.Provider>
+      </CurrentEditPlaylistContext.Provider>
+    </ProfileContext.Provider>
   );
 }
 

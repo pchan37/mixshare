@@ -5,27 +5,11 @@ import PropsType from 'prop-types';
 import { Button, OverlayTrigger, Popover, Modal } from 'react-bootstrap';
 import CardGiftcardIcon from '@material-ui/icons/CardGiftcard';
 import DeleteIcon from '@material-ui/icons/Delete';
-import { HorizontalThumbnail } from './';
+import { FriendListPopup, HorizontalThumbnail } from './';
 import SimpleUser from './SimpleUser';
 
 import data from '../placeholders/data';
 import { CurrentEditPlaylistContext } from '../contexts';
-
-const CardGiftPopup = (
-  <Popover>
-    <Popover.Content className="mr-2">
-      {data.friends.map((f) => {
-        return (
-          <SimpleUser key={f.id} username={f.username}>
-            <Button variant="flat">
-              <CardGiftcardIcon style={{ color: '#979696' }} />
-            </Button>
-          </SimpleUser>
-        );
-      })}
-    </Popover.Content>
-  </Popover>
-);
 
 function DeleteSongModal(props) {
   const { currentEditPlaylist } = useContext(CurrentEditPlaylistContext);
@@ -108,15 +92,7 @@ const PlaylistEditItem = (props) => {
         />
       </div>
 
-      <OverlayTrigger
-        placement="left"
-        delay={{ show: 250, hide: 400 }}
-        overlay={CardGiftPopup}
-        trigger="click">
-        <Button variant="flat">
-          <CardGiftcardIcon style={{ color: '#979696' }} />
-        </Button>
-      </OverlayTrigger>
+      <FriendListPopup friends={props.friends} itemId={props.song.songId} />
 
       <DeleteSongModal
         song={props.song}
