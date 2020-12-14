@@ -144,9 +144,9 @@ const MyPlaylistsBody = () => {
                     playerVars: {
                       ...prevState.opts.playerVars,
                       loop: 0,
-                      playlist: ''
-                    }
-                  }
+                      playlist: '',
+                    },
+                  },
                 }));
               }}
             />
