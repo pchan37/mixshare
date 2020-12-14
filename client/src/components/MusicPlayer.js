@@ -199,7 +199,9 @@ const MusicPlayer = ({ expandedState, height, setExpandedState, width }) => {
     <PlayCircleOutlineOutlinedIcon
       style={largeIconStyle}
       onClick={() => {
-        player.playVideo();
+        if (player !== null && player !== undefined) {
+          player.playVideo();
+        }
       }}
     />
   );
@@ -217,11 +219,13 @@ const MusicPlayer = ({ expandedState, height, setExpandedState, width }) => {
     <RepeatOneIcon
       style={normalIconStyle}
       onClick={() => {
-        setLoop(1);
-        setPrevSong(currentlyPlaying.song);
-        setNextSong(currentlyPlaying.song);
-        playingContextCopy.opts.playerVars.loop = 1;
-        playingContextCopy.opts.playerVars.playlist = currentlyPlaying.song;
+        if (player !== null && player !== undefined) {
+          setLoop(1);
+          setPrevSong(currentlyPlaying.song);
+          setNextSong(currentlyPlaying.song);
+          playingContextCopy.opts.playerVars.loop = 1;
+          playingContextCopy.opts.playerVars.playlist = currentlyPlaying.song;
+        }
       }}
     />
   );
