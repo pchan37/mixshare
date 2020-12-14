@@ -80,7 +80,9 @@ const MyPlaylistsBody = () => {
             <Form.Group>
               <Form.Control name="name" placeholder="Name of Playlist" />
             </Form.Group>
-            <Button type="submit">Submit</Button>
+            <Button type="submit" variant="outline-primary">
+              Submit
+            </Button>
           </Form>
         </Popover.Content>
       </Popover>
@@ -169,12 +171,12 @@ const MyPlaylistsBody = () => {
                 to={{
                   pathname: '/edit',
                 }}>
-                <Edit style={iconStyle} />
+                <Edit style={{ color: '#979696' }} />
               </NavLink>
             </Button>
             <FriendListPopup friends={props.friends} itemId={props.id} />
             <Button variant="flat" onClick={() => deletePlaylist(props)}>
-              <DeleteOutline style={iconStyle} />
+              <DeleteOutline style={{ color: '#979696' }} />
             </Button>
           </div>
         </div>

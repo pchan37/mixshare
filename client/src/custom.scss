@@ -7,6 +7,7 @@ $theme-colors: (
   'secondary': #d400e5,
   'light': #e6e1e4,
   'dark': $dark,
+  'danger': #d400e5,
 );
 
 $brand-primary: #15eeff;
@@ -35,7 +36,7 @@ $popover-bg: #424242;
 $popover-body-color: $white;
 
 /* Modal Style */
-$modal-content-bg: #424242;
+$modal-content-bg: $dark;
 $modal-content-color: $white;
 
 @import '~bootstrap/scss/bootstrap';

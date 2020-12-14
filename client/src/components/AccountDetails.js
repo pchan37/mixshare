@@ -58,7 +58,9 @@ function AccountDetails() {
               </Alert>
             )}
           </Form.Group>
-          <Button type="submit">Submit</Button>
+          <Button type="submit" variant="outline-primary">
+            Submit
+          </Button>
         </Form>
       </Popover.Content>
     </Popover>
@@ -111,7 +113,9 @@ function AccountDetails() {
               </Alert>
             )}
           </Form.Group>
-          <Button type="submit">Submit</Button>
+          <Button type="submit" variant="outline-primary">
+            Submit
+          </Button>
         </Form>
       </Popover.Content>
     </Popover>
@@ -126,10 +130,9 @@ function AccountDetails() {
         <Col>
           <OverlayTrigger
             placement="right"
-            delay={{ show: 250, hide: 400 }}
             overlay={ChangeUsernamePopup}
             trigger="click"
-            rootClose={true}>
+            rootClose>
             <Button variant="flat">
               <EditIcon style={{ color: '#979696' }} />
             </Button>
@@ -143,9 +146,9 @@ function AccountDetails() {
         <Col>
           <OverlayTrigger
             placement="right"
-            delay={{ show: 250, hide: 400 }}
             overlay={ChangePasswordPopup}
-            trigger="click">
+            trigger="click"
+            rootClose>
             <Button variant="flat">
               <EditIcon style={{ color: '#979696' }} />
             </Button>
