@@ -5,8 +5,10 @@ import Axios from 'axios';
 
 import { CurrentlyPlayingContext } from '../contexts';
 
-const defaultThumbnail =
+const DEFAULT_THUMBNAIL =
   'https://wp-en.oberlo.com/wp-content/uploads/2019/04/image13-1-1024x576.png';
+
+const textStyle = { color: 'white' };
 
 const Thumbnail = (props) => {
   const { setCurrentlyPlaying } = useContext(CurrentlyPlayingContext);
@@ -20,14 +22,14 @@ const Thumbnail = (props) => {
   };
 
   return (
-    <div className="d-flex flex-column mr-4">
+    <div className="d-flex flex-column mr-3 bg-dark p-2">
       <Image
         fluid
-        style={{ maxWidth: '19vw', cursor: 'pointer' }}
+        style={{ maxWidth: '15vw', cursor: 'pointer' }}
         src={
           props.thumbnail !== undefined && props.thumbnail !== null
             ? props.thumbnail
-            : defaultThumbnail
+            : DEFAULT_THUMBNAIL
         }
         onClick={() => {
           if (props.playlistId !== null && props.playlistId !== undefined) {
@@ -66,7 +68,7 @@ const Thumbnail = (props) => {
           }
         }}
       />
-      <p>
+      <p className="mt-1" style={textStyle}>
         {props.name} <br /> {props.artist}
       </p>
     </div>

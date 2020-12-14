@@ -58,7 +58,9 @@ function AccountDetails() {
               </Alert>
             )}
           </Form.Group>
-          <Button type="submit">Submit</Button>
+          <Button type="submit" variant="outline-primary">
+            Submit
+          </Button>
         </Form>
       </Popover.Content>
     </Popover>
@@ -111,7 +113,9 @@ function AccountDetails() {
               </Alert>
             )}
           </Form.Group>
-          <Button type="submit">Submit</Button>
+          <Button type="submit" variant="outline-primary">
+            Submit
+          </Button>
         </Form>
       </Popover.Content>
     </Popover>
@@ -121,16 +125,15 @@ function AccountDetails() {
     <Container style={{ paddingTop: 70 }}>
       <Row>
         <Col>
-          <label>Username: {currentUser.username}</label>
+          <label className="text-light">Username: {currentUser.username}</label>
         </Col>
         <Col>
           <OverlayTrigger
             placement="right"
-            delay={{ show: 250, hide: 400 }}
             overlay={ChangeUsernamePopup}
             trigger="click"
-            rootClose={true}>
-            <Button variant="light">
+            rootClose>
+            <Button variant="flat">
               <EditIcon style={{ color: '#979696' }} />
             </Button>
           </OverlayTrigger>
@@ -138,15 +141,15 @@ function AccountDetails() {
       </Row>
       <Row style={{ paddingTop: 10 }}>
         <Col>
-          <label>Password: ***************</label>
+          <label className="text-light">Password: ***************</label>
         </Col>
         <Col>
           <OverlayTrigger
             placement="right"
-            delay={{ show: 250, hide: 400 }}
             overlay={ChangePasswordPopup}
-            trigger="click">
-            <Button variant="light">
+            trigger="click"
+            rootClose>
+            <Button variant="flat">
               <EditIcon style={{ color: '#979696' }} />
             </Button>
           </OverlayTrigger>

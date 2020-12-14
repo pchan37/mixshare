@@ -1,7 +1,7 @@
 import React from 'react';
 import { Image } from 'react-bootstrap';
 
-import Logo from '../assets/images/logo.png';
+import Logo from '../assets/images/logo-new.png';
 import { SignUpLogin } from '../components';
 import { BasicLayout } from '../layout';
 
