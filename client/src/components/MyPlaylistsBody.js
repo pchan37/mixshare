@@ -147,7 +147,14 @@ const MyPlaylistsBody = () => {
                     ...prevState,
                     song: props.songs[0],
                     playlist: props.id,
-                    // TODO: reset loop
+                    opts: {
+                      ...prevState.opts,
+                      playerVars: {
+                        ...prevState.opts.playerVars,
+                        loop: 0,
+                        playlist: '',
+                      },
+                    },
                   }));
                 }
               }}
