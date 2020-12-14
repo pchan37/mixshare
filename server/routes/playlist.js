@@ -185,12 +185,12 @@ router.post('/addView', async (req, res) => {
     await Playlist.findOneAndUpdate(
       { playlistId: playlistId },
       { $inc: { views: 1 } }
-    )
+    );
     return response.OK(res, 'View count updated successfully');
   } catch (err) {
-    console.error(err)
+    console.error(err);
     return response.ServerError(res);
   }
-})
+});
 
 module.exports = router;
