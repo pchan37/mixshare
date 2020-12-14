@@ -125,9 +125,9 @@ const MyPlaylistsBody = () => {
       try {
         await Axios.post('/api/playlist/addView', { playlistId });
       } catch (err) {
-        console.error(err)
+        console.error(err);
       }
-    }
+    };
 
     return (
       <div className="d-flex flex-column border-bottom pb-2 mb-2">

@@ -18,9 +18,9 @@ const HorizontalThumbnail = (props) => {
     try {
       await Axios.post('/api/playlist/addView', { playlistId });
     } catch (err) {
-      console.error(err)
+      console.error(err);
     }
-  }
+  };
 
   return (
     <div style={{ minWidth: '50vw' }} className="d-flex flex-row">

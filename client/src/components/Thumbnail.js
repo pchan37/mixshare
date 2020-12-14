@@ -9,17 +9,15 @@ const defaultThumbnail =
   'https://wp-en.oberlo.com/wp-content/uploads/2019/04/image13-1-1024x576.png';
 
 const Thumbnail = (props) => {
-  const { setCurrentlyPlaying } = useContext(
-    CurrentlyPlayingContext
-  );
+  const { setCurrentlyPlaying } = useContext(CurrentlyPlayingContext);
 
   const incrementView = async (playlistId) => {
     try {
       await Axios.post('/api/playlist/addView', { playlistId });
     } catch (err) {
-      console.error(err)
+      console.error(err);
     }
-  }
+  };
 
   return (
     <div className="d-flex flex-column mr-4">
@@ -48,7 +46,7 @@ const Thumbnail = (props) => {
                     playlist: '',
                   },
                 },
-              })
+              });
             }
           } else {
             setCurrentlyPlaying({
