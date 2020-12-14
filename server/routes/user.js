@@ -24,7 +24,7 @@ router.post('/searchUsers', async (req, res) => {
 
   if (query !== '') {
     try {
-      var regexQuery = new RegExp('.*(' + query + ').*');
+      var regexQuery = new RegExp(`.*(${query}).*`, 'i');
 
       const searchResults = await Account.find({
         username: { $regex: regexQuery, $ne: req.body.username },
