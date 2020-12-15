@@ -58,7 +58,7 @@ const SettingsPopup = () => {
               <CheckIcon style={{ color: '#979696', fontSize: 20 }} />
             )}
           </Col>
-          <Col>Mixtape Mode</Col>
+          <Col className="text-light">Mixtape Mode</Col>
         </Row>
       </Popover.Content>
     </Popover>
@@ -101,9 +101,13 @@ const PlaylistEditorBody = () => {
               name="query"
               placeholder="Song"
               size="sm"
-              className="align-self-top"
+              className="align-self-top w-75"
             />
-            <Button type="submit" variant="flat" style={{ color: '#979696' }}>
+            <Button
+              type="submit"
+              variant="flat"
+              className="w-25"
+              style={{ color: '#979696' }}>
               Go
             </Button>
           </Form>
@@ -209,16 +213,11 @@ const PlaylistEditorBody = () => {
     <Container fluid>
       <div className="d-flex flex-row">
         <div className="d-flex flex-row flex-grow-1">
-          <Button variant="flat">
-            <NavLink to="/playlists">
-              <ArrowBackIosIcon
-                className="align-self-center"
-                style={{ color: '#979696' }}
-              />
-            </NavLink>
-          </Button>
+          <NavLink className="align-self-center" to="/playlists">
+            <ArrowBackIosIcon style={{ color: '#979696' }} />
+          </NavLink>
 
-          <h2>Playlist Editor</h2>
+          <h2 className="align-self-center m-0">Playlist Editor</h2>
         </div>
 
         <OverlayTrigger
@@ -240,9 +239,6 @@ const PlaylistEditorBody = () => {
       <div className="d-flex flex-row mt-3">
         <div className="d-flex flex-row flex-grow-1 ml-4">
           <h5 className="align-self-center">{playlistName}</h5>
-          <Button variant="flat">
-            <EditIcon className="ml-3" style={{ color: '#979696' }} />
-          </Button>
         </div>
 
         <OverlayTrigger

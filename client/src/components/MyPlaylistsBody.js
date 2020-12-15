@@ -12,6 +12,10 @@ import {
   UserContext,
 } from '../contexts';
 
+const iconStyle = { color: '#e6e1e4', cursor: 'pointer' };
+const textStyle = { color: '#e6e1e4' };
+const secondTextStyle = { color: '#d9ced4', margin: '6px 0' };
+
 const MyPlaylistsBody = () => {
   const { currentUser } = useContext(UserContext);
   const { setCurrentEditPlaylist } = useContext(CurrentEditPlaylistContext);
@@ -76,7 +80,9 @@ const MyPlaylistsBody = () => {
             <Form.Group>
               <Form.Control name="name" placeholder="Name of Playlist" />
             </Form.Group>
-            <Button type="submit">Submit</Button>
+            <Button type="submit" variant="outline-primary">
+              Submit
+            </Button>
           </Form>
         </Popover.Content>
       </Popover>
@@ -130,7 +136,7 @@ const MyPlaylistsBody = () => {
     };
 
     return (
-      <div className="d-flex flex-column border-bottom pb-2 mb-2">
+      <div className="d-flex flex-column bg-dark p-3 mb-3">
         <div className="d-flex flex-row">
           <h4>{props.name}</h4>
         </div>
@@ -138,7 +144,7 @@ const MyPlaylistsBody = () => {
           <div className="d-flex flex-row flex-grow-1">
             <Image
               fluid
-              style={{ maxWidth: '20vw', cursor: 'pointer' }}
+              style={{ maxWidth: '17vw', cursor: 'pointer' }}
               src={thumbnail !== '' ? thumbnail : DEFAULT_THUMBNAIL}
               onClick={() => {
                 if (props.songs.length !== 0) {
@@ -161,12 +167,19 @@ const MyPlaylistsBody = () => {
             />
             <div className="ml-4">
               {listOfSongs.map((s) => {
-                return <p>{s.title}</p>;
+                return <p className="text-light">{s.title}</p>;
               })}
-              {props.songs.length > 4 && <p>And More...</p>}
+              {props.songs.length > 4 && (
+                <p style={secondTextStyle}>And More...</p>
+              )}
+              {props.songs.length === 0 && (
+                <p style={secondTextStyle}>
+                  <i>No Songs to Display</i>
+                </p>
+              )}
             </div>
           </div>
-          <div className="d-flex flex-row">
+          <div className="d-flex flex-row align-items-center">
             <Button
               variant="flat"
               onClick={() => setCurrentEditPlaylist(props)}>
@@ -223,8 +236,8 @@ const MyPlaylistsBody = () => {
             trigger="click"
             rootClose>
             <Button variant="flat">
-              <Add style={{ color: '#979696', fontSize: 20 }} />
-              new playlist
+              <Add style={{ ...iconStyle, fontSize: 20 }} />
+              <span style={textStyle}>new playlist</span>
             </Button>
           </OverlayTrigger>
         </div>

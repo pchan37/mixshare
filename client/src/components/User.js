@@ -11,14 +11,14 @@ const User = (props) => {
   const { setCurrentProfile } = useContext(ProfileContext);
 
   return (
-    <div>
-      <Row>
+    <div className=" m-2">
+      <Row className="p-1 bg-dark">
         <Col xs="5">
           <AccountCircleIcon
             className="mr-3"
             style={{ color: '#979696', fontSize: 50 }}
           />
-          {props.username}
+          <span className="text-light">{props.username}</span>
         </Col>
         <Col
           xs="3"

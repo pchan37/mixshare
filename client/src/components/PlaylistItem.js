@@ -42,7 +42,7 @@ const PlaylistItem = (props) => {
   };
 
   return (
-    <div className="d-flex flex-column border-bottom pb-2 mb-2">
+    <div className="d-flex flex-column bg-dark p-3 m-2">
       <div className="d-flex flex-row">
         <h4>{props.playlistName}</h4>
       </div>
@@ -55,7 +55,7 @@ const PlaylistItem = (props) => {
           />
           <div className="ml-4">
             {listOfSongs.map((s) => {
-              return <p>{s.title}</p>;
+              return <p className="text-white">{s.title}</p>;
             })}
             {props.songs.length > 4 && <p>And More...</p>}
           </div>

@@ -44,7 +44,7 @@ const ProfileDetails = () => {
     <div>
       <div className="d-flex flex-row mb-2" style={{ alignItems: 'center' }}>
         <AccountCircleIcon style={{ color: '#979696', fontSize: 200 }} />
-        <h2>{currentProfile}'s Profile</h2>
+        <h2 className="m-3">{currentProfile}'s Profile</h2>
         <Button
           variant="flat"
           disabled={
