@@ -135,7 +135,7 @@ const MusicPlayer = ({ expandedState, height, setExpandedState, width }) => {
     if (currentlyPlaying.playlist.length === 36) {
       getPlaylist();
     }
-  }, []);
+  }, [currentlyPlaying]);
 
   const FullscreenButton = (
     <FullscreenIcon

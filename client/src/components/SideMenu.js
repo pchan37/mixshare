@@ -145,7 +145,7 @@ const SideMenu = ({ width }) => {
 };
 
 SideMenu.propTypes = {
-  width: PropTypes.number.isRequired,
+  width: PropTypes.string.isRequired,
 };
 
 export default SideMenu;
