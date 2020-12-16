@@ -46,7 +46,7 @@ const SignUpLogin = () => {
       });
 
       setCurrentUser(res.data);
-      history.push('/discover');
+      history.push(state?.referrer || '/discover');
     } catch (err) {
       console.error(err);
       setLoginStatus(err.response.data);
@@ -54,14 +54,14 @@ const SignUpLogin = () => {
   };
 
   useEffect(() => {
-    if (state?.from !== undefined && state?.from !== null) {
+    if (state?.referrer !== undefined && state?.referrer !== null) {
       setTabKey('login');
       setLoginStatus({
         status: 'warning',
         statusMessage: 'You need to be logged in to view this page!',
       });
     }
-  }, [state?.from]);
+  }, [state?.referrer]);
 
   return (
     <Tabs
